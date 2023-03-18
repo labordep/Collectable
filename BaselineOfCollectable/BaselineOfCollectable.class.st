@@ -28,7 +28,7 @@ BaselineOfCollectable >> dependencies: spec [
 	spec baseline: 'Gameye' with: [ spec repository: 'github://labordep/PharoGameye:main' ].
 
 	"Load OS-Windows OpenSmock (UI)"
-	spec for: #'Windows' do: [
+	Smalltalk os isWindows ifTrue: [
 		spec
 			baseline: 'OSWindowsOpenSmock'
 			with: [ spec repository: 'github://OpenSmock/OS-Windows:main' ].
