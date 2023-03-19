@@ -1,3 +1,6 @@
+"
+For instant the model is the GameyeCollection model, but this project need to have it's own model.
+"
 Class {
 	#name : #CollecApp,
 	#superclass : #Object,
