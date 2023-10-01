@@ -24,16 +24,17 @@ BaselineOfCollectable >> baseline: spec [
 { #category : #baselines }
 BaselineOfCollectable >> dependencies: spec [
 
-	"Load Pharo-gameye project (Fonctionnality)"
-	spec baseline: 'Gameye' with: [ spec repository: 'github://labordep/PharoGameye:main' ].
+	"Functionnality to import Pharo Gameye datas"
+	spec baseline: 'Gameye' with: [ spec repository: 'github://labordep/PharoGameye:2.0' ].
 
-	"Load OS-Windows OpenSmock (UI)"
+	"Windows management layer for the UI"
 	Smalltalk os isWindows ifTrue: [
-		spec
-			baseline: 'OSWindowsOpenSmock'
-			with: [ spec repository: 'github://OpenSmock/OS-Windows:main' ].
+		spec baseline: 'OSWindowsOpenSmock' with: [ spec repository: 'github://astares/Pharo-OS-Windows/src' ].
 	].
 
-	"Load Toplo project (UI)"
+	"UI tool : Pyramid"
+	spec baseline: 'Pyramid' with: [ spec repository: 'github://OpenSmock/Pyramid:dev/src' ].
+
+	"UI : Toplo with Bloc"
 	spec baseline: 'Toplo' with: [ spec repository: 'github://plantec/Toplo:master/src' ]
 ]
