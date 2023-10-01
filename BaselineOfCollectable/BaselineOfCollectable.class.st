@@ -29,7 +29,7 @@ BaselineOfCollectable >> dependencies: spec [
 
 	"Windows management layer for the UI"
 	Smalltalk os isWindows ifTrue: [
-		spec baseline: 'OSWindowsOpenSmock' with: [ spec repository: 'github://astares/Pharo-OS-Windows/src' ].
+		spec baseline: 'OSWindows' with: [ spec repository: 'github://astares/Pharo-OS-Windows/src' ].
 	].
 
 	"UI tool : Pyramid"
