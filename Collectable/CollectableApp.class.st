@@ -162,7 +162,8 @@ CollectableApp >> closeSpace [
 { #category : #'life cycle' }
 CollectableApp >> componentActivate [
 
-	self openSpace
+	self openSpace.
+	self openDefaultCollection.
 ]
 
 { #category : #'life cycle' }
@@ -275,6 +276,13 @@ CollectableApp >> initializeMainPane [
 	"List"
 	collectibleList := self buildList.
 	mainPane addChild: collectibleList
+]
+
+{ #category : #actions }
+CollectableApp >> openDefaultCollection [
+
+	CollecWorld defaultCollection ifNil:[ ^ self ].
+	self populateCollectibleListWith: CollecWorld defaultCollection collectibles.
 ]
 
 { #category : #initialization }
