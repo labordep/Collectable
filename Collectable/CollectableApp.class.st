@@ -15,13 +15,10 @@ Class {
 CollectableApp >> browseAndImportGameyeCollecFromExportedSpreadsheet [
 
 	| fileReference |
-	Smalltalk os isWindows ifTrue:[
-		fileReference := WinFileDialog openFilename: 'GAMEYE.app Spreadsheet' extension: '*.csv'.
-	] ifFalse: [
-		fileReference := UIManager default chooseExistingFileReference: nil extensions: #('csv') path: FileSystem workingDirectory.
-	].
-
+	
+	fileReference := self getCollectOSProjectManagerServicesProvider openFileReference: 'GAMEYE.app Spreadsheet' onDirectory: FileSystem workingDirectory extensions: #('csv').	
 	(fileReference isNil or:[fileReference isEmpty]) ifTrue:[ ^ nil ].
+	
 	^ GameyeCollectionFactory createCollectionsFromExportedSpreadsheet: (fileReference asFileReference)
 ]
 
@@ -130,6 +127,8 @@ CollectableApp >> componentActivate [
 { #category : #'life cycle' }
 CollectableApp >> componentInitialize [ 
 
+	self startOSProjectManager.
+
 	self initializeMainPane.
 ]
 
@@ -137,6 +136,24 @@ CollectableApp >> componentInitialize [
 CollectableApp >> componentPassivate [
 
 	self closeSpace
+]
+
+{ #category : #'life cycle' }
+CollectableApp >> componentRemove [ 
+
+	self stopOSProjectManager
+]
+
+{ #category : #'component accessing' }
+CollectableApp >> getCollectOSProjectManagerServicesProvider [
+	| servicesSymbol servicesProvider itf |
+
+	itf := CollectOSProjectManagerServices.
+	servicesSymbol := self servicesProviders at: itf ifAbsent: [nil].
+	(servicesSymbol isNil or:[servicesSymbol isSymbol not]) ifTrue: [ ^ MolNotFoundServicesProvider new interface: itf name: nil ].
+
+	servicesProvider := MolComponentManager default locatorServices searchServicesProviderFor: CollectOSProjectManagerServices named: servicesSymbol.
+	^servicesProvider
 ]
 
 { #category : #private }
@@ -210,4 +227,18 @@ CollectableApp >> openSpace [
 	space when: BlSpaceClosedEvent do:[ self class stop: self componentName ].
 	
 	^ space
+]
+
+{ #category : #initialization }
+CollectableApp >> startOSProjectManager [
+
+	Smalltalk os isWindows ifTrue:[ ^ CollectOSWindowsManager start ].
+	^ CollectOSPharoManager start
+]
+
+{ #category : #releasing }
+CollectableApp >> stopOSProjectManager [
+
+	Smalltalk os isWindows ifTrue:[ ^ CollectOSWindowsManager stop ].
+	^ CollectOSPharoManager stop
 ]

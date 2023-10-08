@@ -28,5 +28,5 @@ CollecWorld class >> menu10OpenCollectableOn: aBuilder [
 { #category : #actions }
 CollecWorld class >> startApplication [
 
-	
+	CollectableApp start
 ]
