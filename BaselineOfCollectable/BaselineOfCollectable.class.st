@@ -15,9 +15,8 @@ BaselineOfCollectable >> baseline: spec [
 
 			"Project Packages"
 			spec
-				package: 'Collectable'";
-				package: 'Collectable-Tests' with: [ spec requires: #('Collectable') ];
-				package: 'Collectable-Examples' with: [ spec requires: #('Collectable') ]".
+				package: 'Collectable';
+				package: 'Collectable-IDE' with: [ spec requires: #('Collectable') ].
 		]
 ]
 
