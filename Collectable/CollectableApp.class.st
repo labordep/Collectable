@@ -35,13 +35,13 @@ CollectableApp >> buildList [
 		typePane := ToPane new id: #typePanel; beVertical; background: (Color fromHexString: 'D1C4E9'); width: 25; vMatchParent.
 		blContent addChild: typePane.
 
-		platformPane := ToPane new id: #platformPanel; beVertical; background: (self getPlatformColor: collectible platform); width: 100; vMatchParent.
+		platformPane := ToPane new id: #platformPanel; beVertical; background: (self getPlatformColor: collectible platform); width: 200; vMatchParent.
 		blContent addChild: platformPane.
 		
    	 	contentPane := ToPane new id: #contentPane; beVertical; background: (Color fromHexString: 'D1C4E9'); vMatchParent; hMatchParent.
 		blContent addChild: contentPane.
 		
-		typeLabel := ToLabel new id: #typeLabel; text: (collectible type asString).
+		typeLabel := ToLabel new id: #typeLabel; text: ((collectible type asString asRopedText) fontSize: 10).
 		typeLabel transformDo: [ :t | t normalizedOrigin: 0 @ 1. t rotateBy: 90 ].
 		typePane addChild: typeLabel.
 
@@ -159,23 +159,40 @@ CollectableApp >> getCollectOSProjectManagerServicesProvider [
 { #category : #private }
 CollectableApp >> getPlatformColor: aPlatform [
 
-	aPlatform = 'SNES' ifTrue:[ ^ Color red ].
-	aPlatform = 'NES' ifTrue:[ ^ Color red ].
-	aPlatform = 'GBA' ifTrue:[ ^ Color red ].
-	aPlatform = 'Wii' ifTrue:[ ^ Color red ].
-	aPlatform = 'NDS' ifTrue:[ ^ Color red ].
+	aPlatform = 'Nintendo 64' ifTrue:[ ^ Color red whiter whiter whiter ].
+	aPlatform = 'Nintendo GameCube' ifTrue:[ ^ Color red whiter whiter whiter ].
+	aPlatform = 'Super Nintendo (SNES)' ifTrue:[ ^ Color red whiter whiter whiter ].
+	aPlatform = 'Nintendo (NES)' ifTrue:[ ^ Color red whiter whiter whiter ].
+	aPlatform = 'Nintendo Game Boy' ifTrue:[ ^ Color red whiter whiter whiter ].
+	aPlatform = 'Nintendo Game Boy Advance' ifTrue:[ ^ Color red whiter whiter whiter ].
+	aPlatform = 'Nintendo Game Boy Color' ifTrue:[ ^ Color red whiter whiter whiter ].
+	aPlatform = 'Nintendo DS' ifTrue:[ ^ Color red whiter whiter whiter ].
+	aPlatform = 'Nintendo 3DS' ifTrue:[ ^ Color red whiter whiter whiter ].
+	aPlatform = 'Nintendo Pokémon Mini' ifTrue:[ ^ Color red whiter whiter whiter ].
+	aPlatform = 'Nintendo Wii' ifTrue:[ ^ Color red whiter whiter whiter ].
+	aPlatform = 'Nintendo Wii U' ifTrue:[ ^ Color red whiter whiter whiter ].
+	aPlatform = 'Nintendo Switch' ifTrue:[ ^ Color red whiter whiter whiter ].
 	
-	aPlatform = 'GENESIS' ifTrue:[ ^ Color black ].
-	aPlatform = 'Dreamcast' ifTrue:[ ^ Color black ].
+	aPlatform = 'Sega Genesis' ifTrue:[ ^ Color blue whiter whiter ].
+	aPlatform = 'Sega Saturn' ifTrue:[ ^ Color blue whiter whiter ].
+	aPlatform = 'Sega Dreamcast' ifTrue:[ ^ Color blue whiter whiter ].
+	aPlatform = 'Sega Game Gear' ifTrue:[ ^ Color blue whiter whiter ].
 
-	aPlatform = 'PS1' ifTrue:[ ^ Color blue ].
-	aPlatform = 'PS2' ifTrue:[ ^ Color blue ].
-	aPlatform = 'PS3' ifTrue:[ ^ Color blue ].
-	aPlatform = 'PS4' ifTrue:[ ^ Color blue ].
-	aPlatform = 'PS5' ifTrue:[ ^ Color blue ].
+	aPlatform = 'Sony PlayStation' ifTrue:[ ^ Color blue whiter whiter whiter ].
+	aPlatform = 'Sony PlayStation 2' ifTrue:[ ^ Color blue whiter whiter whiter ].
+	aPlatform = 'Sony PlayStation 3' ifTrue:[ ^ Color blue whiter whiter whiter ].
+	aPlatform = 'Sony PlayStation 4' ifTrue:[ ^ Color blue whiter whiter whiter ].
+	aPlatform = 'Sony PlayStation 5' ifTrue:[ ^ Color blue whiter whiter whiter ].
+	aPlatform = 'Sony PSP' ifTrue:[ ^ Color blue whiter whiter whiter ].
+	aPlatform = 'Sony PS Vita' ifTrue:[ ^ Color blue whiter whiter whiter ].
 	
-	aPlatform = 'Xbox' ifTrue:[ ^ Color green ].
-	aPlatform = 'Xbox 360' ifTrue:[ ^ Color green ].
+	aPlatform = 'Microsoft Xbox' ifTrue:[ ^ Color green whiter whiter whiter ].
+	aPlatform = 'Microsoft Xbox 360' ifTrue:[ ^ Color green whiter whiter whiter ].
+	aPlatform = 'Microsoft Xbox One' ifTrue:[ ^ Color green whiter whiter whiter ].
+	
+	aPlatform = 'Neo Geo CD' ifTrue:[ ^ Color yellow whiter whiter whiter ].
+	
+	aPlatform = 'PC' ifTrue:[ ^ Color darkGray whiter whiter whiter ].
 	
 	^ Color gray
 	
@@ -221,7 +238,7 @@ CollectableApp >> openSpace [
 	space := mainPane openInSpace.
 	
 	"setup space properties"
-	space title: 'Collectable'.
+	space title: '[|||] Collectable (alpha version)'.
 	space position: 100 @ 100.
 
 	"initialize event handlers"

@@ -12,6 +12,12 @@ Class {
 }
 
 { #category : #'instance creation' }
+CollecApp class >> isDeprecated [ 
+
+	^ true
+]
+
+{ #category : #'instance creation' }
 CollecApp class >> open [
 	<script>
 	self new open
