@@ -282,6 +282,7 @@ CollectableApp >> initializeMainPane [
 CollectableApp >> openDefaultCollection [
 
 	CollecWorld defaultCollection ifNil:[ ^ self ].
+	collection := CollecWorld defaultCollection.
 	self populateCollectibleListWith: CollecWorld defaultCollection collectibles.
 ]
 
