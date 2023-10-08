@@ -28,5 +28,7 @@ CollecWorld class >> menu10OpenCollectableOn: aBuilder [
 { #category : #actions }
 CollecWorld class >> startApplication [
 
-	CollectableApp start
+	| randomizedId |
+	randomizedId := self name, (Random new next * 1000000) rounded asString.
+	CollectableApp start: (randomizedId asSymbol)
 ]

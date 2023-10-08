@@ -187,6 +187,7 @@ CollectableApp >> importGameyeSpreadsheetCollection [
 	| collec |
 	collec := self browseAndImportGameyeCollecFromExportedSpreadsheet.
 	collec ifNil:[ ^ nil ].
+	collec := collec at: GameyeCollection owned. 
 	
 	collectibleList data removeAll.
 	collectibleList data addAll: collec collectibles.
@@ -232,12 +233,22 @@ CollectableApp >> openSpace [
 { #category : #initialization }
 CollectableApp >> startOSProjectManager [
 
+	"Start only if this component is the first instance"
+	| apps |
+	apps := MolUtils allComponentInstancesOfType: CollectableAppType.
+	apps size > 1 ifTrue:[ ^ self ].
+
 	Smalltalk os isWindows ifTrue:[ ^ CollectOSWindowsManager start ].
 	^ CollectOSPharoManager start
 ]
 
 { #category : #releasing }
 CollectableApp >> stopOSProjectManager [
+	| apps |
+	
+	"Stop only if this component is the last instance"
+	apps := MolUtils allComponentInstancesOfType: CollectableAppType.
+	(apps size = 1 and:[apps first = self]) ifFalse:[ ^ self ].
 
 	Smalltalk os isWindows ifTrue:[ ^ CollectOSWindowsManager stop ].
 	^ CollectOSPharoManager stop
