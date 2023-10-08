@@ -27,10 +27,13 @@ BaselineOfCollectable >> dependencies: spec [
 	"Functionnality to import Pharo Gameye datas"
 	spec baseline: 'Gameye' with: [ spec repository: 'github://labordep/PharoGameye:2.0' ].
 
-	"Windows management layer for the UI"
+	"OS-Windows management layer for the UI"
 	Smalltalk os isWindows ifTrue: [
 		spec baseline: 'OSWindows' with: [ spec repository: 'github://astares/Pharo-OS-Windows/src' ].
-	].
+		
+		"OpenSmock OS-Windows extensions"
+		spec baseline: 'OSWindowsOpenSmock' with: [ spec repository: 'github://OpenSmock/OS-Windows:main' ].		
+	].	
 
 	"UI tool : Pyramid"
 	spec baseline: 'Pyramid' with: [ spec repository: 'github://OpenSmock/Pyramid:dev/src' ].
