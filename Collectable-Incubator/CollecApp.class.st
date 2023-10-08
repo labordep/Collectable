@@ -8,7 +8,7 @@ Class {
 		'mainPane',
 		'collectibleList'
 	],
-	#category : #'Collectable-POC'
+	#category : #'Collectable-Incubator'
 }
 
 { #category : #'instance creation' }
@@ -101,7 +101,7 @@ CollecApp >> buildMenu [
 	menu := ToMenu new.
 	menu id: #menu.
 	menu layout cellSpacing: 5.
-	menu globalColumnWidth: 22.
+	menu columnWidth: 22.
 	menu label: (ToLabel new text: 'File').
 	menu icon: (ToImage new innerImage: (self iconNamed: #solidMenu)).
 	
@@ -111,7 +111,7 @@ CollecApp >> buildMenu [
 	menu addItem: loadCollectionMenu.
 	
 	loadCollectionMenu addItem: (
-		ToButtonMenuItem new 
+		ToMenuItem new 
 			label: (ToLabel new text: 'From Gameye Spreadsheet'); 
 			icon: (ToImage new innerImage: (self iconNamed: #box));
 			whenClickedDo:[self importGameyeSpreadsheetCollection]
@@ -181,10 +181,10 @@ CollecApp >> initialize [
 
 { #category : #initialization }
 CollecApp >> open [
-	| space |
 
-	space := mainPane openInOBlSpace.
+	| space |
+	space := mainPane openInSpace.
 	space title: 'Collectable - alpha version'.
-	space position: 100@100.
-	^space
+	space position: 100 @ 100.
+	^ space
 ]
