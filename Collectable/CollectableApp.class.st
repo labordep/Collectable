@@ -6,7 +6,9 @@ Class {
 	#instVars : [
 		'mainPane',
 		'space',
-		'collectibleList'
+		'collectibleList',
+		'searchField',
+		'collection'
 	],
 	#category : #'Collectable-Core'
 }
@@ -87,20 +89,24 @@ CollectableApp >> buildList [
 
 { #category : #private }
 CollectableApp >> buildMenu [
-	| menu loadCollectionMenu |
+	| menu loadCollectionMenu menuBar debugMenu openOnPyramid |
 
+	menuBar := ToMenuBar new hFitContent.
+
+	"File menu"
 	menu := ToMenu new.
 	menu id: #menu.
 	menu layout cellSpacing: 5.
 	menu columnWidth: 22.
 	menu label: (ToLabel new text: 'File').
 	menu icon: (ToImage new innerImage: (self iconNamed: #solidMenu)).
+	menuBar addMenu: menu.
 	
+	"Load menu"
 	loadCollectionMenu := ToMenu new.
 	loadCollectionMenu label: (ToLabel new text: 'Load collection').
 	loadCollectionMenu icon: (ToImage new innerImage: (self iconNamed: #down)).
 	menu addItem: loadCollectionMenu.
-	
 	loadCollectionMenu addItem: (
 		ToMenuItem new 
 			label: (ToLabel new text: 'Import GAMEYE.app Spreadsheet'); 
@@ -108,7 +114,42 @@ CollectableApp >> buildMenu [
 			whenClickedDo:[self importGameyeSpreadsheetCollection]
 	).
 	
-	^menu
+	"Debug menu"
+	debugMenu := ToMenu new.
+	debugMenu id: #debug.
+	debugMenu layout cellSpacing: 5.
+	debugMenu columnWidth: 22.
+	debugMenu label: (ToLabel new text: 'Debug').
+	debugMenu icon: (ToImage new innerImage: (self iconNamed: #repair)).
+	menuBar addMenu: debugMenu.
+	
+	"Open on pyramid button"
+	openOnPyramid := ToMenuItem new 
+			label: (ToLabel new text: 'Open in Pyramid'); 
+			icon: (ToImage new innerImage: (self iconNamed: #edit));
+			whenClickedDo:[space editWithPyramid].
+	debugMenu addItem: openOnPyramid.
+	
+	menuBar addFiller.
+	
+	^ menuBar
+]
+
+{ #category : #private }
+CollectableApp >> buildSearchWidget [
+
+	| searchPane searchButton |
+	
+	searchPane := ToPane new beHorizontal; hFitContent.
+	
+	searchField := ToTextField new hMatchParent; width: 200; placeholderText: 'Search...'.
+	searchPane addChild: searchField.
+	
+	searchButton := ToButton new hMatchParent; width: 50; labelText: 'Search'.
+	searchButton whenClickedDo:[ self searchAction ].
+	searchPane addChild: searchButton.
+	
+	^ searchPane
 ]
 
 { #category : #releasing }
@@ -206,21 +247,26 @@ CollectableApp >> importGameyeSpreadsheetCollection [
 	collec ifNil:[ ^ nil ].
 	collec := collec at: GameyeCollection owned. 
 	
-	collectibleList data removeAll.
-	collectibleList data addAll: collec collectibles.
+	collection := collec.
+	self populateCollectibleListWith: collec collectibles.
 ]
 
 { #category : #initialization }
 CollectableApp >> initializeMainPane [
 
-	| menu title |
+	| menu title menuPane searchWidget |
 	mainPane := ToPane new beVertical.
 	mainPane matchParent.
 	
 	"Menu"
+	menuPane := ToPane new beHorizontal; hFitContent.
+	mainPane addChild: menuPane.
+	
 	menu := self buildMenu.
-	mainPane addChild: menu.
-
+	menuPane addChild: menu.
+	searchWidget := self buildSearchWidget.
+	menuPane addChild: searchWidget.
+	
 	"Title"
 	title := ToLabel text: ('Collectibles').
 	title id: #title.
@@ -243,8 +289,37 @@ CollectableApp >> openSpace [
 
 	"initialize event handlers"
 	space when: BlSpaceClosedEvent do:[ self class stop: self componentName ].
+	^ space 
+]
+
+{ #category : #actions }
+CollectableApp >> populateCollectibleListWith: aCollectibleList [
 	
-	^ space
+	collectibleList data removeAll.
+	
+	aCollectibleList ifNil:[ ^ self ].
+	aCollectibleList ifEmpty: [ ^ self ].
+	
+	collectibleList data addAll: aCollectibleList.
+]
+
+{ #category : #actions }
+CollectableApp >> searchAction [
+
+	"get the content of the field and do the search"
+	| searchExpression collectibles |
+	collection ifNil:[ ^ self ].
+	collection numberOfCollectibles = 0 ifTrue:[ ^ self ].
+
+	searchExpression := (searchField text asString).
+	(searchExpression isNil or:[searchExpression isEmpty]) ifTrue:[ self populateCollectibleListWith: collection collectibles ].
+	
+	collectibles := collection collectibles select:[ :e | 
+		(('*', searchExpression, '*') match: e title) or:[
+			(('*', searchExpression, '*') match: e platform)
+		]
+	].
+	self populateCollectibleListWith: collectibles.
 ]
 
 { #category : #initialization }
