@@ -7,6 +7,12 @@ Class {
 	#category : #'Collectable-IDE'
 }
 
+{ #category : #actions }
+CollecWorld class >> cleanDefaultCollection [
+
+	collection := nil
+]
+
 { #category : #accessing }
 CollecWorld class >> defaultCollection [ 
 
@@ -25,7 +31,7 @@ CollecWorld class >> importGameyeSpreadsheetCollectionAsDefaultCollection [
 	collec := GameyeCollectionFactory createCollectionsFromExportedSpreadsheet: (fileReference asFileReference).
 	collec ifNil:[ ^ self ].
 	
-	collection := collec at: GameyeCollection owned.
+	collection := CollecGameyeUtils createCollection: (collec at: GameyeCollection owned).
 	
 	MolUtils stopComponent: manager class named: #world.
 ]
@@ -60,6 +66,17 @@ CollecWorld class >> menu20ImportDefaultCollectionOn: aBuilder [
 		label: 'Import default collection (From GAMEYE.app)';
 		action: [ self importGameyeSpreadsheetCollectionAsDefaultCollection ];
 		help: 'Import a collection by default - only GAMEYE.app Spreadsheet import support'.
+]
+
+{ #category : #menu }
+CollecWorld class >> menu30CleanDefaultCollectionOn: aBuilder [
+
+	<worldMenu>
+	(aBuilder item: #CleanDefaultCollection)
+		parent: #Collectable;
+		label: 'Clean default collection';
+		action: [ self cleanDefaultCollection ];
+		help: 'Clean the default collection - remove all datas'.
 ]
 
 { #category : #actions }

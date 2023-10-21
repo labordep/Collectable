@@ -21,7 +21,11 @@ CollectableApp >> browseAndImportGameyeCollecFromExportedSpreadsheet [
 	fileReference := self getCollectOSProjectManagerServicesProvider openFileReference: 'GAMEYE.app Spreadsheet' onDirectory: FileSystem workingDirectory extensions: #('csv').	
 	(fileReference isNil or:[fileReference isEmpty]) ifTrue:[ ^ nil ].
 	
-	^ GameyeCollectionFactory createCollectionsFromExportedSpreadsheet: (fileReference asFileReference)
+	collection := GameyeCollectionFactory createCollectionsFromExportedSpreadsheet: (fileReference asFileReference).
+	
+	^ CollecGameyeUtils createCollection: (collection at: GameyeCollection owned).
+	
+	
 ]
 
 { #category : #private }
@@ -246,7 +250,6 @@ CollectableApp >> importGameyeSpreadsheetCollection [
 	| collec |
 	collec := self browseAndImportGameyeCollecFromExportedSpreadsheet.
 	collec ifNil:[ ^ nil ].
-	collec := collec at: GameyeCollection owned. 
 	
 	collection := collec.
 	self populateCollectibleListWith: collec collectibles.
