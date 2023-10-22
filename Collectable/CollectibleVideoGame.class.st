@@ -1,7 +1,13 @@
 Class {
 	#name : #CollectibleVideoGame,
 	#superclass : #Collectible,
-	#traits : 'TCollectibleBelongVideoGamePlatform',
-	#classTraits : 'TCollectibleBelongVideoGamePlatform classTrait',
+	#traits : 'TCollectibleBelongPlatform + TCollectibleHaveDeveloper + TCollectibleHavePublisher',
+	#classTraits : 'TCollectibleBelongPlatform classTrait + TCollectibleHaveDeveloper classTrait + TCollectibleHavePublisher classTrait',
 	#category : #'Collectable-Model'
 }
+
+{ #category : #testing }
+CollectibleVideoGame >> isVideoGame [
+
+	^ true
+]

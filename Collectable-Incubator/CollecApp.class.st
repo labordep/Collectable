@@ -75,7 +75,7 @@ CollecApp >> buildList [
 			contentPane addChild: publisher.
 		].
 
-		collectible isSystem ifTrue:[
+		collectible isVideoGameSystem ifTrue:[
 			"todo"
 		].
 

@@ -1,5 +1,5 @@
 Trait {
-	#name : #TCollectibleBelongVideoGamePlatform,
+	#name : #TCollectibleBelongPlatform,
 	#instVars : [
 		'platform'
 	],
@@ -7,13 +7,13 @@ Trait {
 }
 
 { #category : #accessing }
-TCollectibleBelongVideoGamePlatform >> platform [
+TCollectibleBelongPlatform >> platform [
 
 	^ platform
 ]
 
 { #category : #accessing }
-TCollectibleBelongVideoGamePlatform >> platform: anObject [
+TCollectibleBelongPlatform >> platform: anObject [
 
 	platform := anObject
 ]

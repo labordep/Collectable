@@ -1,7 +1,8 @@
 Trait {
 	#name : #TCollectible,
 	#instVars : [
-		'dateAdded'
+		'dateAdded',
+		'name'
 	],
 	#category : #'Collectable-Model-Traits'
 }
@@ -16,6 +17,18 @@ TCollectible >> dateAdded [
 TCollectible >> dateAdded: aDate [
 
 	dateAdded := aDate
+]
+
+{ #category : #accessing }
+TCollectible >> name [
+
+	^ name
+]
+
+{ #category : #accessing }
+TCollectible >> name: anObject [
+
+	name := anObject
 ]
 
 { #category : #accessing }

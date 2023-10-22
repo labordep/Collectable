@@ -8,10 +8,20 @@ Class {
 		'space',
 		'collectibleList',
 		'searchField',
-		'collection'
+		'collection',
+		'collections'
 	],
 	#category : #'Collectable-Core'
 }
+
+{ #category : #private }
+CollectableApp >> allCollectibles [
+
+	| list |
+	list := OrderedCollection new.
+	collections do:[ :c | list addAll: c collectibles ].
+	^ list
+]
 
 { #category : #private }
 CollectableApp >> buildList [
@@ -43,7 +53,7 @@ CollectableApp >> buildList [
 		platformPane addChild: platform.
 
 		title := ToLabel new id: #title;
-			           text: (collectible title asRopedText foreground: (Color fromHexString: '673AB7'); fontSize: 24; bold);
+			           text: (collectible name asRopedText foreground: (Color fromHexString: '673AB7'); fontSize: 24; bold);
 			            margin: (BlInsets all: 1);
 			            padding: (BlInsets all: 1);
 			            yourself.
@@ -65,7 +75,7 @@ CollectableApp >> buildList [
 			contentPane addChild: publisher.
 		].
 
-		collectible isSystem ifTrue:[
+		collectible isVideoGameSystem ifTrue:[
 			"todo"
 		].
 
@@ -152,14 +162,13 @@ CollectableApp >> closeSpace [
 CollectableApp >> componentActivate [
 
 	self openSpace.
-	self openDefaultCollection.
+	self openDefaultCollections.
 ]
 
 { #category : #'life cycle' }
 CollectableApp >> componentInitialize [ 
 
 	self startOSProjectManager.
-
 	self initializeMainPane.
 ]
 
@@ -281,13 +290,14 @@ CollectableApp >> initializeMainPane [
 ]
 
 { #category : #actions }
-CollectableApp >> openDefaultCollection [
+CollectableApp >> openDefaultCollections [
 
-	| collections collectibles |
+	| collectibles |
 	collections := CollecWorld defaultCollections.
 	collections ifEmpty:[ ^ self ].
 	
-	collectibles := collections do:[ :c | c collectibles ].
+	collectibles := OrderedCollection new.
+	collections do:[ :c | collectibles addAll: c collectibles ].
 	self populateCollectibleListWith: collectibles.
 	
 ]
@@ -325,14 +335,13 @@ CollectableApp >> searchAction [
 
 	"get the content of the field and do the search"
 	| searchExpression collectibles |
-	collection ifNil:[ ^ self ].
-	collection numberOfCollectibles = 0 ifTrue:[ ^ self ].
-
-	searchExpression := (searchField text asString).
-	(searchExpression isNil or:[searchExpression isEmpty]) ifTrue:[ self populateCollectibleListWith: collection collectibles ].
+	collections ifNil:[ ^ self ].
 	
-	collectibles := collection collectibles select:[ :e | 
-		(('*', searchExpression, '*') match: e title) or:[
+	searchExpression := (searchField text asString).
+	(searchExpression isNil or:[searchExpression isEmpty]) ifTrue:[ self populateCollectibleListWith: self allCollectibles ].
+	
+	collectibles := self allCollectibles select:[ :e | 
+		(('*', searchExpression, '*') match: e name) or:[
 			(('*', searchExpression, '*') match: e platform)
 		]
 	].

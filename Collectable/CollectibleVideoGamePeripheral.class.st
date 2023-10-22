@@ -1,7 +1,13 @@
 Class {
 	#name : #CollectibleVideoGamePeripheral,
 	#superclass : #Collectible,
-	#traits : 'TCollectibleBelongVideoGamePlatform',
-	#classTraits : 'TCollectibleBelongVideoGamePlatform classTrait',
+	#traits : 'TCollectibleBelongPlatform',
+	#classTraits : 'TCollectibleBelongPlatform classTrait',
 	#category : #'Collectable-Model'
 }
+
+{ #category : #accessing }
+CollectibleVideoGamePeripheral >> isVideoGamePeripheral [
+
+	^ true
+]

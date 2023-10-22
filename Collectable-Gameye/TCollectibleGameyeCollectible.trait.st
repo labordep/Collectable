@@ -12,6 +12,12 @@ TCollectibleGameyeCollectible >> dateAdded [
 ]
 
 { #category : #accessing }
+TCollectibleGameyeCollectible >> name [
+
+	^ self delegate title
+]
+
+{ #category : #accessing }
 TCollectibleGameyeCollectible >> platform [
 
 	^ self delegate platform
