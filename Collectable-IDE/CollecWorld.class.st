@@ -44,6 +44,17 @@ CollecWorld class >> menu10OpenCollectableOn: aBuilder [
 ]
 
 { #category : #menu }
+CollecWorld class >> menu11InspectDefaultCollectionsOn: aBuilder [
+
+	<worldMenu>
+	(aBuilder item: #Open)
+		parent: #Collectable;
+		label: 'Inspect default collections';
+		action: [ self defaultCollections inspect ];
+		help: 'Open an inspector on default collections'.
+]
+
+{ #category : #menu }
 CollecWorld class >> menu30CleanDefaultCollectionOn: aBuilder [
 
 	<worldMenu>

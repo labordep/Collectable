@@ -1,6 +1,6 @@
 Class {
-	#name : #CollectibleGameyeVideoGame,
-	#superclass : #CollectibleVideoGame,
+	#name : #CollectibleGameyeSystem,
+	#superclass : #CollectibleVideoGameSystem,
 	#traits : 'TCollectibleGameyeCollectible',
 	#classTraits : 'TCollectibleGameyeCollectible classTrait',
 	#category : #'Collectable-Gameye-Core'
