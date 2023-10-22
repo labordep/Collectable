@@ -13,21 +13,6 @@ Class {
 	#category : #'Collectable-Core'
 }
 
-{ #category : #actions }
-CollectableApp >> browseAndImportGameyeCollecFromExportedSpreadsheet [
-
-	| fileReference |
-	
-	fileReference := self getCollectOSProjectManagerServicesProvider openFileReference: 'GAMEYE.app Spreadsheet' onDirectory: FileSystem workingDirectory extensions: #('csv').	
-	(fileReference isNil or:[fileReference isEmpty]) ifTrue:[ ^ nil ].
-	
-	collection := GameyeCollectionFactory createCollectionsFromExportedSpreadsheet: (fileReference asFileReference).
-	
-	^ CollecGameyeUtils createCollection: (collection at: GameyeCollection owned).
-	
-	
-]
-
 { #category : #private }
 CollectableApp >> buildList [
 	| list typeLabel |
@@ -47,7 +32,7 @@ CollectableApp >> buildList [
    	 	contentPane := ToPane new id: #contentPane; beVertical; background: (Color fromHexString: 'D1C4E9'); vMatchParent; hMatchParent.
 		blContent addChild: contentPane.
 		
-		typeLabel := ToLabel new id: #typeLabel; text: ((collectible type asString asRopedText) fontSize: 10).
+		typeLabel := ToLabel new id: #typeLabel; text: ((collectible class asString asRopedText) fontSize: 10).
 		typeLabel transformDo: [ :t | t normalizedOrigin: 0 @ 1. t rotateBy: 90 ].
 		typePane addChild: typeLabel.
 
@@ -245,14 +230,28 @@ CollectableApp >> getPlatformColor: aPlatform [
 ]
 
 { #category : #actions }
+CollectableApp >> importAndBrowseOwnedGameyeSpreadsheetCollections [
+
+	| fileReference collectionList |
+	
+	fileReference := self getCollectOSProjectManagerServicesProvider openFileReference: 'GAMEYE.app Spreadsheet' onDirectory: FileSystem workingDirectory extensions: #('csv').	
+	(fileReference isNil or:[fileReference isEmpty]) ifTrue:[ ^ nil ].
+	
+	collectionList := CollecGameyeUtils importCollectionsFromGameyeSpreadsheetFile: fileReference asFileReference type: GameyeCollection owned.
+	collectionList ifEmpty:[ ^ self ].
+	
+	^ collectionList
+]
+
+{ #category : #actions }
 CollectableApp >> importGameyeSpreadsheetCollection [
 
 	| collec |
-	collec := self browseAndImportGameyeCollecFromExportedSpreadsheet.
+	collec := self importAndBrowseOwnedGameyeSpreadsheetCollections.
 	collec ifNil:[ ^ nil ].
 	
-	collection := collec.
-	self populateCollectibleListWith: collec collectibles.
+	"only video games"
+	self populateCollectibleListWith: (collec videoGames collectibles).
 ]
 
 { #category : #initialization }
@@ -284,9 +283,13 @@ CollectableApp >> initializeMainPane [
 { #category : #actions }
 CollectableApp >> openDefaultCollection [
 
-	CollecWorld defaultCollection ifNil:[ ^ self ].
-	collection := CollecWorld defaultCollection.
-	self populateCollectibleListWith: CollecWorld defaultCollection collectibles.
+	| collections collectibles |
+	collections := CollecWorld defaultCollections.
+	collections ifEmpty:[ ^ self ].
+	
+	collectibles := collections do:[ :c | c collectibles ].
+	self populateCollectibleListWith: collectibles.
+	
 ]
 
 { #category : #initialization }
@@ -313,6 +316,8 @@ CollectableApp >> populateCollectibleListWith: aCollectibleList [
 	aCollectibleList ifEmpty: [ ^ self ].
 	
 	collectibleList data addAll: aCollectibleList.
+	
+	
 ]
 
 { #category : #actions }

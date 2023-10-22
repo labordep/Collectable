@@ -1,11 +1,7 @@
 Class {
 	#name : #CollectibleVideoGame,
 	#superclass : #Collectible,
+	#traits : 'TCollectibleBelongVideoGamePlatform',
+	#classTraits : 'TCollectibleBelongVideoGamePlatform classTrait',
 	#category : #'Collectable-Model'
 }
-
-{ #category : #'instance creation' }
-CollectibleVideoGame class >> wrapGameyeCollectible: aGameyeCollectible [ 
-
-	^ CollectibleVideoGameGameyeWrapper wrap: aGameyeCollectible
-]

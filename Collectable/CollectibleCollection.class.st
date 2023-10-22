@@ -3,8 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'name',
-		'collectibles',
-		'collections'
+		'collectibles'
 	],
 	#category : #'Collectable-Model'
 }
@@ -19,18 +18,6 @@ CollectibleCollection >> collectibles [
 CollectibleCollection >> collectibles: anObject [
 
 	collectibles := anObject
-]
-
-{ #category : #accessing }
-CollectibleCollection >> collections [
-
-	^ collections ifNil:[collections := Dictionary new]
-]
-
-{ #category : #accessing }
-CollectibleCollection >> collections: anObject [
-
-	collections := anObject
 ]
 
 { #category : #initialization }

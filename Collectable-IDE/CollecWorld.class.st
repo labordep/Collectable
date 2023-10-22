@@ -2,38 +2,24 @@ Class {
 	#name : #CollecWorld,
 	#superclass : #Object,
 	#classInstVars : [
-		'collection'
+		'collections'
 	],
 	#category : #'Collectable-IDE'
 }
 
 { #category : #actions }
-CollecWorld class >> cleanDefaultCollection [
+CollecWorld class >> cleanDefaultCollections [
 
-	collection := nil
+	collections ifNotNil:[ 
+		self defaultCollections removeAll. 
+		collections := nil.
+	].
 ]
 
 { #category : #accessing }
-CollecWorld class >> defaultCollection [ 
+CollecWorld class >> defaultCollections [ 
 
-	^ collection
-]
-
-{ #category : #actions }
-CollecWorld class >> importGameyeSpreadsheetCollectionAsDefaultCollection [
-
-	| manager fileReference collec |
-	manager := Smalltalk os isWindows ifTrue:[ CollectOSWindowsManager start: #world ] ifFalse:[ CollectOSPharoManager start: #world].
-	
-	fileReference := manager openFileReference: 'GAMEYE.app Spreadsheet' onDirectory: FileSystem workingDirectory extensions: #('csv').	
-	(fileReference isNil or:[fileReference isEmpty]) ifTrue:[ ^ nil ].
-	
-	collec := GameyeCollectionFactory createCollectionsFromExportedSpreadsheet: (fileReference asFileReference).
-	collec ifNil:[ ^ self ].
-	
-	collection := CollecGameyeUtils createCollection: (collec at: GameyeCollection owned).
-	
-	MolUtils stopComponent: manager class named: #world.
+	^ collections ifNil:[collections := OrderedCollection new]
 ]
 
 { #category : #menu }
@@ -58,25 +44,14 @@ CollecWorld class >> menu10OpenCollectableOn: aBuilder [
 ]
 
 { #category : #menu }
-CollecWorld class >> menu20ImportDefaultCollectionOn: aBuilder [
-
-	<worldMenu>
-	(aBuilder item: #ImportDefaultCollection)
-		parent: #Collectable;
-		label: 'Import default collection (From GAMEYE.app)';
-		action: [ self importGameyeSpreadsheetCollectionAsDefaultCollection ];
-		help: 'Import a collection by default - only GAMEYE.app Spreadsheet import support'.
-]
-
-{ #category : #menu }
 CollecWorld class >> menu30CleanDefaultCollectionOn: aBuilder [
 
 	<worldMenu>
 	(aBuilder item: #CleanDefaultCollection)
 		parent: #Collectable;
-		label: 'Clean default collection';
-		action: [ self cleanDefaultCollection ];
-		help: 'Clean the default collection - remove all datas'.
+		label: 'Clean default collections';
+		action: [ self cleanDefaultCollections ];
+		help: 'Remove all collections datas'.
 ]
 
 { #category : #actions }
