@@ -5,8 +5,14 @@ Trait {
 	#category : #'Collectable-Core'
 }
 
+{ #category : #'accessing - events' }
+CollectableAppType classSide >> consumedComponentEvents [
+	<componentContract>
+	^ {CollectableCollectionsManagerEvents}
+]
+
 { #category : #'accessing - services' }
 CollectableAppType classSide >> usedComponentServices [
 	<componentContract>
-	^ {CollectOSProjectManagerServices}
+	^ {CollectOSProjectManagerServices . CollectableCollectionsManagerServices}
 ]

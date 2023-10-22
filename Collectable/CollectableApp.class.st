@@ -1,27 +1,17 @@
 Class {
 	#name : #CollectableApp,
 	#superclass : #MolAbstractComponentImpl,
-	#traits : 'CollectableAppType',
-	#classTraits : 'CollectableAppType classTrait',
+	#traits : 'CollectableAppType + CollectableCollectionsManagerEvents',
+	#classTraits : 'CollectableAppType classTrait + CollectableCollectionsManagerEvents classTrait',
 	#instVars : [
 		'mainPane',
 		'space',
 		'collectibleList',
 		'searchField',
-		'collection',
 		'collections'
 	],
 	#category : #'Collectable-Core'
 }
-
-{ #category : #private }
-CollectableApp >> allCollectibles [
-
-	| list |
-	list := OrderedCollection new.
-	collections do:[ :c | list addAll: c collectibles ].
-	^ list
-]
 
 { #category : #private }
 CollectableApp >> buildList [
@@ -158,9 +148,20 @@ CollectableApp >> closeSpace [
 	space isOpened ifTrue:[ space close ].
 ]
 
+{ #category : #events }
+CollectableApp >> collectionsHasChanged: aCollectionList [
+
+	| collectibles |
+	collectibles := OrderedCollection new.
+	aCollectionList do:[ :c | collectibles addAll: c collectibles ].
+	self populateCollectibleListWith: collectibles.
+]
+
 { #category : #'life cycle' }
 CollectableApp >> componentActivate [
 
+	self getCollectableCollectionsManagerEventsSubscriber subscribe: self.
+ 
 	self openSpace.
 	self openDefaultCollections.
 ]
@@ -169,18 +170,27 @@ CollectableApp >> componentActivate [
 CollectableApp >> componentInitialize [ 
 
 	self startOSProjectManager.
+	self startCollectionsManager.
+
+	self forServices: CollectableCollectionsManagerServices useProvider: self componentName. 
+	self forEvents: CollectableCollectionsManagerEvents useProducer: self componentName. 
+
 	self initializeMainPane.
 ]
 
 { #category : #'life cycle' }
 CollectableApp >> componentPassivate [
+	
+	self getCollectableCollectionsManagerEventsSubscriber unsubscribe: self.
 
-	self closeSpace
+	self closeSpace.
+	
 ]
 
 { #category : #'life cycle' }
 CollectableApp >> componentRemove [ 
 
+	self stopCollectionsManager.
 	self stopOSProjectManager
 ]
 
@@ -193,6 +203,30 @@ CollectableApp >> getCollectOSProjectManagerServicesProvider [
 	(servicesSymbol isNil or:[servicesSymbol isSymbol not]) ifTrue: [ ^ MolNotFoundServicesProvider new interface: itf name: nil ].
 
 	servicesProvider := MolComponentManager default locatorServices searchServicesProviderFor: CollectOSProjectManagerServices named: servicesSymbol.
+	^servicesProvider
+]
+
+{ #category : #'component accessing' }
+CollectableApp >> getCollectableCollectionsManagerEventsSubscriber [
+	| eventsSymbol eventsSubscriber itf |
+	itf := CollectableCollectionsManagerEvents.
+	eventsSymbol := self eventsSubscribers at: itf ifAbsent: [^MolNotFoundEventsSubscriber new interface: itf name: nil].
+	eventsSymbol isCollection
+	 	ifTrue: 
+			[eventsSubscriber := MolComponentManager default locatorServices 
+						searchEventsSubscriberFor: CollectableCollectionsManagerEvents named: eventsSymbol ]. 
+	^eventsSubscriber
+]
+
+{ #category : #'component accessing' }
+CollectableApp >> getCollectableCollectionsManagerServicesProvider [
+	| servicesSymbol servicesProvider itf |
+
+	itf := CollectableCollectionsManagerServices.
+	servicesSymbol := self servicesProviders at: itf ifAbsent: [nil].
+	(servicesSymbol isNil or:[servicesSymbol isSymbol not]) ifTrue: [ ^ MolNotFoundServicesProvider new interface: itf name: nil ].
+
+	servicesProvider := MolComponentManager default locatorServices searchServicesProviderFor: CollectableCollectionsManagerServices named: servicesSymbol.
 	^servicesProvider
 ]
 
@@ -259,8 +293,7 @@ CollectableApp >> importGameyeSpreadsheetCollection [
 	collec := self importAndBrowseOwnedGameyeSpreadsheetCollections.
 	collec ifNil:[ ^ nil ].
 	
-	"only video games"
-	self populateCollectibleListWith: (collec videoGames collectibles).
+	self getCollectableCollectionsManagerServicesProvider setCollections: collec
 ]
 
 { #category : #initialization }
@@ -292,14 +325,7 @@ CollectableApp >> initializeMainPane [
 { #category : #actions }
 CollectableApp >> openDefaultCollections [
 
-	| collectibles |
-	collections := CollecWorld defaultCollections.
-	collections ifEmpty:[ ^ self ].
-	
-	collectibles := OrderedCollection new.
-	collections do:[ :c | collectibles addAll: c collectibles ].
-	self populateCollectibleListWith: collectibles.
-	
+	self getCollectableCollectionsManagerServicesProvider setCollections: CollecWorld defaultCollections.	
 ]
 
 { #category : #initialization }
@@ -309,7 +335,7 @@ CollectableApp >> openSpace [
 	space := mainPane openInSpace.
 	
 	"setup space properties"
-	space title: '[|||] Collectable (alpha version)'.
+	self updateTitle.
 	space position: 100 @ 100.
 
 	"initialize event handlers"
@@ -321,12 +347,13 @@ CollectableApp >> openSpace [
 CollectableApp >> populateCollectibleListWith: aCollectibleList [
 	
 	collectibleList data removeAll.
+	self updateTitle.
 	
 	aCollectibleList ifNil:[ ^ self ].
 	aCollectibleList ifEmpty: [ ^ self ].
 	
 	collectibleList data addAll: aCollectibleList.
-	
+	self updateTitle.	
 	
 ]
 
@@ -334,18 +361,25 @@ CollectableApp >> populateCollectibleListWith: aCollectibleList [
 CollectableApp >> searchAction [
 
 	"get the content of the field and do the search"
-	| searchExpression collectibles |
-	collections ifNil:[ ^ self ].
+	| searchExpression collectibles allCollectibles |
+	allCollectibles := self getCollectableCollectionsManagerServicesProvider getAllCollectibles.
+	allCollectibles ifEmpty: [ ^ self ].
 	
 	searchExpression := (searchField text asString).
-	(searchExpression isNil or:[searchExpression isEmpty]) ifTrue:[ self populateCollectibleListWith: self allCollectibles ].
+	(searchExpression isNil or:[searchExpression isEmpty]) ifTrue:[ self populateCollectibleListWith: allCollectibles ].
 	
-	collectibles := self allCollectibles select:[ :e | 
+	collectibles := allCollectibles select:[ :e | 
 		(('*', searchExpression, '*') match: e name) or:[
 			(('*', searchExpression, '*') match: e platform)
 		]
 	].
 	self populateCollectibleListWith: collectibles.
+]
+
+{ #category : #initialization }
+CollectableApp >> startCollectionsManager [
+
+	CollectableCollectionsManager start: self componentName
 ]
 
 { #category : #initialization }
@@ -361,6 +395,12 @@ CollectableApp >> startOSProjectManager [
 ]
 
 { #category : #releasing }
+CollectableApp >> stopCollectionsManager [
+
+	CollectableCollectionsManager stop: self componentName
+]
+
+{ #category : #releasing }
 CollectableApp >> stopOSProjectManager [
 	| apps |
 	
@@ -370,4 +410,19 @@ CollectableApp >> stopOSProjectManager [
 
 	Smalltalk os isWindows ifTrue:[ ^ CollectOSWindowsManager stop ].
 	^ CollectOSPharoManager stop
+]
+
+{ #category : #private }
+CollectableApp >> updateTitle [
+
+	| nb title |
+	
+	title := '[|||] Collectable (alpha version)'.
+	
+	nb := collectibleList data size.
+	nb > 0 ifTrue:[
+		title := title, ' - ' , nb asString , ' collectible(s)'.
+	].
+
+	space title: title.
 ]
