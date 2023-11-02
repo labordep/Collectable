@@ -1,7 +1,6 @@
 Trait {
 	#name : #TCollectibleHaveDeveloper,
 	#instVars : [
-		'publisher',
 		'developer'
 	],
 	#category : #'Collectable-Model-Traits'
