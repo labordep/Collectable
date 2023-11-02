@@ -1,3 +1,9 @@
+[![License](https://img.shields.io/github/license/labordep/Collectable.svg)](./LICENSE)
+
+[![Tests](https://github.com/labordep/Collectable/actions/workflows/Tests.yml/badge.svg)](https://github.com/labordep/Collectable/actions/workflows/Tests.yml)
+[![Pharo 11](https://img.shields.io/badge/Pharo-11-%23aac9ff.svg)](https://pharo.org/download)
+[![Pharo 12](https://img.shields.io/badge/Pharo-12-%23aac9ff.svg)](https://pharo.org/download)
+
 # Collectable
 
 ## Development 
@@ -13,6 +19,7 @@ Metacello new
 
 ## Dependencies
 
+- [Toplo](https://github.com/plantec/Toplo)
 - [Bloc](https://github.com/pharo-graphics/Bloc)
 - [Pyramid](https://github.com/OpenSmock/Pyramid)
 - [Molecule](https://github.com/OpenSmock/Molecule)
