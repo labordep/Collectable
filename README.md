@@ -24,6 +24,7 @@ Metacello new
 - [Pyramid](https://github.com/OpenSmock/Pyramid)
 - [Molecule](https://github.com/OpenSmock/Molecule)
 - [PharoGameye](https://github.com/labordep/PharoGameye)
+- [OS-Windows](https://github.com/astares/Pharo-OS-Windows/src)
 
 ## License
 
