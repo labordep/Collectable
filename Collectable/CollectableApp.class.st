@@ -17,20 +17,20 @@ Class {
 CollectableApp >> buildList [
 	| list typeLabel |
 
-	list := ToListElement new nodeFactory: [ :collectible :holder |
-		| typePane platformPane contentPane title platform blContent |
-		blContent := ToLabeledNode new.
-		blContent beHorizontal.
-		blContent height: 50; hMatchParent.
+	list := ToListElement new nodeBuilder: [ :node :holder |
+		| collectible typePane platformPane contentPane title platform |
+		collectible := holder data.
+		"node beHorizontal."
+		node height: 50; hMatchParent.
 
 		typePane := ToPane new id: #typePanel; beVertical; background: (Color fromHexString: 'D1C4E9'); width: 25; vMatchParent.
-		blContent addChild: typePane.
+		node addChild: typePane.
 
 		platformPane := ToPane new id: #platformPanel; beVertical; background: (self getPlatformColor: collectible platform); width: 200; vMatchParent.
-		blContent addChild: platformPane.
+		node addChild: platformPane.
 		
    	 	contentPane := ToPane new id: #contentPane; beVertical; background: (Color fromHexString: 'D1C4E9'); vMatchParent; hMatchParent.
-		blContent addChild: contentPane.
+		node addChild: contentPane.
 		
 		typeLabel := ToLabel new id: #typeLabel; text: ((collectible class asString asRopedText) fontSize: 10).
 		typeLabel transformDo: [ :t | t normalizedOrigin: 0 @ 1. t rotateBy: 90 ].
@@ -68,8 +68,6 @@ CollectableApp >> buildList [
 		collectible isVideoGameSystem ifTrue:[
 			"todo"
 		].
-
-		blContent
 	].
 
 	list withRowNumbers.
@@ -86,7 +84,6 @@ CollectableApp >> buildMenu [
 	menu := ToMenu new.
 	menu id: #menu.
 	menu layout cellSpacing: 5.
-	menu columnWidth: 22.
 	menu label: (ToLabel new text: 'File').
 	menu icon: (ToImage new innerImage: (self iconNamed: #solidMenu)).
 	menuBar addMenu: menu.
@@ -107,7 +104,6 @@ CollectableApp >> buildMenu [
 	debugMenu := ToMenu new.
 	debugMenu id: #debug.
 	debugMenu layout cellSpacing: 5.
-	debugMenu columnWidth: 22.
 	debugMenu label: (ToLabel new text: 'Debug').
 	debugMenu icon: (ToImage new innerImage: (self iconNamed: #repair)).
 	menuBar addMenu: debugMenu.
@@ -339,7 +335,7 @@ CollectableApp >> openSpace [
 	space position: 100 @ 100.
 
 	"initialize event handlers"
-	space when: BlSpaceClosedEvent do:[ self class stop: self componentName ].
+	space when: BlSpaceClosedEvent do:[ :e | self receiveBlSpaceClosedEvent: e ].
 	^ space 
 ]
 
@@ -355,6 +351,16 @@ CollectableApp >> populateCollectibleListWith: aCollectibleList [
 	collectibleList data addAll: aCollectibleList.
 	self updateTitle.	
 	
+]
+
+{ #category : #events }
+CollectableApp >> receiveBlSpaceClosedEvent: anEvent [ 
+
+	"The closed event can be send after that the component is stop, because it can be have a ghost window, we need to cheeck if the component is really stopped or not"
+	
+	(MolUtils isInstanciateComponentOf: self class named: self componentName) ifTrue:[
+		self class stop: self componentName
+	].
 ]
 
 { #category : #actions }
