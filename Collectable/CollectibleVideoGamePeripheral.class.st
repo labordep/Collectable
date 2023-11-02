@@ -1,8 +1,8 @@
 Class {
 	#name : #CollectibleVideoGamePeripheral,
 	#superclass : #Collectible,
-	#traits : 'TCollectibleBelongPlatform',
-	#classTraits : 'TCollectibleBelongPlatform classTrait',
+	#traits : 'TCollectibleBelongPlatform + TCollectibleHaveCountry',
+	#classTraits : 'TCollectibleBelongPlatform classTrait + TCollectibleHaveCountry classTrait',
 	#category : #'Collectable-Model'
 }
 

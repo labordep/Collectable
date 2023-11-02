@@ -6,6 +6,12 @@ Trait {
 }
 
 { #category : #accessing }
+TCollectibleGameyeCollectible >> country [
+
+	^ self delegate country
+]
+
+{ #category : #accessing }
 TCollectibleGameyeCollectible >> dateAdded [
 
 	^ self delegate dateAdded

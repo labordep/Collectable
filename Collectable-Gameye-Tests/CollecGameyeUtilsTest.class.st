@@ -19,7 +19,7 @@ CollecGameyeUtilsTest >> createGameyeCollections [
 ]
 
 { #category : #tests }
-CollecGameyeUtilsTest >> testCreatePeripheralsCollection [
+CollecGameyeUtilsTest >> testCreateEmptyPeripheralsCollection [
 
 	| gameyeCollection collection |
 	gameyeCollection := GameyeCollection new.
@@ -30,7 +30,7 @@ CollecGameyeUtilsTest >> testCreatePeripheralsCollection [
 ]
 
 { #category : #tests }
-CollecGameyeUtilsTest >> testCreateSystemsCollection [
+CollecGameyeUtilsTest >> testCreateEmptySystemsCollection [
 
 	| gameyeCollection collection |
 	gameyeCollection := GameyeCollection new.
@@ -41,7 +41,7 @@ CollecGameyeUtilsTest >> testCreateSystemsCollection [
 ]
 
 { #category : #tests }
-CollecGameyeUtilsTest >> testCreateVideoGamesCollection [
+CollecGameyeUtilsTest >> testCreateEmptyVideoGamesCollection [
 
 	| gameyeCollection collection |
 	gameyeCollection := GameyeCollection new.
@@ -49,6 +49,54 @@ CollecGameyeUtilsTest >> testCreateVideoGamesCollection [
 	
 	self assert: collection numberOfCollectibles equals: 0.
 	self assert: collection name equals: 'Video Games'.
+]
+
+{ #category : #tests }
+CollecGameyeUtilsTest >> testCreatePeripheralsCollection [
+
+	| gameyeCollections collection collectible |
+	gameyeCollections := GameyeCollectionFactory createCollectionsFromExportedSpreadsheet: (GameyeCollectionFactoryV5Test
+		exportedSpreadsheetSampleFileReference: GameyeCollectionFactoryV5Test exportedSpreadsheetSampleContentV5_1ControllerWithTags).
+	collection := CollecGameyeUtils createPeripheralsCollection: (gameyeCollections at: GameyeCollection owned).
+	
+	self assert: collection numberOfCollectibles equals: 1.
+	self assert: collection name equals: 'Video Games Peripherals'.
+	
+	collectible := collection collectibles first.
+	self assert: (collectible isKindOf: CollectibleVideoGamePeripheral).
+	self assert: collectible class equals: CollectibleGameyePeripheral.
+]
+
+{ #category : #tests }
+CollecGameyeUtilsTest >> testCreateSystemsCollection [
+
+	| gameyeCollections collection collectible |
+	gameyeCollections := GameyeCollectionFactory createCollectionsFromExportedSpreadsheet: (GameyeCollectionFactoryV5Test
+		exportedSpreadsheetSampleFileReference: GameyeCollectionFactoryV5Test exportedSpreadsheetSampleContentV5_1System).
+	collection := CollecGameyeUtils createSystemsCollection: (gameyeCollections at: GameyeCollection owned).
+	
+	self assert: collection numberOfCollectibles equals: 1.
+	self assert: collection name equals: 'Video Games Systems'.
+	
+	collectible := collection collectibles first.
+	self assert: (collectible isKindOf: CollectibleVideoGameSystem).
+	self assert: collectible class equals: CollectibleGameyeSystem.
+]
+
+{ #category : #tests }
+CollecGameyeUtilsTest >> testCreateVideoGamesCollection [
+
+	| gameyeCollections collection collectible |
+	gameyeCollections := GameyeCollectionFactory createCollectionsFromExportedSpreadsheet: (GameyeCollectionFactoryV5Test
+		exportedSpreadsheetSampleFileReference: GameyeCollectionFactoryV5Test exportedSpreadsheetSampleContentV5_1VideoGameWitComplexeStringValues).
+	collection := CollecGameyeUtils createVideoGamesCollection: (gameyeCollections at: GameyeCollection owned).
+	
+	self assert: collection numberOfCollectibles equals: 1.
+	self assert: collection name equals: 'Video Games'.
+	
+	collectible := collection collectibles first.
+	self assert: (collectible isKindOf: CollectibleVideoGame).
+	self assert: collectible class equals: CollectibleGameyeVideoGame.
 ]
 
 { #category : #tests }

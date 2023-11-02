@@ -7,8 +7,7 @@ Class {
 		'mainPane',
 		'space',
 		'collectibleList',
-		'searchField',
-		'collections'
+		'searchField'
 	],
 	#category : #'Collectable-Core'
 }
@@ -27,7 +26,7 @@ CollectableApp >> buildList [
 
 { #category : #private }
 CollectableApp >> buildListNode: node holder: holder [
-		| collectible typePane typeLabel platformPane contentPane title platform |
+		| collectible typePane typeLabel platformPane contentPane title country platform |
 
 		collectible := holder data.
 		node layout: BlFlowLayout horizontal.
@@ -38,6 +37,13 @@ CollectableApp >> buildListNode: node holder: holder [
 
 		platformPane := ToPane new id: #platformPanel; beVertical; background: ((self getPlatformColor: collectible platform) alpha: 0.75); width: 200; vMatchParent.
 		node addChild: platformPane.
+		
+		title := ToLabel new id: #title;
+			           text: (collectible name asRopedText foreground: (Color fromHexString: '673AB7'); fontSize: 24; bold);
+			            margin: (BlInsets all: 1);
+			            padding: (BlInsets all: 1);
+			            yourself.
+		node addChild: title.
 		
    	 	contentPane := ToPane new id: #contentPane; beVertical; background: (Color fromHexString: 'D1C4E9C8'); vMatchParent; hFitContent.
 		node addChild: contentPane.
@@ -52,27 +58,30 @@ CollectableApp >> buildListNode: node holder: holder [
 			            yourself.
 		platformPane addChild: platform.
 
-		title := ToLabel new id: #title;
-			           text: (collectible name asRopedText foreground: (Color fromHexString: '673AB7'); fontSize: 24; bold);
-			            margin: (BlInsets all: 1);
-			            padding: (BlInsets all: 1);
-			            yourself.
-		contentPane addChild: title.
+		country := ToLabel new id: #country;
+							text: (collectible country asRopedText foreground: (Color black); fontSize: 10);
+		           	 	margin: (BlInsets all: 1);
+		           	 	padding: (BlInsets all: 1);
+		            		yourself.
+		contentPane addChild: country.
 
 		collectible isVideoGame ifTrue:[ | developer publisher |
+			
 			developer := ToLabel new id: #developer;
 							text: (collectible developer asRopedText foreground: (Color black); fontSize: 10);
 			            margin: (BlInsets all: 1);
 			            padding: (BlInsets all: 1);
 			            yourself.
 			contentPane addChild: developer.
-
-			publisher := ToLabel new id: #publisher;
+	
+			collectible developer ~= collectible publisher ifTrue:[
+				publisher := ToLabel new id: #publisher;
 							text: (collectible publisher asRopedText foreground: (Color black); fontSize: 10);
 			            margin: (BlInsets all: 1);
 			            padding: (BlInsets all: 1);
 			            yourself.
-			contentPane addChild: publisher.
+				contentPane addChild: publisher.
+			].
 		].
 
 		collectible isVideoGameSystem ifTrue:[
@@ -82,7 +91,7 @@ CollectableApp >> buildListNode: node holder: holder [
 
 { #category : #private }
 CollectableApp >> buildMenu [
-	| menu loadCollectionMenu menuBar debugMenu openOnPyramid |
+	| menu loadCollectionMenu menuBar debugMenu openOnPyramid queryMenu searchNoCountryCollectibles |
 
 	menuBar := ToMenuBar new hFitContent.
 
@@ -105,6 +114,20 @@ CollectableApp >> buildMenu [
 			icon: (ToImage new innerImage: (self iconNamed: #box));
 			whenClickedDo:[self importGameyeSpreadsheetCollection]
 	).
+	
+	"Query menu"
+	queryMenu := ToMenu new.
+	queryMenu id: #query.
+	queryMenu layout cellSpacing: 5.
+	queryMenu label: (ToLabel new text: 'Query').
+	queryMenu icon: (ToImage new innerImage: (self iconNamed: #question)).
+	menuBar addMenu: queryMenu.
+	
+	"Query buttons"
+	searchNoCountryCollectibles := ToMenuItem new 
+			label: (ToLabel new text: 'Without country'); 
+			whenClickedDo:[self searchNoCountryAction].
+	queryMenu addItem: searchNoCountryCollectibles.
 	
 	"Debug menu"
 	debugMenu := ToMenu new.
@@ -372,20 +395,38 @@ CollectableApp >> receiveBlSpaceClosedEvent: anEvent [
 { #category : #actions }
 CollectableApp >> searchAction [
 
-	"get the content of the field and do the search"
-	| searchExpression collectibles allCollectibles |
-	allCollectibles := self getCollectableCollectionsManagerServicesProvider getAllCollectibles.
-	allCollectibles ifEmpty: [ ^ self ].
-	
+	| searchExpression |
 	searchExpression := (searchField text asString).
-	(searchExpression isNil or:[searchExpression isEmpty]) ifTrue:[ self populateCollectibleListWith: allCollectibles ].
-	
-	collectibles := allCollectibles select:[ :e | 
+	(searchExpression isNil or:[searchExpression isEmpty]) ifTrue:[ self searchAction: nil ].
+
+	self searchAction: [ :e | 
 		(('*', searchExpression, '*') match: e name) or:[
 			(('*', searchExpression, '*') match: e platform)
 		]
 	].
+]
+
+{ #category : #actions }
+CollectableApp >> searchAction: aSelectBlockClosure [
+
+	"get the content of the field and do the search"
+	| collectibles collections |
+	collections := self getCollectableCollectionsManagerServicesProvider getCollections.
+	collectibles := OrderedCollection new.
+	collections do:[ :c | collectibles addAll: c collectibles ].
+	
+	collectibles size = 0 ifTrue:[ ^ self ].
+
+	aSelectBlockClosure ifNil:[ self populateCollectibleListWith: collectibles ].
+	
+	collectibles := collectibles select: aSelectBlockClosure.
 	self populateCollectibleListWith: collectibles.
+]
+
+{ #category : #actions }
+CollectableApp >> searchNoCountryAction [
+
+	self searchAction: [ :e | e country isNil ]
 ]
 
 { #category : #initialization }
