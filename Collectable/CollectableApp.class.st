@@ -15,10 +15,20 @@ Class {
 
 { #category : #private }
 CollectableApp >> buildList [
-	| list typeLabel |
+	| list |
 
 	list := ToListElement new nodeBuilder: [ :node :holder |
-		| collectible typePane platformPane contentPane title platform |
+		self buildListNode: node holder: holder.
+	].
+
+	list withRowNumbers.
+	^ list
+]
+
+{ #category : #private }
+CollectableApp >> buildListNode: node holder: holder [
+		| collectible typePane typeLabel platformPane contentPane title platform |
+
 		collectible := holder data.
 		node layout: BlFlowLayout horizontal.
 		node height: 50; hMatchParent.
@@ -68,10 +78,6 @@ CollectableApp >> buildList [
 		collectible isVideoGameSystem ifTrue:[
 			"todo"
 		].
-	].
-
-	list withRowNumbers.
-	^ list
 ]
 
 { #category : #private }

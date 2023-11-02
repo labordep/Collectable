@@ -1,7 +1,7 @@
 Class {
 	#name : #CollectibleGameyeVideoGame,
 	#superclass : #CollectibleVideoGame,
-	#traits : 'TCollectibleGameyeCollectible',
-	#classTraits : 'TCollectibleGameyeCollectible classTrait',
+	#traits : 'TCollectibleGameyeVideoGame',
+	#classTraits : 'TCollectibleGameyeVideoGame classTrait',
 	#category : #'Collectable-Gameye-Core'
 }
