@@ -20,16 +20,16 @@ CollectableApp >> buildList [
 	list := ToListElement new nodeBuilder: [ :node :holder |
 		| collectible typePane platformPane contentPane title platform |
 		collectible := holder data.
-		"node beHorizontal."
+		node layout: BlFlowLayout horizontal.
 		node height: 50; hMatchParent.
 
-		typePane := ToPane new id: #typePanel; beVertical; background: (Color fromHexString: 'D1C4E9'); width: 25; vMatchParent.
+		typePane := ToPane new id: #typePanel; beVertical; background: (Color fromHexString: 'D1C4E9C8'); width: 25; vMatchParent.
 		node addChild: typePane.
 
-		platformPane := ToPane new id: #platformPanel; beVertical; background: (self getPlatformColor: collectible platform); width: 200; vMatchParent.
+		platformPane := ToPane new id: #platformPanel; beVertical; background: ((self getPlatformColor: collectible platform) alpha: 0.75); width: 200; vMatchParent.
 		node addChild: platformPane.
 		
-   	 	contentPane := ToPane new id: #contentPane; beVertical; background: (Color fromHexString: 'D1C4E9'); vMatchParent; hMatchParent.
+   	 	contentPane := ToPane new id: #contentPane; beVertical; background: (Color fromHexString: 'D1C4E9C8'); vMatchParent; hFitContent.
 		node addChild: contentPane.
 		
 		typeLabel := ToLabel new id: #typeLabel; text: ((collectible class asString asRopedText) fontSize: 10).
