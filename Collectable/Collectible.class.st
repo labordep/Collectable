@@ -8,8 +8,7 @@ Class {
 
 { #category : #testing }
 Collectible >> isVideoGame [
-
-	^ false
+^false
 ]
 
 { #category : #testing }
