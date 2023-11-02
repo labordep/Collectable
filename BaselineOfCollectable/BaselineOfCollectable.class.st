@@ -36,7 +36,7 @@ BaselineOfCollectable >> dependencies: spec [
 	].	
 
 	"UI tool : Pyramid"
-	spec baseline: 'Pyramid' with: [ spec repository: 'github://OpenSmock/Pyramid:dev/src' ].
+	spec baseline: 'Pyramid' with: [ spec repository: 'github://OpenSmock/Pyramid:main/src' ].
 
 	"UI : Toplo with Bloc"
 	spec baseline: 'Toplo' with: [ spec repository: 'github://plantec/Toplo:master/src' ].
