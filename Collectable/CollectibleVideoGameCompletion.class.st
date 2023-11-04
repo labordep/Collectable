@@ -6,6 +6,22 @@ Class {
 	#category : #'Collectable-Model'
 }
 
+{ #category : #accessing }
+CollectibleVideoGameCompletion >> accomplishment [
+	"Return level of accomplishment of the completion"
+	
+	| percent |
+	self isComplete ifTrue:[ ^ 100 percent ].
+	
+	percent := 0 percent.
+	
+	self haveSupport ifTrue:[ percent := percent + (50 percent) ].
+	self haveBox ifTrue:[ percent := percent + (40 percent) ].
+	self haveManual ifTrue:[ percent := percent + (10 percent) ].
+	
+	^ percent percent
+]
+
 { #category : #printing }
 CollectibleVideoGameCompletion >> completionString [
 
@@ -26,7 +42,7 @@ CollectibleVideoGameCompletion >> completionString [
 	^ super completionString
 ]
 
-{ #category : #testing }
+{ #category : #accessing }
 CollectibleVideoGameCompletion >> includes [
 
 	| includes |
@@ -37,7 +53,7 @@ CollectibleVideoGameCompletion >> includes [
 	^ includes
 ]
 
-{ #category : #testing }
+{ #category : #accessing }
 CollectibleVideoGameCompletion >> missing [
 
 	| missing |

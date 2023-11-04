@@ -1,8 +1,8 @@
 Class {
 	#name : #CollectableApp,
 	#superclass : #MolAbstractComponentImpl,
-	#traits : 'CollectableAppType + CollectableCollectionsManagerEvents',
-	#classTraits : 'CollectableAppType classTrait + CollectableCollectionsManagerEvents classTrait',
+	#traits : 'CollectableAppType + CollectableCollectionsManagerEvents + MolClusteredComponent',
+	#classTraits : 'CollectableAppType classTrait + CollectableCollectionsManagerEvents classTrait + MolClusteredComponent classTrait',
 	#instVars : [
 		'mainPane',
 		'space',
@@ -11,6 +11,12 @@ Class {
 	],
 	#category : #'Collectable-Core'
 }
+
+{ #category : #ui }
+CollectableApp class >> windowTitleHead [
+
+	^ '[|||] Collectable (alpha version)'.
+]
 
 { #category : #private }
 CollectableApp >> buildList [
@@ -102,7 +108,7 @@ CollectableApp >> buildListNode: node holder: holder [
 
 { #category : #private }
 CollectableApp >> buildMenu [
-	| menu loadCollectionMenu menuBar debugMenu openOnPyramid queryMenu searchNoCountryCollectibles orderMenu orderByAlphaIncrease orderByAlphaDecrease orderByAddedDateIncrease orderByAddedDateDecrease searchCollectibles |
+	| menu loadCollectionMenu menuBar debugMenu openOnPyramid queryMenu searchNoCountryCollectibles orderMenu orderByAlphaIncrease orderByAlphaDecrease orderByAddedDateIncrease orderByAddedDateDecrease searchCollectibles statsMenuItem |
 
 	menuBar := ToMenuBar new hFitContent.
 
@@ -113,6 +119,25 @@ CollectableApp >> buildMenu [
 	menu label: (ToLabel new text: 'File').
 	menu icon: (ToImage new innerImage: (self iconNamed: #solidMenu)).
 	menuBar addMenu: menu.
+	
+	"Stats menu"
+	statsMenuItem := ToMenuItem new.
+	statsMenuItem label: (ToLabel new text: 'Fullset stats : Nintendo 64 PAL FRA').
+	statsMenuItem icon: (ToImage new innerImage: (self iconNamed: #box)).
+	statsMenuItem whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset nintendo64_PAL_FRA ].
+	menu addItem: statsMenuItem.
+
+	statsMenuItem := ToMenuItem new.
+	statsMenuItem label: (ToLabel new text: 'Fullset stats : Wii U PAL FRA').
+	statsMenuItem icon: (ToImage new innerImage: (self iconNamed: #box)).
+	statsMenuItem whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset nintendoWiiU_PAL_FRA ].
+	menu addItem: statsMenuItem.
+	
+	statsMenuItem := ToMenuItem new.
+	statsMenuItem label: (ToLabel new text: 'Fullset stats : Pokemon mini PLA FRA').
+	statsMenuItem icon: (ToImage new innerImage: (self iconNamed: #box)).
+	statsMenuItem whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset nintendoPokemonMini_PAL_FRA ].
+	menu addItem: statsMenuItem.
 	
 	"Load menu"
 	loadCollectionMenu := ToMenu new.
@@ -266,6 +291,9 @@ CollectableApp >> componentActivate [
 { #category : #'life cycle' }
 CollectableApp >> componentInitialize [ 
 
+	self clusterName: self componentName.
+
+	CollectableVideoGameFullsetStatView deploy.
 	self startOSProjectManager.
 	self startCollectionsManager.
 
@@ -425,6 +453,21 @@ CollectableApp >> openDefaultCollections [
 	self getCollectableCollectionsManagerServicesProvider setCollections: CollecWorld defaultCollections.	
 ]
 
+{ #category : #actions }
+CollectableApp >> openFullsetStat: aFullset [
+
+	| component name |
+	aFullset ifNil:[ ^ self ].
+	name := MolUtils randomizeComponentName.
+	component := CollectableVideoGameFullsetStatView instanciate: name.
+	component ifNil:[ ^ self ].
+	component clusterName: self clusterName.
+	CollectableVideoGameFullsetStatView activate: name.
+	
+	component setFullset: aFullset.
+	component openInWindow
+]
+
 { #category : #initialization }
 CollectableApp >> openSpace [	
 
@@ -512,7 +555,7 @@ CollectableApp >> searchAction: aSelectBlockClosure [
 { #category : #initialization }
 CollectableApp >> startCollectionsManager [
 
-	CollectableCollectionsManager start: self componentName
+	CollectableCollectionsManager start: self clusterName
 ]
 
 { #category : #initialization }
@@ -550,7 +593,7 @@ CollectableApp >> updateTitle [
 
 	| nb title |
 	
-	title := '[|||] Collectable (alpha version)'.
+	title := self class windowTitleHead.
 	
 	nb := collectibleList data size.
 	nb > 0 ifTrue:[

@@ -27,7 +27,7 @@ CollecWorld class >> menu00CollectableOn: aBuilder [
 
 	<worldMenu>
 	(aBuilder item: #Collectable)
-		label: '[|||] Collectable';
+		label: CollectableApp windowTitleHead;
 		help: 'An application project to manage stuff collector';
 		order: 777
 ]
@@ -38,6 +38,7 @@ CollecWorld class >> menu10OpenCollectableOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #Open)
 		parent: #Collectable;
+		order: 1;
 		label: 'Open';
 		action: [ self startApplication ];
 		help: 'Open a new Collectable window'.
@@ -68,7 +69,5 @@ CollecWorld class >> menu30CleanDefaultCollectionOn: aBuilder [
 { #category : #actions }
 CollecWorld class >> startApplication [
 
-	| randomizedId |
-	randomizedId := self name, (Random new next * 1000000) rounded asString.
-	CollectableApp start: (randomizedId asSymbol)
+	CollectableApp start: (MolUtils randomizeComponentName)
 ]

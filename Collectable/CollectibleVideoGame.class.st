@@ -18,6 +18,25 @@ CollectibleVideoGame >> isVideoGame [
 	^ true
 ]
 
+{ #category : #printing }
+CollectibleVideoGame >> referenceString [
+
+	| stream |
+	stream := ReadWriteStream on: String new.
+
+	self name ifNil: [ ^ super referenceString ] ifNotNil: [ stream nextPutAll: self name asString ].
+	stream space.
+	self platform ifNil: [ ^ super referenceString ] ifNotNil: [ stream nextPutAll: self platform asString ]. 
+	stream space.
+	self country ifNil: [ ^ super referenceString ] ifNotNil: [ stream nextPutAll: self country asString ].
+	stream space.
+	self developer ifNotNil: [ stream nextPutAll: self developer asString ]. 
+	stream space.
+	self publisher ifNotNil: [ stream nextPutAll: self publisher asString ]. 
+	
+	^ stream contents
+]
+
 { #category : #accessing }
 CollectibleVideoGame >> typeString [
 

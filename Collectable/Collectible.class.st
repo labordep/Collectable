@@ -36,3 +36,9 @@ Collectible >> isVideoGameSystem [
 
 	^ false
 ]
+
+{ #category : #printing }
+Collectible >> referenceString [
+
+	^ 'Collectible'
+]

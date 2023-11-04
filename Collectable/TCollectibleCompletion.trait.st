@@ -6,13 +6,21 @@ Trait {
 	#category : #'Collectable-Model-Traits-Completion'
 }
 
+{ #category : #accessing }
+TCollectibleCompletion >> accomplishment [
+	"Return level of accomplishment of the completion"
+	
+	self isComplete ifTrue:[ ^ 100 percent ].
+	^ 0 percent
+]
+
 { #category : #printing }
 TCollectibleCompletion >> completionString [
 
 	^ self isComplete ifTrue:['Complete'] ifFalse:['Uncomplete']
 ]
 
-{ #category : #testing }
+{ #category : #accessing }
 TCollectibleCompletion >> includes [
 
 	^ OrderedCollection new
@@ -24,19 +32,19 @@ TCollectibleCompletion >> isComplete [
 	^ self missing isEmpty
 ]
 
-{ #category : #testing }
+{ #category : #accessing }
 TCollectibleCompletion >> isNew [
 
 	^ isNew ifNil: [ isNew := false ]
 ]
 
-{ #category : #testing }
+{ #category : #accessing }
 TCollectibleCompletion >> isNew: aBoolean [
 
 	isNew := aBoolean
 ]
 
-{ #category : #testing }
+{ #category : #accessing }
 TCollectibleCompletion >> missing [
 
 	^ OrderedCollection new
