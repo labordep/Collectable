@@ -7,7 +7,19 @@ Class {
 }
 
 { #category : #testing }
+CollectibleVideoGame >> initializeCompletion [ 
+
+	self completion: CollectibleVideoGameCompletion new.
+]
+
+{ #category : #testing }
 CollectibleVideoGame >> isVideoGame [
 
 	^ true
+]
+
+{ #category : #accessing }
+CollectibleVideoGame >> typeString [
+
+	^ 'Game'
 ]

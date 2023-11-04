@@ -6,8 +6,20 @@ Class {
 	#category : #'Collectable-Model'
 }
 
+{ #category : #accessing }
+CollectibleVideoGameSystem >> initializeCompletion [ 
+
+	self completion: CollectibleVideoGameCompletion new.
+]
+
 { #category : #testing }
 CollectibleVideoGameSystem >> isVideoGameSystem [
 
 	^ true
+]
+
+{ #category : #testing }
+CollectibleVideoGameSystem >> typeString [
+
+	^ 'System'
 ]

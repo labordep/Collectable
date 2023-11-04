@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'country'
 	],
-	#category : #'Collectable-Model-Traits'
+	#category : #'Collectable-Model-Traits-Collectible'
 }
 
 { #category : #accessing }

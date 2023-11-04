@@ -2,10 +2,23 @@ Trait {
 	#name : #TCollectible,
 	#instVars : [
 		'dateAdded',
-		'name'
+		'name',
+		'completion'
 	],
-	#category : #'Collectable-Model-Traits'
+	#category : #'Collectable-Model-Traits-Collectible'
 }
+
+{ #category : #accessing }
+TCollectible >> completion [
+
+	^ completion
+]
+
+{ #category : #accessing }
+TCollectible >> completion: anObject [
+
+	completion := anObject
+]
 
 { #category : #accessing }
 TCollectible >> dateAdded [
@@ -34,11 +47,17 @@ TCollectible >> name: anObject [
 { #category : #accessing }
 TCollectible >> printIdentifierOn: aStream [
 
-	aStream nextPutAll: 'a Collectible'
+	aStream nextPutAll: self typeString
 ]
 
 { #category : #accessing }
 TCollectible >> printOn: aStream [
 
 	^ self printIdentifierOn: aStream
+]
+
+{ #category : #printing }
+TCollectible >> typeString [
+
+	^ 'Collectible'
 ]

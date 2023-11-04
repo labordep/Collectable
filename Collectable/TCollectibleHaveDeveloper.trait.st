@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'developer'
 	],
-	#category : #'Collectable-Model-Traits'
+	#category : #'Collectable-Model-Traits-Collectible'
 }
 
 { #category : #accessing }

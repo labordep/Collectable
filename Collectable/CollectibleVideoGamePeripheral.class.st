@@ -7,7 +7,19 @@ Class {
 }
 
 { #category : #accessing }
+CollectibleVideoGamePeripheral >> initializeCompletion [ 
+
+	self completion: CollectibleVideoGameCompletion new.
+]
+
+{ #category : #accessing }
 CollectibleVideoGamePeripheral >> isVideoGamePeripheral [
 
 	^ true
+]
+
+{ #category : #accessing }
+CollectibleVideoGamePeripheral >> typeString [
+
+	^ 'Peripheral'
 ]

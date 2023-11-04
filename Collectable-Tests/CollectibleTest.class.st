@@ -7,9 +7,18 @@ Class {
 	#category : #'Collectable-Tests-Model'
 }
 
-{ #category : #tests }
-CollectibleTest >> testCollectible [ 
+{ #category : #test }
+CollectibleTest >> testInitialize [
 
-	| col |
-	col := Collectible new.
+	| collectible |
+	collectible := Collectible new.
+	self assert: collectible dateAdded isNil.
+	self assert: collectible name isNil.
+	self assert: collectible typeString equals: 'Collectible'.
+	self assert: collectible completion class equals: CollectibleCompletion.
+	
+	"Testing methods"
+	self deny: collectible isVideoGame.
+	self deny: collectible isVideoGamePeripheral.
+	self deny: collectible isVideoGameSystem.
 ]

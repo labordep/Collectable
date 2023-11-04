@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'delegate'
 	],
-	#category : #'Collectable-Model-Traits'
+	#category : #'Collectable-Model-Traits-Collectible'
 }
 
 { #category : #accessing }
@@ -21,11 +21,17 @@ TCollectibleDelegator >> delegate [
 { #category : #accessing }
 TCollectibleDelegator >> delegate: anObject [
 
-	delegate := anObject
+	delegate ~= anObject ifFalse: [ ^ self ].
+	delegate := anObject.
+	self initializeDelegation
 ]
 
 { #category : #accessing }
 TCollectibleDelegator >> haveDelegate [
 
 	^ delegate notNil
+]
+
+{ #category : #accessing }
+TCollectibleDelegator >> initializeDelegation [
 ]

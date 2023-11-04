@@ -28,7 +28,7 @@ BaselineOfCollectable >> baseline: spec [
 BaselineOfCollectable >> dependencies: spec [
 
 	"Functionnality to import Pharo Gameye datas"
-	spec baseline: 'Gameye' with: [ spec repository: 'github://labordep/PharoGameye:2.0' ].
+	spec baseline: 'Gameye' with: [ spec repository: 'github://labordep/PharoGameye:2.0.1' ].
 
 	"OS-Windows management layer for the UI"
 	Smalltalk os isWindows ifTrue: [

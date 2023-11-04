@@ -26,7 +26,7 @@ CollectableApp >> buildList [
 
 { #category : #private }
 CollectableApp >> buildListNode: node holder: holder [
-		| collectible typePane typeLabel platformPane contentPane title country platform |
+		| collectible typePane typeLabel platformPane contentPane title country platform secondPane statePane stateLabel completion |
 
 		collectible := holder data.
 		node layout: BlFlowLayout horizontal.
@@ -38,6 +38,9 @@ CollectableApp >> buildListNode: node holder: holder [
 		platformPane := ToPane new id: #platformPanel; beVertical; background: ((self getPlatformColor: collectible platform) alpha: 0.75); width: 200; vMatchParent.
 		node addChild: platformPane.
 		
+		statePane := ToPane new id: #statePanel; beVertical; background: (Color fromHexString: 'D1C4E9C8'); width: 25; vMatchParent.
+		node addChild: statePane.
+		
 		title := ToLabel new id: #title;
 			           text: (collectible name asRopedText foreground: (Color fromHexString: '673AB7'); fontSize: 24; bold);
 			            margin: (BlInsets all: 1);
@@ -48,7 +51,7 @@ CollectableApp >> buildListNode: node holder: holder [
    	 	contentPane := ToPane new id: #contentPane; beVertical; background: (Color fromHexString: 'D1C4E9C8'); vMatchParent; hFitContent.
 		node addChild: contentPane.
 		
-		typeLabel := ToLabel new id: #typeLabel; text: ((collectible class asString asRopedText) fontSize: 10).
+		typeLabel := ToLabel new id: #typeLabel; text: ((collectible typeString asRopedText) fontSize: 10).
 		typeLabel transformDo: [ :t | t normalizedOrigin: 0 @ 1. t rotateBy: 90 ].
 		typePane addChild: typeLabel.
 
@@ -57,6 +60,10 @@ CollectableApp >> buildListNode: node holder: holder [
 			            padding: (BlInsets all: 1);
 			            yourself.
 		platformPane addChild: platform.
+
+		stateLabel := ToLabel new id: #stateLabel; text: ((collectible completion completionString asRopedText) fontSize: 15).
+		stateLabel transformDo: [ :t | t normalizedOrigin: 0 @ 1. t rotateBy: 90 ].
+		statePane addChild: stateLabel.
 
 		country := ToLabel new id: #country;
 							text: (collectible country asRopedText foreground: (Color black); fontSize: 10);
@@ -84,14 +91,18 @@ CollectableApp >> buildListNode: node holder: holder [
 			].
 		].
 
-		collectible isVideoGameSystem ifTrue:[
-			"todo"
-		].
+		secondPane := ToPane new id: #datePane; beVertical; background: (Color fromHexString: 'D1C4E9C8'); vMatchParent; hFitContent.
+		secondPane addChild:(ToLabel new id: #dateAdded;
+							text: (('Added ', collectible dateAdded asString) asRopedText foreground: (Color brown); fontSize: 12);
+			            margin: (BlInsets all: 1);
+			            padding: (BlInsets all: 1);
+			            yourself).
+		node addChild: secondPane.
 ]
 
 { #category : #private }
 CollectableApp >> buildMenu [
-	| menu loadCollectionMenu menuBar debugMenu openOnPyramid queryMenu searchNoCountryCollectibles |
+	| menu loadCollectionMenu menuBar debugMenu openOnPyramid queryMenu searchNoCountryCollectibles orderMenu orderByAlphaIncrease orderByAlphaDecrease orderByAddedDateIncrease orderByAddedDateDecrease searchCollectibles |
 
 	menuBar := ToMenuBar new hFitContent.
 
@@ -126,8 +137,69 @@ CollectableApp >> buildMenu [
 	"Query buttons"
 	searchNoCountryCollectibles := ToMenuItem new 
 			label: (ToLabel new text: 'Without country'); 
-			whenClickedDo:[self searchNoCountryAction].
+			whenClickedDo:[self searchAction: [ :e | e country isNil ]].
 	queryMenu addItem: searchNoCountryCollectibles.
+	
+	searchCollectibles := ToMenuItem new 
+			label: (ToLabel new text: 'Added last month'); 
+			whenClickedDo:[self searchAction: [ :e |
+				e dateAdded month = (Date today month previous)  ]
+			].
+	queryMenu addItem: searchCollectibles.
+	
+	searchCollectibles := ToMenuItem new 
+			label: (ToLabel new text: 'Added this month'); 
+			whenClickedDo:[self searchAction: [ :e |
+				e dateAdded month = (Date today month)  ]
+			].
+	queryMenu addItem: searchCollectibles.
+	
+	searchCollectibles := ToMenuItem new 
+			label: (ToLabel new text: '[N64 Games] Added since last month'); 
+			whenClickedDo:[self searchAction: [ :e |
+				e isVideoGame and:[ (e dateAdded month >= (Date today month previous) and:[e platform = 'Nintendo 64']) ] ]
+			].
+	queryMenu addItem: searchCollectibles.
+	
+	searchCollectibles := ToMenuItem new 
+			label: (ToLabel new text: '[WiiU Games] Added since last month'); 
+			whenClickedDo:[self searchAction: [ :e |
+				e isVideoGame and:[ (e dateAdded month >= (Date today month previous) and:[e platform = 'Nintendo Wii U']) ] ]
+			].
+	queryMenu addItem: searchCollectibles.
+	
+	"Order menu"
+	orderMenu := ToMenu new.
+	orderMenu id: #query.
+	orderMenu layout cellSpacing: 5.
+	orderMenu label: (ToLabel new text: 'Order by').
+	orderMenu icon: (ToImage new innerImage: (self iconNamed: #changeSorter)).
+	menuBar addMenu: orderMenu.
+	
+	"Order buttons"
+	orderByAlphaIncrease := ToMenuItem new 
+			label: (ToLabel new text: 'Name');
+			iconImage: (self iconNamed: #arrowDown); 
+			whenClickedDo:[self orderAction: [ :a :b | a name < b name ]].
+	orderMenu addItem: orderByAlphaIncrease.
+	
+	orderByAlphaDecrease := ToMenuItem new 
+			label: (ToLabel new text: 'Name'); 
+			iconImage: (self iconNamed: #arrowUp ); 
+			whenClickedDo:[self orderAction: [ :a :b | a name > b name ]].
+	orderMenu addItem: orderByAlphaDecrease.
+
+	orderByAddedDateIncrease := ToMenuItem new 
+			label: (ToLabel new text: 'Added date'); 
+			iconImage: (self iconNamed: #arrowDown ); 
+			whenClickedDo:[self orderAction: [ :a :b | a dateAdded < b dateAdded ]].
+	orderMenu addItem: orderByAddedDateIncrease.
+	
+	orderByAddedDateDecrease := ToMenuItem new 
+			label: (ToLabel new text: 'Added date'); 
+			iconImage: (self iconNamed: #arrowUp ); 
+			whenClickedDo:[self orderAction: [ :a :b | a dateAdded > b dateAdded ]].
+	orderMenu addItem: orderByAddedDateDecrease.
 	
 	"Debug menu"
 	debugMenu := ToMenu new.
@@ -369,6 +441,20 @@ CollectableApp >> openSpace [
 ]
 
 { #category : #actions }
+CollectableApp >> orderAction: aSortBlockClosure [
+
+	| list |
+	aSortBlockClosure ifNil:[ ^ self ].
+	
+	list := collectibleList data asArray asOrderedCollection. 
+	list ifEmpty: [ ^ self ].
+	
+	list sort: aSortBlockClosure.
+	
+	self populateCollectibleListWith: list.
+]
+
+{ #category : #actions }
 CollectableApp >> populateCollectibleListWith: aCollectibleList [
 	
 	collectibleList data removeAll.
@@ -417,16 +503,10 @@ CollectableApp >> searchAction: aSelectBlockClosure [
 	
 	collectibles size = 0 ifTrue:[ ^ self ].
 
-	aSelectBlockClosure ifNil:[ self populateCollectibleListWith: collectibles ].
+	aSelectBlockClosure ifNil:[ self populateCollectibleListWith: collectibles. ^ self ].
 	
 	collectibles := collectibles select: aSelectBlockClosure.
 	self populateCollectibleListWith: collectibles.
-]
-
-{ #category : #actions }
-CollectableApp >> searchNoCountryAction [
-
-	self searchAction: [ :e | e country isNil ]
 ]
 
 { #category : #initialization }

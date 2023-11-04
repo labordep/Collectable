@@ -7,6 +7,19 @@ Class {
 }
 
 { #category : #testing }
+Collectible >> initialize [ 
+
+	super initialize.
+	self initializeCompletion.
+]
+
+{ #category : #testing }
+Collectible >> initializeCompletion [ 
+
+	self completion: CollectibleCompletion new.
+]
+
+{ #category : #testing }
 Collectible >> isVideoGame [
 
 	^ false
