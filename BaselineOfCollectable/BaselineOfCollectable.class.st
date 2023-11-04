@@ -46,4 +46,7 @@ BaselineOfCollectable >> dependencies: spec [
 	
 	"Architecture framework : Molecule"
 	spec baseline: 'Molecule' with: [ spec repository: 'github://OpenSmock/Molecule:1.2.11' ].
+	
+	"Roassal"
+	spec baseline: 'Roassal' with: [ spec repository: 'github://pharo-graphics/Roassal/src'; loads: #('Full') ].
 ]
