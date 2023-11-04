@@ -10,7 +10,7 @@ CollecGameyeUtils class >> createPeripheralsCollection: aGameyeCollection [
 	| collection |
 	collection := CollectibleCollection new.
 	collection name: 'Video Games Peripherals'.
-	collection collectibles: (aGameyeCollection peripherals collect:[ :e | e asCollectible ]) asOrderedCollection.
+	collection addCollectibles: (aGameyeCollection peripherals collect:[ :e | e asCollectible ]) asOrderedCollection.
 	^ collection
 ]
 
@@ -20,7 +20,7 @@ CollecGameyeUtils class >> createSystemsCollection: aGameyeCollection [
 	| collection |
 	collection := CollectibleCollection new.
 	collection name: 'Video Games Systems'.
-	collection collectibles: (aGameyeCollection systems collect:[ :e | e asCollectible ]) asOrderedCollection.
+	collection addCollectibles: (aGameyeCollection systems collect:[ :e | e asCollectible ]) asOrderedCollection.
 	^ collection
 ]
 
@@ -30,7 +30,7 @@ CollecGameyeUtils class >> createVideoGamesCollection: aGameyeCollection [
 	| collection |
 	collection := CollectibleCollection new.
 	collection name: 'Video Games'.
-	collection collectibles: (aGameyeCollection videoGames collect:[ :e | e asCollectible ]) asOrderedCollection.
+	collection addCollectibles: (aGameyeCollection videoGames collect:[ :e | e asCollectible ]) asOrderedCollection.
 	^ collection
 ]
 

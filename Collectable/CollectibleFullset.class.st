@@ -2,13 +2,44 @@ Class {
 	#name : #CollectibleFullset,
 	#superclass : #Object,
 	#instVars : [
-		'nbCollectibles',
 		'name',
-		'collectionQueryBlock',
-		'collectionFilterBlock'
+		'catalogs',
+		'collectionFilterBlock',
+		'numberOfCollectibles',
+		'collectibleQueryBlock'
 	],
 	#category : #'Collectable-Model'
 }
+
+{ #category : #catalog }
+CollectibleFullset >> addCatalog: aCatalog [
+
+	self catalogs add: aCatalog
+]
+
+{ #category : #accessing }
+CollectibleFullset >> catalogs [
+
+	^ catalogs ifNil:[catalogs := OrderedCollection new].
+]
+
+{ #category : #accessing }
+CollectibleFullset >> catalogs: anObject [
+
+	catalogs := anObject
+]
+
+{ #category : #accessing }
+CollectibleFullset >> collectibleQueryBlock [
+
+	^ collectibleQueryBlock
+]
+
+{ #category : #accessing }
+CollectibleFullset >> collectibleQueryBlock: anObject [
+
+	collectibleQueryBlock := anObject
+]
 
 { #category : #accessing }
 CollectibleFullset >> collectionFilterBlock [
@@ -22,16 +53,15 @@ CollectibleFullset >> collectionFilterBlock: anObject [
 	collectionFilterBlock := anObject
 ]
 
-{ #category : #accessing }
-CollectibleFullset >> collectionQueryBlock [
+{ #category : #querying }
+CollectibleFullset >> includesCollectible: aCollectible [
 
-	^ collectionQueryBlock
-]
-
-{ #category : #accessing }
-CollectibleFullset >> collectionQueryBlock: anObject [
-
-	collectionQueryBlock := anObject
+	| reference |
+	reference := aCollectible referenceString.
+	
+	(self catalogs anySatisfy:[ :catalog | (catalog includesReference: reference) ]) ifTrue:[ ^ true ].
+	
+	^ self collectibleQueryBlock ifNotNil: [ :e | e value: aCollectible ] ifNil: [ false ] 
 ]
 
 { #category : #accessing }
@@ -54,13 +84,19 @@ CollectibleFullset >> name: anObject [
 ]
 
 { #category : #accessing }
-CollectibleFullset >> nbCollectibles: anInteger [
+CollectibleFullset >> numberOfCollectibles [
 
-	nbCollectibles := anInteger
+	self catalogs ifNotEmpty: [ | count |
+		count := 0.
+		self catalogs do:[ :c | count := count + c numberOfCollectibles ].
+		^ count
+	] ifEmpty: [ 
+		^ numberOfCollectibles ifNil: [ numberOfCollectibles := 0 ]
+	] 
 ]
 
 { #category : #accessing }
-CollectibleFullset >> nbOfCollectibles [
+CollectibleFullset >> numberOfCollectibles: anInteger [
 
-	^ nbCollectibles ifNil: [ nbCollectibles := 0 ]
+	numberOfCollectibles := anInteger
 ]

@@ -139,6 +139,12 @@ CollectableApp >> buildMenu [
 	statsMenuItem whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset nintendoPokemonMini_PAL_FRA ].
 	menu addItem: statsMenuItem.
 	
+	statsMenuItem := ToMenuItem new.
+	statsMenuItem label: (ToLabel new text: 'Fullset stats : Pokemon games PAL FRA').
+	statsMenuItem icon: (ToImage new innerImage: (self iconNamed: #box)).
+	statsMenuItem whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset allPokemonLicenceGame_PAL_FRA ].
+	menu addItem: statsMenuItem.
+	
 	"Load menu"
 	loadCollectionMenu := ToMenu new.
 	loadCollectionMenu label: (ToLabel new text: 'Load collection').

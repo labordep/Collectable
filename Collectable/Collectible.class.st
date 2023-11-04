@@ -40,5 +40,5 @@ Collectible >> isVideoGameSystem [
 { #category : #printing }
 Collectible >> referenceString [
 
-	^ 'Collectible'
+	^ 'collectible'
 ]
