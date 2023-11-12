@@ -109,43 +109,56 @@ CollectableApp >> buildListNode: node holder: holder [
 
 { #category : #private }
 CollectableApp >> buildMenu [
-	| menu loadCollectionMenu menuBar debugMenu openOnPyramid queryMenu searchNoCountryCollectibles orderMenu orderByAlphaIncrease orderByAlphaDecrease orderByAddedDateIncrease orderByAddedDateDecrease searchCollectibles statsMenuItem fullsetMenu queryN64Menu queryWiiUMenu |
+	| fileMenu loadCollectionMenu menuBar debugMenu openOnPyramid queryMenu searchNoCountryCollectibles orderMenu orderByAlphaIncrease orderByAlphaDecrease orderByAddedDateIncrease orderByAddedDateDecrease searchCollectibles fullsetMenu queryN64Menu queryWiiUMenu |
 
 	menuBar := (ToMenuBar id: #menuBar) hFitContent.
 
 	"File menu"
-	menu := ToMenu new.
-	menu id: #menu.
-	menu layout cellSpacing: 5.
-	menu label: (ToLabel new text: 'File').
-	menu icon: (ToImage new innerImage: (self iconNamed: #solidMenu)).
-	menuBar addMenu: menu.
+	fileMenu := ToMenu new.
+	fileMenu id: #menu.
+	fileMenu layout cellSpacing: 5.
+	fileMenu label: (ToLabel new text: 'File').
+	fileMenu icon: (ToImage new innerImage: (self iconNamed: #solidMenu)).
+	menuBar addMenu: fileMenu.
+	
+	"Stats"
+	fileMenu addItem:(
+		ToMenuItem new
+			label: (ToLabel new text: 'Prices stats');
+			icon: (ToImage new innerImage: (self iconNamed: #remote));
+			whenClickedDo:[ | list collections |
+				list := OrderedCollection new.
+				collections := self getCollectableCollectionsManagerServicesProvider getCollections.
+				collections do:[ :c | list addAll: c collectibles ].
+				self openPricesStat: list 
+			]
+	).
 	
 	"Fullset menu"
 	fullsetMenu := ToMenu new.
 	fullsetMenu label: (ToLabel new text: 'Fullsets').
 	fullsetMenu icon: (ToImage new innerImage: (self iconNamed: #box)).
-	menu addItem: fullsetMenu.
+	fileMenu addItem: fullsetMenu.
 	fullsetMenu addItem: (
-		statsMenuItem := ToMenuItem new
+		ToMenuItem new
 			label: (ToLabel new text: 'Fullset stats : Nintendo 64 PAL FRA');
 			icon: (ToImage new innerImage: (self iconNamed: #box));
 			whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset nintendo64_PAL_FRA ]
 	).
 	fullsetMenu addItem: (
-		statsMenuItem := ToMenuItem new
+		ToMenuItem new
 			label: (ToLabel new text: 'Fullset stats : Wii U PAL FRA');
 			icon: (ToImage new innerImage: (self iconNamed: #box));
 			whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset nintendoWiiU_PAL_FRA ]
 	).
 	fullsetMenu addItem: (
-		statsMenuItem := ToMenuItem new
+		ToMenuItem new
 			label: (ToLabel new text: 'Fullset stats : Pokemon mini PLA FRA');
 			icon: (ToImage new innerImage: (self iconNamed: #box));
 			whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset nintendoPokemonMini_PAL_FRA ]
 	).
 	fullsetMenu addItem: (
-		statsMenuItem := ToMenuItem new
+		ToMenuItem new
 			label: (ToLabel new text: 'Fullset stats : Pokemon games PAL FRA');
 			icon: (ToImage new innerImage: (self iconNamed: #box));
 			whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset allPokemonLicenceGame_PAL_FRA ]
@@ -155,7 +168,7 @@ CollectableApp >> buildMenu [
 	loadCollectionMenu := ToMenu new.
 	loadCollectionMenu label: (ToLabel new text: 'Load collection').
 	loadCollectionMenu icon: (ToImage new innerImage: (self iconNamed: #down)).
-	menu addItem: loadCollectionMenu.
+	fileMenu addItem: loadCollectionMenu.
 	loadCollectionMenu addItem: (
 		ToMenuItem new 
 			label: (ToLabel new text: 'Import GAMEYE.app Spreadsheet'); 
@@ -217,14 +230,14 @@ CollectableApp >> buildMenu [
 	queryWiiUMenu icon: (ToImage new innerImage: (self iconNamed: #box)).
 	queryMenu addItem: queryWiiUMenu.
 	queryWiiUMenu addItem:(
-		searchCollectibles := ToMenuItem new 
+		ToMenuItem new 
 			label: (ToLabel new text: 'Added this month'); 
 			whenClickedDo:[self searchAction: [ :e |
 				e isVideoGame and:[ (e dateAdded month = (Date today month)) and:[e platform = 'Nintendo Wii U'] ] ]
 			]
 	).
 	queryWiiUMenu addItem:(
-		searchCollectibles := ToMenuItem new 
+		ToMenuItem new 
 			label: (ToLabel new text: 'Added last month'); 
 			whenClickedDo:[self searchAction: [ :e |
 				e isVideoGame and:[ (e dateAdded month = (Date today month previous)) and:[e platform = 'Nintendo Wii U'] ] ]
@@ -348,7 +361,9 @@ CollectableApp >> componentInitialize [
 
 	self clusterName: self componentName.
 
+	CollectablePricesStatView deploy.
 	CollectableVideoGameFullsetStatView deploy.
+	
 	self startOSProjectManager.
 	self startCollectionsManager.
 
@@ -522,6 +537,22 @@ CollectableApp >> openFullsetStat: aFullset [
 	CollectableVideoGameFullsetStatView activate: name.
 	
 	component setFullset: aFullset.
+	component openInWindow
+]
+
+{ #category : #actions }
+CollectableApp >> openPricesStat: aCollectibleList [
+
+	| component name |
+	aCollectibleList ifNil:[ ^ self ].
+
+	name := MolUtils randomizeComponentName.
+	component := CollectablePricesStatView instanciate: name.
+	component ifNil:[ ^ self ].
+	component clusterName: self clusterName.
+	CollectablePricesStatView activate: name.
+	
+	component setCollection: (CollectibleCollection new addCollectibles: aCollectibleList).
 	component openInWindow
 ]
 
