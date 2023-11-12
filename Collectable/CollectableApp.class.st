@@ -7,7 +7,8 @@ Class {
 		'mainPane',
 		'space',
 		'collectibleList',
-		'searchField'
+		'searchField',
+		'statsPane'
 	],
 	#category : #'Collectable-Core'
 }
@@ -108,9 +109,9 @@ CollectableApp >> buildListNode: node holder: holder [
 
 { #category : #private }
 CollectableApp >> buildMenu [
-	| menu loadCollectionMenu menuBar debugMenu openOnPyramid queryMenu searchNoCountryCollectibles orderMenu orderByAlphaIncrease orderByAlphaDecrease orderByAddedDateIncrease orderByAddedDateDecrease searchCollectibles statsMenuItem |
+	| menu loadCollectionMenu menuBar debugMenu openOnPyramid queryMenu searchNoCountryCollectibles orderMenu orderByAlphaIncrease orderByAlphaDecrease orderByAddedDateIncrease orderByAddedDateDecrease searchCollectibles statsMenuItem fullsetMenu queryN64Menu queryWiiUMenu |
 
-	menuBar := ToMenuBar new hFitContent.
+	menuBar := (ToMenuBar id: #menuBar) hFitContent.
 
 	"File menu"
 	menu := ToMenu new.
@@ -120,31 +121,36 @@ CollectableApp >> buildMenu [
 	menu icon: (ToImage new innerImage: (self iconNamed: #solidMenu)).
 	menuBar addMenu: menu.
 	
-	"Stats menu"
-	statsMenuItem := ToMenuItem new.
-	statsMenuItem label: (ToLabel new text: 'Fullset stats : Nintendo 64 PAL FRA').
-	statsMenuItem icon: (ToImage new innerImage: (self iconNamed: #box)).
-	statsMenuItem whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset nintendo64_PAL_FRA ].
-	menu addItem: statsMenuItem.
+	"Fullset menu"
+	fullsetMenu := ToMenu new.
+	fullsetMenu label: (ToLabel new text: 'Fullsets').
+	fullsetMenu icon: (ToImage new innerImage: (self iconNamed: #box)).
+	menu addItem: fullsetMenu.
+	fullsetMenu addItem: (
+		statsMenuItem := ToMenuItem new
+			label: (ToLabel new text: 'Fullset stats : Nintendo 64 PAL FRA');
+			icon: (ToImage new innerImage: (self iconNamed: #box));
+			whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset nintendo64_PAL_FRA ]
+	).
+	fullsetMenu addItem: (
+		statsMenuItem := ToMenuItem new
+			label: (ToLabel new text: 'Fullset stats : Wii U PAL FRA');
+			icon: (ToImage new innerImage: (self iconNamed: #box));
+			whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset nintendoWiiU_PAL_FRA ]
+	).
+	fullsetMenu addItem: (
+		statsMenuItem := ToMenuItem new
+			label: (ToLabel new text: 'Fullset stats : Pokemon mini PLA FRA');
+			icon: (ToImage new innerImage: (self iconNamed: #box));
+			whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset nintendoPokemonMini_PAL_FRA ]
+	).
+	fullsetMenu addItem: (
+		statsMenuItem := ToMenuItem new
+			label: (ToLabel new text: 'Fullset stats : Pokemon games PAL FRA');
+			icon: (ToImage new innerImage: (self iconNamed: #box));
+			whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset allPokemonLicenceGame_PAL_FRA ]
+	).
 
-	statsMenuItem := ToMenuItem new.
-	statsMenuItem label: (ToLabel new text: 'Fullset stats : Wii U PAL FRA').
-	statsMenuItem icon: (ToImage new innerImage: (self iconNamed: #box)).
-	statsMenuItem whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset nintendoWiiU_PAL_FRA ].
-	menu addItem: statsMenuItem.
-	
-	statsMenuItem := ToMenuItem new.
-	statsMenuItem label: (ToLabel new text: 'Fullset stats : Pokemon mini PLA FRA').
-	statsMenuItem icon: (ToImage new innerImage: (self iconNamed: #box)).
-	statsMenuItem whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset nintendoPokemonMini_PAL_FRA ].
-	menu addItem: statsMenuItem.
-	
-	statsMenuItem := ToMenuItem new.
-	statsMenuItem label: (ToLabel new text: 'Fullset stats : Pokemon games PAL FRA').
-	statsMenuItem icon: (ToImage new innerImage: (self iconNamed: #box)).
-	statsMenuItem whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset allPokemonLicenceGame_PAL_FRA ].
-	menu addItem: statsMenuItem.
-	
 	"Load menu"
 	loadCollectionMenu := ToMenu new.
 	loadCollectionMenu label: (ToLabel new text: 'Load collection').
@@ -185,19 +191,45 @@ CollectableApp >> buildMenu [
 			].
 	queryMenu addItem: searchCollectibles.
 	
-	searchCollectibles := ToMenuItem new 
-			label: (ToLabel new text: '[N64 Games] Added since last month'); 
+	"Query N64 menu"
+	queryN64Menu := ToMenu new.
+	queryN64Menu label: (ToLabel new text: 'Nintendo 64').
+	queryN64Menu icon: (ToImage new innerImage: (self iconNamed: #box)).
+	queryMenu addItem: queryN64Menu.
+	queryN64Menu addItem:(
+		searchCollectibles := ToMenuItem new 
+			label: (ToLabel new text: 'Added this month'); 
 			whenClickedDo:[self searchAction: [ :e |
-				e isVideoGame and:[ (e dateAdded month >= (Date today month previous) and:[e platform = 'Nintendo 64']) ] ]
-			].
-	queryMenu addItem: searchCollectibles.
+				e isVideoGame and:[ (e dateAdded month = (Date today month)) and:[e platform = 'Nintendo 64'] ] ]
+			]
+	).
+	queryN64Menu addItem:(
+		searchCollectibles := ToMenuItem new 
+			label: (ToLabel new text: 'Added last month'); 
+			whenClickedDo:[self searchAction: [ :e |
+				e isVideoGame and:[ (e dateAdded month = (Date today month previous)) and:[e platform = 'Nintendo 64'] ] ]
+			]
+	).
 	
-	searchCollectibles := ToMenuItem new 
-			label: (ToLabel new text: '[WiiU Games] Added since last month'); 
+	"Query WiiU menu"
+	queryWiiUMenu := ToMenu new.
+	queryWiiUMenu label: (ToLabel new text: 'Nintendo Wii U').
+	queryWiiUMenu icon: (ToImage new innerImage: (self iconNamed: #box)).
+	queryMenu addItem: queryWiiUMenu.
+	queryWiiUMenu addItem:(
+		searchCollectibles := ToMenuItem new 
+			label: (ToLabel new text: 'Added this month'); 
 			whenClickedDo:[self searchAction: [ :e |
-				e isVideoGame and:[ (e dateAdded month >= (Date today month previous) and:[e platform = 'Nintendo Wii U']) ] ]
-			].
-	queryMenu addItem: searchCollectibles.
+				e isVideoGame and:[ (e dateAdded month = (Date today month)) and:[e platform = 'Nintendo Wii U'] ] ]
+			]
+	).
+	queryWiiUMenu addItem:(
+		searchCollectibles := ToMenuItem new 
+			label: (ToLabel new text: 'Added last month'); 
+			whenClickedDo:[self searchAction: [ :e |
+				e isVideoGame and:[ (e dateAdded month = (Date today month previous)) and:[e platform = 'Nintendo Wii U'] ] ]
+			]
+	).
 	
 	"Order menu"
 	orderMenu := ToMenu new.
@@ -257,7 +289,7 @@ CollectableApp >> buildSearchWidget [
 
 	| searchPane searchButton |
 	
-	searchPane := ToPane new beHorizontal; hFitContent.
+	searchPane := (ToPane id: #search) beHorizontal; hFitContent.
 	
 	searchField := ToTextField new hMatchParent; width: 200; placeholderText: 'Search...'.
 	searchPane addChild: searchField.
@@ -267,6 +299,23 @@ CollectableApp >> buildSearchWidget [
 	searchPane addChild: searchButton.
 	
 	^ searchPane
+]
+
+{ #category : #private }
+CollectableApp >> buildStatsWidgets [
+
+	| label label2 |
+	
+	statsPane := (ToPane id: #statsPane) beVertical; hFitContent.
+	
+	"Statistics to display into labels"
+	label := ToLabel id: #stats1.
+	statsPane addChild: label.
+		
+	label2 := ToLabel id: #stats2.
+	statsPane addChild: label2.
+		
+	^ statsPane
 ]
 
 { #category : #releasing }
@@ -430,7 +479,7 @@ CollectableApp >> importGameyeSpreadsheetCollection [
 { #category : #initialization }
 CollectableApp >> initializeMainPane [
 
-	| menu title menuPane searchWidget |
+	| menu title menuPane searchWidget statsWidget |
 	mainPane := ToPane new beVertical.
 	mainPane matchParent.
 	
@@ -442,6 +491,8 @@ CollectableApp >> initializeMainPane [
 	menuPane addChild: menu.
 	searchWidget := self buildSearchWidget.
 	menuPane addChild: searchWidget.
+	statsWidget := self buildStatsWidgets.
+	menuPane addChild: statsWidget.
 	
 	"Title"
 	title := ToLabel text: ('Collectibles').
@@ -481,7 +532,7 @@ CollectableApp >> openSpace [
 	space := mainPane openInSpace.
 	
 	"setup space properties"
-	self updateTitle.
+	self updateContent.
 	space position: 100 @ 100.
 
 	"initialize event handlers"
@@ -507,13 +558,13 @@ CollectableApp >> orderAction: aSortBlockClosure [
 CollectableApp >> populateCollectibleListWith: aCollectibleList [
 	
 	collectibleList data removeAll.
-	self updateTitle.
+	self updateContent.
 	
 	aCollectibleList ifNil:[ ^ self ].
 	aCollectibleList ifEmpty: [ ^ self ].
 	
 	collectibleList data addAll: aCollectibleList.
-	self updateTitle.	
+	self updateContent.	
 	
 ]
 
@@ -592,6 +643,42 @@ CollectableApp >> stopOSProjectManager [
 
 	Smalltalk os isWindows ifTrue:[ ^ CollectOSWindowsManager stop ].
 	^ CollectOSPharoManager stop
+]
+
+{ #category : #private }
+CollectableApp >> updateContent [
+
+	self updateTitle.
+	self updateStats.
+]
+
+{ #category : #private }
+CollectableApp >> updateStats [
+
+	| nb cost value nbNotEstimated text1 text2 diff |
+	
+	"Stats: cost / value"
+	"Stats: (+/- diff)"
+	
+	cost := 0.
+	value := 0.
+	nbNotEstimated := 0.
+	collectibleList data do:[ :e |
+		cost := cost + e pricePaid.
+		e monetaryValue = 0 ifTrue:[nbNotEstimated := nbNotEstimated + 1].
+		value := value + e monetaryValue.
+	].
+
+	diff := (value - cost) rounded.
+	diff < 0 ifTrue:[ diff := diff printString ] ifFalse:[ diff := '+', diff printString ].	
+	cost := cost rounded printString.
+	value := value rounded printString.
+
+	text1 := cost , '€ paid / ' , value , '€ estimated value (', diff , '€)'.
+	text2 := nbNotEstimated printString , ' not estimated'.
+
+	(statsPane childWithId: #stats1) text: (text1 asRopedText foreground: (Color black); fontSize: 14).
+	(statsPane childWithId: #stats2) text: (text2 asRopedText foreground: (Color black); fontSize: 14).
 ]
 
 { #category : #private }

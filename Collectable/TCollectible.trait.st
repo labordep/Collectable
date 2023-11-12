@@ -3,7 +3,9 @@ Trait {
 	#instVars : [
 		'dateAdded',
 		'name',
-		'completion'
+		'completion',
+		'monetaryValue',
+		'pricePaid'
 	],
 	#category : #'Collectable-Model-Traits-Collectible'
 }
@@ -32,6 +34,18 @@ TCollectible >> dateAdded: aDate [
 	dateAdded := aDate
 ]
 
+{ #category : #'accessing - prices' }
+TCollectible >> monetaryValue [
+
+	^ monetaryValue
+]
+
+{ #category : #'accessing - prices' }
+TCollectible >> monetaryValue: anObject [
+
+	monetaryValue := anObject
+]
+
 { #category : #accessing }
 TCollectible >> name [
 
@@ -45,12 +59,24 @@ TCollectible >> name: anObject [
 ]
 
 { #category : #accessing }
+TCollectible >> pricePaid [
+
+	^ pricePaid
+]
+
+{ #category : #accessing }
+TCollectible >> pricePaid: anObject [
+
+	pricePaid := anObject
+]
+
+{ #category : #printing }
 TCollectible >> printIdentifierOn: aStream [
 
 	aStream nextPutAll: self typeString
 ]
 
-{ #category : #accessing }
+{ #category : #printing }
 TCollectible >> printOn: aStream [
 
 	^ self printIdentifierOn: aStream

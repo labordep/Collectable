@@ -25,6 +25,12 @@ TCollectibleGameyeCollectible >> initializeDelegation [
 ]
 
 { #category : #accessing }
+TCollectibleGameyeCollectible >> monetaryValue [
+
+	^ self delegate yourPrice ifNil:[ 0 ] ifNotNil: [ :e | e max: 0 ]
+]
+
+{ #category : #accessing }
 TCollectibleGameyeCollectible >> name [
 
 	^ self delegate title
@@ -34,6 +40,12 @@ TCollectibleGameyeCollectible >> name [
 TCollectibleGameyeCollectible >> platform [
 
 	^ self delegate platform
+]
+
+{ #category : #accessing }
+TCollectibleGameyeCollectible >> pricePaid [
+
+	^ self delegate pricePaid ifNil:[ 0 ] ifNotNil: [ :e | e max: 0 ]
 ]
 
 { #category : #accessing }
