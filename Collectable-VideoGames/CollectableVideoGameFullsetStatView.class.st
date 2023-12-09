@@ -408,13 +408,12 @@ CollectableVideoGameFullsetStatView >> openSpace [
 ]
 
 { #category : #events }
-CollectableVideoGameFullsetStatView >> receiveBlSpaceClosedEvent: anEvent [ 
-
+CollectableVideoGameFullsetStatView >> receiveBlSpaceClosedEvent: anEvent [
 	"The closed event can be send after that the component is stop, because it can be have a ghost window, we need to cheeck if the component is really stopped or not"
-	
-	(MolUtils isInstanciateComponentOf: self class named: self componentName) ifTrue:[
-		self class stop: self componentName
-	].
+
+	(MolUtils isInstantiateComponentOf: self class named: self componentName) ifTrue: [ 
+		self class stop: self componentName 
+	]
 ]
 
 { #category : #'incubator -- services' }
