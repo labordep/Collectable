@@ -47,5 +47,5 @@ BaselineOfCollectable >> dependencies: spec [
 	spec baseline: 'Toplo' with: [ spec repository: 'github://plantec/Toplo:main/src' ].
 	
 	"Architecture framework : Molecule"
-	spec baseline: 'Molecule' with: [ spec repository: 'github://OpenSmock/Molecule:1.2.11' ].
+	spec baseline: 'Molecule' with: [ spec repository: 'github://OpenSmock/Molecule:1.2.12' ].
 ]
