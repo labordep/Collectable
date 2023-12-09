@@ -1,8 +1,8 @@
 Class {
 	#name : #CollectablePricesStatView,
 	#superclass : #MolAbstractComponentImpl,
-	#traits : 'CollectableViewType + CollectableViewServices + CollectableCollectionsManagerEvents + MolClusteredComponent',
-	#classTraits : 'CollectableViewType classTrait + CollectableViewServices classTrait + CollectableCollectionsManagerEvents classTrait + MolClusteredComponent classTrait',
+	#traits : 'CollectableView + CollectableViewServices + CollectableCollectionsManagerEvents',
+	#classTraits : 'CollectableView classTrait + CollectableViewServices classTrait + CollectableCollectionsManagerEvents classTrait',
 	#instVars : [
 		'view',
 		'space',
@@ -222,8 +222,8 @@ CollectablePricesStatView >> componentActivate [
 
 	super componentActivate.
 	
-	self forServices: CollectableCollectionsManagerServices useProvider: self clusterName. 
-	self forEvents: CollectableCollectionsManagerEvents useProducer: self clusterName. 
+	self forServices: CollectableCollectionsManagerServices useProvider: self componentName. 
+	self forEvents: CollectableCollectionsManagerEvents useProducer: self componentName. 
 	
 	self getCollectableCollectionsManagerEventsSubscriber subscribe: self.
 ]
@@ -348,7 +348,7 @@ CollectablePricesStatView >> openInWindow [
 CollectablePricesStatView >> openListAction [
 
 	| app |
-	app := CollectableApp start: (MolUtils randomizeComponentName).
+	app := CollectableAppImpl start: (MolUtils randomizeComponentName).
 	app populateCollectibleListWith: collection collectibles.
 ]
 
@@ -390,7 +390,7 @@ CollectablePricesStatView >> updateTitle [
 
 	| title |
 	
-	title := CollectableApp windowTitleHead.
+	title := CollectableAppImpl windowTitleHead.
 	collection ifNotNil:[ title := title, ' - Price paid each month for ' , collection numberOfCollectibles asString, ' collectibles' ].
 
 	space title: title.

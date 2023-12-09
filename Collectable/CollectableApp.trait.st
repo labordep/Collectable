@@ -1,18 +1,18 @@
 Trait {
-	#name : #CollectableAppType,
+	#name : #CollectableApp,
 	#traits : 'MolComponentType',
 	#classTraits : 'MolComponentType classTrait',
 	#category : #'Collectable-Core'
 }
 
 { #category : #'accessing - events' }
-CollectableAppType classSide >> consumedComponentEvents [
+CollectableApp classSide >> consumedComponentEvents [
 	<componentContract>
 	^ {CollectableCollectionsManagerEvents}
 ]
 
 { #category : #'accessing - services' }
-CollectableAppType classSide >> usedComponentServices [
+CollectableApp classSide >> usedComponentServices [
 	<componentContract>
 	^ {CollectOSProjectManagerServices . CollectableCollectionsManagerServices}
 ]

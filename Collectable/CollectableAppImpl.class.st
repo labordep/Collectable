@@ -1,8 +1,8 @@
 Class {
-	#name : #CollectableApp,
+	#name : #CollectableAppImpl,
 	#superclass : #MolAbstractComponentImpl,
-	#traits : 'CollectableAppType + CollectableCollectionsManagerEvents + MolClusteredComponent',
-	#classTraits : 'CollectableAppType classTrait + CollectableCollectionsManagerEvents classTrait + MolClusteredComponent classTrait',
+	#traits : 'CollectableApp + CollectableCollectionsManagerEvents',
+	#classTraits : 'CollectableApp classTrait + CollectableCollectionsManagerEvents classTrait',
 	#instVars : [
 		'mainPane',
 		'space',
@@ -14,13 +14,13 @@ Class {
 }
 
 { #category : #ui }
-CollectableApp class >> windowTitleHead [
+CollectableAppImpl class >> windowTitleHead [
 
 	^ '[|||] Collectable (alpha version)'.
 ]
 
 { #category : #private }
-CollectableApp >> buildList [
+CollectableAppImpl >> buildList [
 	| list |
 
 	list := ToListElement new nodeBuilder: [ :node :holder |
@@ -32,7 +32,7 @@ CollectableApp >> buildList [
 ]
 
 { #category : #private }
-CollectableApp >> buildListNode: node holder: holder [
+CollectableAppImpl >> buildListNode: node holder: holder [
 		| collectible typePane typeLabel platformPane contentPane title country platform secondPane statePane stateLabel completion |
 
 		collectible := holder data.
@@ -108,7 +108,7 @@ CollectableApp >> buildListNode: node holder: holder [
 ]
 
 { #category : #private }
-CollectableApp >> buildMenu [
+CollectableAppImpl >> buildMenu [
 	| fileMenu loadCollectionMenu menuBar debugMenu openOnPyramid queryMenu searchNoCountryCollectibles orderMenu orderByAlphaIncrease orderByAlphaDecrease orderByAddedDateIncrease orderByAddedDateDecrease searchCollectibles fullsetMenu queryN64Menu queryWiiUMenu |
 
 	menuBar := (ToMenuBar id: #menuBar) hFitContent.
@@ -298,7 +298,7 @@ CollectableApp >> buildMenu [
 ]
 
 { #category : #private }
-CollectableApp >> buildSearchWidget [
+CollectableAppImpl >> buildSearchWidget [
 
 	| searchPane searchButton |
 	
@@ -315,7 +315,7 @@ CollectableApp >> buildSearchWidget [
 ]
 
 { #category : #private }
-CollectableApp >> buildStatsWidgets [
+CollectableAppImpl >> buildStatsWidgets [
 
 	| label label2 |
 	
@@ -332,14 +332,14 @@ CollectableApp >> buildStatsWidgets [
 ]
 
 { #category : #releasing }
-CollectableApp >> closeSpace [
+CollectableAppImpl >> closeSpace [
 
 	space ifNil:[ ^ self ].
 	space isOpened ifTrue:[ space close ].
 ]
 
 { #category : #events }
-CollectableApp >> collectionsHasChanged: aCollectionList [
+CollectableAppImpl >> collectionsHasChanged: aCollectionList [
 
 	| collectibles |
 	collectibles := OrderedCollection new.
@@ -348,7 +348,7 @@ CollectableApp >> collectionsHasChanged: aCollectionList [
 ]
 
 { #category : #'life cycle' }
-CollectableApp >> componentActivate [
+CollectableAppImpl >> componentActivate [
 
 	self getCollectableCollectionsManagerEventsSubscriber subscribe: self.
  
@@ -357,9 +357,7 @@ CollectableApp >> componentActivate [
 ]
 
 { #category : #'life cycle' }
-CollectableApp >> componentInitialize [ 
-
-	self clusterName: self componentName.
+CollectableAppImpl >> componentInitialize [ 
 
 	CollectablePricesStatView deploy.
 	CollectableVideoGameFullsetStatView deploy.
@@ -374,7 +372,7 @@ CollectableApp >> componentInitialize [
 ]
 
 { #category : #'life cycle' }
-CollectableApp >> componentPassivate [
+CollectableAppImpl >> componentPassivate [
 	
 	self getCollectableCollectionsManagerEventsSubscriber unsubscribe: self.
 
@@ -383,14 +381,14 @@ CollectableApp >> componentPassivate [
 ]
 
 { #category : #'life cycle' }
-CollectableApp >> componentRemove [ 
+CollectableAppImpl >> componentRemove [ 
 
 	self stopCollectionsManager.
 	self stopOSProjectManager
 ]
 
 { #category : #'component accessing' }
-CollectableApp >> getCollectOSProjectManagerServicesProvider [
+CollectableAppImpl >> getCollectOSProjectManagerServicesProvider [
 	| servicesSymbol servicesProvider itf |
 
 	itf := CollectOSProjectManagerServices.
@@ -402,7 +400,7 @@ CollectableApp >> getCollectOSProjectManagerServicesProvider [
 ]
 
 { #category : #'component accessing' }
-CollectableApp >> getCollectableCollectionsManagerEventsSubscriber [
+CollectableAppImpl >> getCollectableCollectionsManagerEventsSubscriber [
 	| eventsSymbol eventsSubscriber itf |
 	itf := CollectableCollectionsManagerEvents.
 	eventsSymbol := self eventsSubscribers at: itf ifAbsent: [^MolNotFoundEventsSubscriber new interface: itf name: nil].
@@ -414,7 +412,7 @@ CollectableApp >> getCollectableCollectionsManagerEventsSubscriber [
 ]
 
 { #category : #'component accessing' }
-CollectableApp >> getCollectableCollectionsManagerServicesProvider [
+CollectableAppImpl >> getCollectableCollectionsManagerServicesProvider [
 	| servicesSymbol servicesProvider itf |
 
 	itf := CollectableCollectionsManagerServices.
@@ -426,7 +424,7 @@ CollectableApp >> getCollectableCollectionsManagerServicesProvider [
 ]
 
 { #category : #private }
-CollectableApp >> getPlatformColor: aPlatform [
+CollectableAppImpl >> getPlatformColor: aPlatform [
 
 	aPlatform = 'Nintendo 64' ifTrue:[ ^ Color red whiter whiter whiter ].
 	aPlatform = 'Nintendo GameCube' ifTrue:[ ^ Color red whiter whiter whiter ].
@@ -468,7 +466,7 @@ CollectableApp >> getPlatformColor: aPlatform [
 ]
 
 { #category : #actions }
-CollectableApp >> importAndBrowseOwnedGameyeSpreadsheetCollections [
+CollectableAppImpl >> importAndBrowseOwnedGameyeSpreadsheetCollections [
 
 	| fileReference collectionList |
 	
@@ -482,7 +480,7 @@ CollectableApp >> importAndBrowseOwnedGameyeSpreadsheetCollections [
 ]
 
 { #category : #actions }
-CollectableApp >> importGameyeSpreadsheetCollection [
+CollectableAppImpl >> importGameyeSpreadsheetCollection [
 
 	| collec |
 	collec := self importAndBrowseOwnedGameyeSpreadsheetCollections.
@@ -492,7 +490,7 @@ CollectableApp >> importGameyeSpreadsheetCollection [
 ]
 
 { #category : #initialization }
-CollectableApp >> initializeMainPane [
+CollectableAppImpl >> initializeMainPane [
 
 	| menu title menuPane searchWidget statsWidget |
 	mainPane := ToPane new beVertical.
@@ -520,44 +518,38 @@ CollectableApp >> initializeMainPane [
 ]
 
 { #category : #actions }
-CollectableApp >> openDefaultCollections [
+CollectableAppImpl >> openDefaultCollections [
 
 	self getCollectableCollectionsManagerServicesProvider setCollections: CollecWorld defaultCollections.	
 ]
 
 { #category : #actions }
-CollectableApp >> openFullsetStat: aFullset [
+CollectableAppImpl >> openFullsetStat: aFullset [
 
 	| component name |
 	aFullset ifNil:[ ^ self ].
 	name := MolUtils randomizeComponentName.
-	component := CollectableVideoGameFullsetStatView instanciate: name.
-	component ifNil:[ ^ self ].
-	component clusterName: self clusterName.
-	CollectableVideoGameFullsetStatView activate: name.
+	component := CollectableVideoGameFullsetStatView start: name.
 	
 	component setFullset: aFullset.
 	component openInWindow
 ]
 
 { #category : #actions }
-CollectableApp >> openPricesStat: aCollectibleList [
+CollectableAppImpl >> openPricesStat: aCollectibleList [
 
 	| component name |
 	aCollectibleList ifNil:[ ^ self ].
 
 	name := MolUtils randomizeComponentName.
-	component := CollectablePricesStatView instanciate: name.
-	component ifNil:[ ^ self ].
-	component clusterName: self clusterName.
-	CollectablePricesStatView activate: name.
+	component := CollectablePricesStatView start: name.
 	
 	component setCollection: (CollectibleCollection new addCollectibles: aCollectibleList).
 	component openInWindow
 ]
 
 { #category : #initialization }
-CollectableApp >> openSpace [	
+CollectableAppImpl >> openSpace [	
 
 	space ifNotNil:[ ^ self ].
 	space := mainPane openInSpace.
@@ -572,7 +564,7 @@ CollectableApp >> openSpace [
 ]
 
 { #category : #actions }
-CollectableApp >> orderAction: aSortBlockClosure [
+CollectableAppImpl >> orderAction: aSortBlockClosure [
 
 	| list |
 	aSortBlockClosure ifNil:[ ^ self ].
@@ -586,7 +578,7 @@ CollectableApp >> orderAction: aSortBlockClosure [
 ]
 
 { #category : #actions }
-CollectableApp >> populateCollectibleListWith: aCollectibleList [
+CollectableAppImpl >> populateCollectibleListWith: aCollectibleList [
 	
 	collectibleList data removeAll.
 	self updateContent.
@@ -600,7 +592,7 @@ CollectableApp >> populateCollectibleListWith: aCollectibleList [
 ]
 
 { #category : #events }
-CollectableApp >> receiveBlSpaceClosedEvent: anEvent [ 
+CollectableAppImpl >> receiveBlSpaceClosedEvent: anEvent [ 
 
 	"The closed event can be send after that the component is stop, because it can be have a ghost window, we need to cheeck if the component is really stopped or not"
 	
@@ -610,7 +602,7 @@ CollectableApp >> receiveBlSpaceClosedEvent: anEvent [
 ]
 
 { #category : #actions }
-CollectableApp >> searchAction [
+CollectableAppImpl >> searchAction [
 
 	| searchExpression |
 	searchExpression := (searchField text asString).
@@ -624,7 +616,7 @@ CollectableApp >> searchAction [
 ]
 
 { #category : #actions }
-CollectableApp >> searchAction: aSelectBlockClosure [
+CollectableAppImpl >> searchAction: aSelectBlockClosure [
 
 	"get the content of the field and do the search"
 	| collectibles collections |
@@ -641,17 +633,17 @@ CollectableApp >> searchAction: aSelectBlockClosure [
 ]
 
 { #category : #initialization }
-CollectableApp >> startCollectionsManager [
+CollectableAppImpl >> startCollectionsManager [
 
-	CollectableCollectionsManager start: self clusterName
+	CollectableCollectionsManagerImpl start: self componentName
 ]
 
 { #category : #initialization }
-CollectableApp >> startOSProjectManager [
+CollectableAppImpl >> startOSProjectManager [
 
 	"Start only if this component is the first instance"
 	| apps |
-	apps := MolUtils allComponentInstancesOfType: CollectableAppType.
+	apps := MolUtils allComponentInstancesOfType: CollectableApp.
 	apps size > 1 ifTrue:[ ^ self ].
 
 	Smalltalk os isWindows ifTrue:[ ^ CollectOSWindowsManager start ].
@@ -659,17 +651,17 @@ CollectableApp >> startOSProjectManager [
 ]
 
 { #category : #releasing }
-CollectableApp >> stopCollectionsManager [
+CollectableAppImpl >> stopCollectionsManager [
 
-	CollectableCollectionsManager stop: self componentName
+	CollectableCollectionsManagerImpl stop: self componentName
 ]
 
 { #category : #releasing }
-CollectableApp >> stopOSProjectManager [
+CollectableAppImpl >> stopOSProjectManager [
 	| apps |
 	
 	"Stop only if this component is the last instance"
-	apps := MolUtils allComponentInstancesOfType: CollectableAppType.
+	apps := MolUtils allComponentInstancesOfType: CollectableApp.
 	(apps size = 1 and:[apps first = self]) ifFalse:[ ^ self ].
 
 	Smalltalk os isWindows ifTrue:[ ^ CollectOSWindowsManager stop ].
@@ -677,14 +669,14 @@ CollectableApp >> stopOSProjectManager [
 ]
 
 { #category : #private }
-CollectableApp >> updateContent [
+CollectableAppImpl >> updateContent [
 
 	self updateTitle.
 	self updateStats.
 ]
 
 { #category : #private }
-CollectableApp >> updateStats [
+CollectableAppImpl >> updateStats [
 
 	| nb cost value nbNotEstimated text1 text2 diff |
 	
@@ -713,7 +705,7 @@ CollectableApp >> updateStats [
 ]
 
 { #category : #private }
-CollectableApp >> updateTitle [
+CollectableAppImpl >> updateTitle [
 
 	| nb title |
 	

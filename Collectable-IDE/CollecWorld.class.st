@@ -27,7 +27,7 @@ CollecWorld class >> menu00CollectableOn: aBuilder [
 
 	<worldMenu>
 	(aBuilder item: #Collectable)
-		label: CollectableApp windowTitleHead;
+		label: CollectableAppImpl windowTitleHead;
 		help: 'An application project to manage stuff collector';
 		order: 777
 ]
@@ -69,5 +69,5 @@ CollecWorld class >> menu30CleanDefaultCollectionOn: aBuilder [
 { #category : #actions }
 CollecWorld class >> startApplication [
 
-	CollectableApp start: (MolUtils randomizeComponentName)
+	CollectableAppImpl start: (MolUtils randomizeComponentName)
 ]

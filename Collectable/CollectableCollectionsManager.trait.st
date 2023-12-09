@@ -1,18 +1,18 @@
 Trait {
-	#name : #CollectableCollectionsManagerType,
+	#name : #CollectableCollectionsManager,
 	#traits : 'MolComponentType',
 	#classTraits : 'MolComponentType classTrait',
 	#category : #'Collectable-Core'
 }
 
 { #category : #'accessing - events' }
-CollectableCollectionsManagerType classSide >> producedComponentEvents [
+CollectableCollectionsManager classSide >> producedComponentEvents [
 	<componentContract>
 	^ {CollectableCollectionsManagerEvents} 
 ]
 
 { #category : #'accessing - services' }
-CollectableCollectionsManagerType classSide >> providedComponentServices [
+CollectableCollectionsManager classSide >> providedComponentServices [
 	<componentContract>
 	^ {CollectableCollectionsManagerServices} 
 ]

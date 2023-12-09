@@ -1,8 +1,8 @@
 Class {
-	#name : #CollectableCollectionsManager,
+	#name : #CollectableCollectionsManagerImpl,
 	#superclass : #MolAbstractComponentImpl,
-	#traits : 'CollectableCollectionsManagerType + CollectableCollectionsManagerServices',
-	#classTraits : 'CollectableCollectionsManagerType classTrait + CollectableCollectionsManagerServices classTrait',
+	#traits : 'CollectableCollectionsManager + CollectableCollectionsManagerServices',
+	#classTraits : 'CollectableCollectionsManager classTrait + CollectableCollectionsManagerServices classTrait',
 	#instVars : [
 		'collectionList'
 	],
@@ -10,19 +10,19 @@ Class {
 }
 
 { #category : #accessing }
-CollectableCollectionsManager >> collectionList [
+CollectableCollectionsManagerImpl >> collectionList [
 
 	^ collectionList ifNil:[collectionList := OrderedCollection new].
 ]
 
 { #category : #accessing }
-CollectableCollectionsManager >> collectionList: anObject [
+CollectableCollectionsManagerImpl >> collectionList: anObject [
 
 	collectionList := anObject
 ]
 
 { #category : #'services- collectibles' }
-CollectableCollectionsManager >> getAllCollectibles [
+CollectableCollectionsManagerImpl >> getAllCollectibles [
 
 	| collectibles |
 	collectibles := OrderedCollection new.
@@ -32,24 +32,24 @@ CollectableCollectionsManager >> getAllCollectibles [
 ]
 
 { #category : #'component accessing' }
-CollectableCollectionsManager >> getCollectableCollectionsManagerEventsNotifier [
+CollectableCollectionsManagerImpl >> getCollectableCollectionsManagerEventsNotifier [
 	^self eventsNotifiers at: CollectableCollectionsManagerEvents ifAbsent: [^MolNotFoundEventsNotifier new interface: CollectableCollectionsManagerEvents name: nil].
 ]
 
 { #category : #'services - collections' }
-CollectableCollectionsManager >> getCollections [
+CollectableCollectionsManagerImpl >> getCollections [
 
 	^ self collectionList
 ]
 
 { #category : #'services- collectibles' }
-CollectableCollectionsManager >> numberOfCollectibles [
+CollectableCollectionsManagerImpl >> numberOfCollectibles [
 
 	^ self getAllCollectibles size
 ]
 
 { #category : #'services - collections' }
-CollectableCollectionsManager >> setCollections: aCollectionList [
+CollectableCollectionsManagerImpl >> setCollections: aCollectionList [
 
 	self collectionList: aCollectionList.
 	
