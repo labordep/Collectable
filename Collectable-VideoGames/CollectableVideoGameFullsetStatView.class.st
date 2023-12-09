@@ -222,10 +222,6 @@ CollectableVideoGameFullsetStatView >> collectionsHasChanged: aCollectionList [
 CollectableVideoGameFullsetStatView >> componentActivate [
 
 	super componentActivate.
-	
-	self forServices: CollectableCollectionsManagerServices useProvider: self componentName. 
-	self forEvents: CollectableCollectionsManagerEvents useProducer: self componentName. 
-	
 	self getCollectableCollectionsManagerEventsSubscriber subscribe: self.
 ]
 

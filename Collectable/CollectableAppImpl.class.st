@@ -529,7 +529,10 @@ CollectableAppImpl >> openFullsetStat: aFullset [
 	| component name |
 	aFullset ifNil:[ ^ self ].
 	name := MolUtils randomizeComponentName.
-	component := CollectableVideoGameFullsetStatView start: name.
+	component := CollectableVideoGameFullsetStatView instantiate: name.
+	component forServices: CollectableCollectionsManagerServices useProvider: self componentName. 
+	component forEvents: CollectableCollectionsManagerEvents useProducer: self componentName. 
+	CollectableVideoGameFullsetStatView activate: name.
 	
 	component setFullset: aFullset.
 	component openInWindow
@@ -543,6 +546,11 @@ CollectableAppImpl >> openPricesStat: aCollectibleList [
 
 	name := MolUtils randomizeComponentName.
 	component := CollectablePricesStatView start: name.
+	
+	component := CollectablePricesStatView instantiate: name.
+	component forServices: CollectableCollectionsManagerServices useProvider: self componentName. 
+	component forEvents: CollectableCollectionsManagerEvents useProducer: self componentName. 
+	CollectablePricesStatView activate: name.
 	
 	component setCollection: (CollectibleCollection new addCollectibles: aCollectibleList).
 	component openInWindow
@@ -592,13 +600,13 @@ CollectableAppImpl >> populateCollectibleListWith: aCollectibleList [
 ]
 
 { #category : #events }
-CollectableAppImpl >> receiveBlSpaceClosedEvent: anEvent [ 
-
+CollectableAppImpl >> receiveBlSpaceClosedEvent: anEvent [
 	"The closed event can be send after that the component is stop, because it can be have a ghost window, we need to cheeck if the component is really stopped or not"
-	
-	(MolUtils isInstanciateComponentOf: self class named: self componentName) ifTrue:[
-		self class stop: self componentName
-	].
+
+	(MolUtils
+		 isInstantiateComponentOf: self class
+		 named: self componentName) ifTrue: [
+		self class stop: self componentName ]
 ]
 
 { #category : #actions }

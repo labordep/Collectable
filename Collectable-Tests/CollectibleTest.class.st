@@ -15,7 +15,7 @@ CollectibleTest >> testInitialize [
 	self assert: collectible dateAdded isNil.
 	self assert: collectible name isNil.
 	self assert: collectible typeString equals: 'Collectible'.
-	self assert: collectible referenceString equals: 'Collectible'.
+	self assert: collectible referenceString equals: 'collectible'.
 	self assert: collectible completion class equals: CollectibleCompletion.
 	
 	"Testing methods"
