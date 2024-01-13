@@ -392,19 +392,21 @@ CollectableVideoGameFullsetStatView >> openListAction [
 ]
 
 { #category : #services }
-CollectableVideoGameFullsetStatView >> openSpace [	
+CollectableVideoGameFullsetStatView >> openSpace [
 
-	view ifNil:[  ^ self ].
-	space ifNotNil:[ ^ self ].
+	view ifNil: [ ^ self ].
+	space ifNotNil: [ ^ self ].
 	space := view openInSpace.
-	
+
 	"setup space properties"
 	self updateTitle.
 	space position: 100 @ 100.
 
 	"initialize event handlers"
-	space when: BlSpaceClosedEvent do:[ :e | self receiveBlSpaceClosedEvent: e ].
-	^ space 
+	space addEventHandler: (BlEventHandler
+			 on: BlSpaceClosedEvent
+			 do: [ :e | self receiveBlSpaceClosedEvent: e ]).
+	^ space
 ]
 
 { #category : #events }

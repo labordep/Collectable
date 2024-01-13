@@ -545,7 +545,7 @@ CollectableAppImpl >> openPricesStat: aCollectibleList [
 	aCollectibleList ifNil:[ ^ self ].
 
 	name := MolUtils randomizeComponentName.
-	component := CollectablePricesStatView start: name.
+	component := CollectablePricesStatView deploy.
 	
 	component := CollectablePricesStatView instantiate: name.
 	component forServices: CollectableCollectionsManagerServices useProvider: self componentName. 
@@ -557,18 +557,20 @@ CollectableAppImpl >> openPricesStat: aCollectibleList [
 ]
 
 { #category : #initialization }
-CollectableAppImpl >> openSpace [	
+CollectableAppImpl >> openSpace [
 
-	space ifNotNil:[ ^ self ].
+	space ifNotNil: [ ^ self ].
 	space := mainPane openInSpace.
-	
+
 	"setup space properties"
 	self updateContent.
 	space position: 100 @ 100.
 
 	"initialize event handlers"
-	space when: BlSpaceClosedEvent do:[ :e | self receiveBlSpaceClosedEvent: e ].
-	^ space 
+	space addEventHandler: (BlEventHandler
+			 on: BlSpaceClosedEvent
+			 do: [ :e | self receiveBlSpaceClosedEvent: e ]).
+	^ space
 ]
 
 { #category : #actions }

@@ -349,29 +349,31 @@ CollectablePricesStatView >> openListAction [
 ]
 
 { #category : #services }
-CollectablePricesStatView >> openSpace [	
+CollectablePricesStatView >> openSpace [
 
-	view ifNil:[  ^ self ].
-	space ifNotNil:[ ^ self ].
+	view ifNil: [ ^ self ].
+	space ifNotNil: [ ^ self ].
 	space := view openInSpace.
-	
+
 	"setup space properties"
 	self updateTitle.
 	space position: 100 @ 100.
 
 	"initialize event handlers"
-	space when: BlSpaceClosedEvent do:[ :e | self receiveBlSpaceClosedEvent: e ].
-	^ space 
+	space addEventHandler: (BlEventHandler
+			 on: BlSpaceClosedEvent
+			 do: [ :e | self receiveBlSpaceClosedEvent: e ]).
+	^ space
 ]
 
 { #category : #events }
-CollectablePricesStatView >> receiveBlSpaceClosedEvent: anEvent [ 
-
+CollectablePricesStatView >> receiveBlSpaceClosedEvent: anEvent [
 	"The closed event can be send after that the component is stop, because it can be have a ghost window, we need to cheeck if the component is really stopped or not"
-	
-	(MolUtils isInstanciateComponentOf: self class named: self componentName) ifTrue:[
-		self class stop: self componentName
-	].
+
+	(MolUtils
+		 isInstantiateComponentOf: self class
+		 named: self componentName) ifTrue: [
+		self class stop: self componentName ]
 ]
 
 { #category : #'incubator -- services' }
