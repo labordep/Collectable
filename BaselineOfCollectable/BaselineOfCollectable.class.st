@@ -29,6 +29,9 @@ BaselineOfCollectable >> baseline: spec [
 { #category : #baselines }
 BaselineOfCollectable >> dependencies: spec [
 
+	"Roassal stable version"
+	spec baseline: 'Roassal' with: [ spec repository: 'github://pharo-graphics/Roassal/src' ].
+
 	"Functionnality to import Pharo Gameye datas"
 	spec baseline: 'Gameye' with: [ spec repository: 'github://labordep/PharoGameye:2.0.1' ].
 
