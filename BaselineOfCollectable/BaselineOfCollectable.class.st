@@ -19,6 +19,7 @@ BaselineOfCollectable >> baseline: spec [
 				package: 'Collectable-VideoGames' with: [ spec requires: #('Collectable') ];
 				package: 'Collectable-Gameye' with: [ spec requires: #('Gameye' 'Collectable-VideoGames') ];
 				package: 'Collectable-IDE' with: [ spec requires: #('Collectable') ];
+				package: 'Collectable-Gameye-IDE' with: [ spec requires: #('Gameye' 'Collectable-IDE') ];
 				package: 'Collectable-Tests' with: [ spec requires: #('Collectable') ];
 				package: 'Collectable-VideoGames-Tests' with: [ spec requires: #('Collectable-VideoGames') ];
 				package: 'Collectable-Gameye-Tests' with: [ spec requires: #('Collectable-Gameye') ];

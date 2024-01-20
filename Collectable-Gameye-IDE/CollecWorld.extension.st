@@ -1,6 +1,6 @@
 Extension { #name : #CollecWorld }
 
-{ #category : #'*Collectable-Gameye' }
+{ #category : #'*Collectable-Gameye-IDE' }
 CollecWorld class >> importGameyeSpreadsheetCollectionsAsDefaultCollections [
 
 	| manager fileReference collectionList |
@@ -19,7 +19,7 @@ CollecWorld class >> importGameyeSpreadsheetCollectionsAsDefaultCollections [
 	collectionList do:[ :c | CollectableUserdatas default collections add: c ].
 ]
 
-{ #category : #'*Collectable-Gameye' }
+{ #category : #'*Collectable-Gameye-IDE' }
 CollecWorld class >> menu20ImportDefaultCollectionOn: aBuilder [
 
 	<worldMenu>
