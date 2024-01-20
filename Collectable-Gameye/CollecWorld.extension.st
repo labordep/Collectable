@@ -14,9 +14,9 @@ CollecWorld class >> importGameyeSpreadsheetCollectionsAsDefaultCollections [
 	collectionList := CollecGameyeUtils importCollectionsFromGameyeSpreadsheetFile: fileReference asFileReference type: GameyeCollection owned.
 	collectionList ifEmpty:[ ^ self ].
 	
-	self cleanDefaultCollections.
+	CollectableUserdatas cleanUp.
 	
-	collectionList do:[ :c | self defaultCollections add: c ].
+	collectionList do:[ :c | CollectableUserdatas default collections add: c ].
 ]
 
 { #category : #'*Collectable-Gameye' }
