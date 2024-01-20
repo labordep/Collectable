@@ -1,26 +1,8 @@
 Class {
 	#name : #CollecWorld,
 	#superclass : #Object,
-	#classInstVars : [
-		'collections'
-	],
 	#category : #'Collectable-IDE'
 }
-
-{ #category : #actions }
-CollecWorld class >> cleanDefaultCollections [
-
-	collections ifNotNil:[ 
-		self defaultCollections removeAll. 
-		collections := nil.
-	].
-]
-
-{ #category : #accessing }
-CollecWorld class >> defaultCollections [ 
-
-	^ collections ifNil:[collections := OrderedCollection new]
-]
 
 { #category : #menu }
 CollecWorld class >> menu00CollectableOn: aBuilder [
@@ -51,7 +33,7 @@ CollecWorld class >> menu11InspectDefaultCollectionsOn: aBuilder [
 	(aBuilder item: #Open)
 		parent: #Collectable;
 		label: 'Inspect default collections';
-		action: [ self defaultCollections inspect ];
+		action: [ CollectableUserdatas default collections inspect ];
 		help: 'Open an inspector on default collections'.
 ]
 
@@ -62,7 +44,7 @@ CollecWorld class >> menu30CleanDefaultCollectionOn: aBuilder [
 	(aBuilder item: #CleanDefaultCollection)
 		parent: #Collectable;
 		label: 'Clean default collections';
-		action: [ self cleanDefaultCollections ];
+		action: [ CollectableUserdatas cleanUp ];
 		help: 'Remove all collections datas'.
 ]
 

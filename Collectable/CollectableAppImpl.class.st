@@ -520,7 +520,8 @@ CollectableAppImpl >> initializeMainPane [
 { #category : #actions }
 CollectableAppImpl >> openDefaultCollections [
 
-	self getCollectableCollectionsManagerServicesProvider setCollections: CollecWorld defaultCollections.	
+	self getCollectableCollectionsManagerServicesProvider
+		setCollections: CollectableUserdatas default collections
 ]
 
 { #category : #actions }
