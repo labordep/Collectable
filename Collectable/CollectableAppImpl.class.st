@@ -304,7 +304,16 @@ CollectableAppImpl >> buildSearchWidget [
 	
 	searchPane := (ToPane id: #search) beHorizontal; hFitContent.
 	
-	searchField := ToTextField new hMatchParent; width: 200; placeholderText: 'Search...'.
+	searchField := ToTextField new
+		withoutLineBreak;
+		hMatchParent; 
+		width: 200; 
+		placeholderText: 'Search...';
+		tooltipString: 'Type anything here and press Enter to search something';
+		addEditorShortcut: (BlShortcutWithAction new
+             combination: BlKeyCombination return;
+             action: [ :event | self searchAction ]
+             yourself).
 	searchPane addChild: searchField.
 	
 	searchButton := ToButton new hMatchParent; width: 50; labelText: 'Search'.
