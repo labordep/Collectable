@@ -48,7 +48,7 @@ BaselineOfCollectable >> dependencies: spec [
 	spec baseline: 'Pyramid' with: [ spec repository: 'github://OpenSmock/Pyramid:main/src' ].
 
 	"UI : Toplo with Bloc"
-	spec baseline: 'Toplo' with: [ spec repository: 'github://plantec/Toplo:main/src' ].
+	spec baseline: 'Toplo' with: [ spec repository: 'github://pharo-graphics/Toplo:main/src' ].
 	
 	"Architecture framework : Molecule"
 	spec baseline: 'Molecule' with: [ spec repository: 'github://OpenSmock/Molecule:1.2.12' ].
