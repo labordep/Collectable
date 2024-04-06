@@ -1,18 +1,18 @@
 Trait {
-	#name : #TCollectibleGameyeVideoGame,
+	#name : #TCollectibleGameyePeripheral,
 	#traits : 'TCollectibleGameyeCollectible',
 	#classTraits : 'TCollectibleGameyeCollectible classTrait',
 	#category : #'Collectable-Gameye-Core'
 }
 
 { #category : #accessing }
-TCollectibleGameyeVideoGame >> developer [
+TCollectibleGameyePeripheral >> developer [
 
 	^ self delegate developer
 ]
 
 { #category : #initialization }
-TCollectibleGameyeVideoGame >> initializeDelegation [
+TCollectibleGameyePeripheral >> initializeDelegation [
 
 	self haveDelegate ifFalse: [ ^ self ].
 	self createPlatform.
@@ -20,13 +20,13 @@ TCollectibleGameyeVideoGame >> initializeDelegation [
 ]
 
 { #category : #accessing }
-TCollectibleGameyeVideoGame >> name [
+TCollectibleGameyePeripheral >> name [
 
 	^ self delegate title
 ]
 
 { #category : #accessing }
-TCollectibleGameyeVideoGame >> publisher [
+TCollectibleGameyePeripheral >> publisher [
 
 	^ self delegate publisher
 ]

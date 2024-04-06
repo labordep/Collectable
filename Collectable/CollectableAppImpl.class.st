@@ -13,6 +13,580 @@ Class {
 	#category : #'Collectable-Core'
 }
 
+{ #category : #'pyramid-serialized-bloc' }
+CollectableAppImpl class >> mainPane [
+	"This class has been generated using Pyramid.
+
+	By: labordep
+	2024-03-16 18:30:31"
+
+	<pySTON>
+	^ '[
+	ToPane {
+		#children : BlChildrenArray [
+			ToPane {
+				#children : BlChildrenArray [
+					ToMenuBar {
+						#constraints : BlLayoutCommonConstraints {
+							#vertical : BlLayoutCommonConstraintsAxis {
+								#resizer : BlLayoutMatchParentResizer { }
+							},
+							#horizontal : BlLayoutCommonConstraintsAxis {
+								#resizer : @9
+							},
+							#constraints : {
+								Class [ #BlLinearLayout ] : BlLinearLayoutConstraints {
+									#vertical : BlLinearLayoutConstraintsVertical {
+										#alignment : BlTopAlignment { }
+									},
+									#horizontal : BlLinearLayoutConstraintsHorizontal {
+										#alignment : BlHorizontalStartAlignment { }
+									},
+									#weight : 1
+								}
+							},
+							#position : Point [ 0.0, 0.0 ],
+							#margin : BlInsets {
+								#top : 0.0,
+								#left : 0.0,
+								#bottom : 0.0,
+								#right : 0.0
+							},
+							#padding : BlInsets {
+								#top : 4.0,
+								#left : 4.0,
+								#bottom : 4.0,
+								#right : 4.0
+							},
+							#minHeight : 0.0,
+							#minWidth : 0.0,
+							#maxHeight : Float [ #infinity ],
+							#maxWidth : @21,
+							#ignoredByLayout : false,
+							#previouslyAccessedConstraints : @13,
+							#previouslyAccessedConstraintsType : @12,
+							#accountTransformation : false
+						},
+						#visuals : BlCustomVisuals {
+							#background : BlPaintBackground {
+								#paint : BlColorPaint {
+									#color : Color {
+										#red : 0.0,
+										#green : 0.0,
+										#blue : 0.0,
+										#alpha : 0.0
+									}
+								}
+							}
+						},
+						#userData : IdentityDictionary {
+							#enabled : true,
+							#elementId : BlElementNamedId {
+								#identifier : #menuBar
+							}
+						},
+						#layout : BlLinearLayout {
+							#weightSum : 0,
+							#verticalAlignment : BlNullVerticalAlignment { },
+							#horizontalAlignment : BlNullHorizontalAlignment { },
+							#orientation : BlLinearLayoutHorizontalOrientation {
+								#layout : @28
+							},
+							#shouldUseLargestChild : false,
+							#cellSpacing : 5.0,
+							#interspace : 0.0
+						}
+					}
+				],
+				#constraints : BlLayoutCommonConstraints {
+					#vertical : BlLayoutCommonConstraintsAxis {
+						#resizer : BlLayoutExactResizer {
+							#size : 50.0
+						}
+					},
+					#horizontal : BlLayoutCommonConstraintsAxis {
+						#resizer : @9
+					},
+					#constraints : {
+						Class [ #BlFlowLayout ] : BlFlowLayoutConstraints {
+							#vertical : BlFlowLayoutConstraintsVertical {
+								#alignment : @15
+							},
+							#horizontal : BlFlowLayoutConstraintsHorizontal {
+								#alignment : @17
+							},
+							#newLine : false,
+							#weight : 0,
+							#display : BlFlowLayoutInline { }
+						},
+						@12 : BlLinearLayoutConstraints {
+							#vertical : BlLinearLayoutConstraintsVertical {
+								#alignment : @15
+							},
+							#horizontal : BlLinearLayoutConstraintsHorizontal {
+								#alignment : @17
+							},
+							#weight : 1
+						}
+					},
+					#position : Point [ 0.0, 0.0 ],
+					#margin : @19,
+					#padding : @19,
+					#minHeight : 0.0,
+					#minWidth : 0.0,
+					#maxHeight : @21,
+					#maxWidth : @21,
+					#ignoredByLayout : false,
+					#previouslyAccessedConstraints : @38,
+					#previouslyAccessedConstraintsType : @37,
+					#accountTransformation : false
+				},
+				#visuals : BlCustomVisuals {
+					#background : BlPaintBackground {
+						#paint : BlColorPaint {
+							#color : Color {
+								#red : 0.7956989247311828,
+								#green : 0.0,
+								#blue : 1.0,
+								#alpha : 1.0
+							}
+						}
+					}
+				},
+				#userData : IdentityDictionary {
+					#enabled : true,
+					#elementId : BlElementNamedId {
+						#identifier : #menu
+					}
+				},
+				#layout : BlLinearLayout {
+					#weightSum : 0,
+					#verticalAlignment : @29,
+					#horizontalAlignment : @30,
+					#orientation : BlLinearLayoutHorizontalOrientation {
+						#layout : @52
+					},
+					#shouldUseLargestChild : false,
+					#cellSpacing : 0.0,
+					#interspace : 0.0
+				}
+			},
+			ToLabel {
+				#constraints : BlLayoutCommonConstraints {
+					#vertical : BlLayoutCommonConstraintsAxis {
+						#resizer : BlLayoutFitContentResizer { }
+					},
+					#horizontal : BlLayoutCommonConstraintsAxis {
+						#resizer : @57
+					},
+					#constraints : {
+						@37 : BlFlowLayoutConstraints {
+							#vertical : BlFlowLayoutConstraintsVertical {
+								#alignment : @15
+							},
+							#horizontal : BlFlowLayoutConstraintsHorizontal {
+								#alignment : @17
+							},
+							#newLine : false,
+							#weight : 0,
+							#display : @41
+						},
+						@12 : BlLinearLayoutConstraints {
+							#vertical : BlLinearLayoutConstraintsVertical {
+								#alignment : @15
+							},
+							#horizontal : BlLinearLayoutConstraintsHorizontal {
+								#alignment : @17
+							},
+							#weight : 1
+						}
+					},
+					#position : Point [ 0.0, 0.0 ],
+					#margin : @19,
+					#padding : @19,
+					#minHeight : 0.0,
+					#minWidth : 0.0,
+					#maxHeight : @21,
+					#maxWidth : @21,
+					#ignoredByLayout : false,
+					#previouslyAccessedConstraints : @60,
+					#previouslyAccessedConstraintsType : @37,
+					#accountTransformation : false
+				},
+				#visuals : BlDefaultVisuals { },
+				#userData : IdentityDictionary {
+					#enabled : true,
+					#elementId : BlElementNamedId {
+						#identifier : #title
+					},
+					#stonToLabelText : BlRopedText {
+						#rope : BlAttributeRope {
+							#attributes : [
+								BlFontWeightAttribute {
+									#isOverwritableByStyler : true,
+									#weight : 600
+								},
+								BlFontFamilyDefaultAttribute {
+									#isOverwritableByStyler : true,
+									#name : ''SFMono-Regular''
+								},
+								BlFontSizeDefaultAttribute {
+									#isOverwritableByStyler : true,
+									#size : 14
+								},
+								AlbTextParagraphLineSpacingAttribute {
+									#isOverwritableByStyler : true,
+									#lineSpacing : 1.5
+								},
+								BlTextForegroundAttribute {
+									#isOverwritableByStyler : true,
+									#paint : Color [ #black ]
+								}
+							],
+							#rope : BlCollectionRope {
+								#collection : ''Collectibles''
+							}
+						}
+					}
+				},
+				#layout : BlFrameLayout { }
+			},
+			ToListElement {
+				#children : BlChildrenArray [
+					ToObservableCollectionInfiniteElement {
+						#children : BlChildrenArray [ ],
+						#constraints : BlLayoutCommonConstraints {
+							#vertical : BlLayoutCommonConstraintsAxis {
+								#resizer : @9
+							},
+							#horizontal : BlLayoutCommonConstraintsAxis {
+								#resizer : @9
+							},
+							#constraints : {
+								Class [ #BlFrameLayout ] : BlFrameLayoutConstraints {
+									#vertical : BlFrameLayoutConstraintsVertical {
+										#alignment : @15,
+										#weight : 1.0
+									},
+									#horizontal : BlFrameLayoutConstraintsHorizontal {
+										#alignment : @17,
+										#weight : 1.0
+									}
+								}
+							},
+							#position : Point [ 0.0, 0.0 ],
+							#margin : @19,
+							#padding : @19,
+							#minHeight : 0.0,
+							#minWidth : 0.0,
+							#maxHeight : @21,
+							#maxWidth : @21,
+							#ignoredByLayout : false,
+							#previouslyAccessedConstraints : @90,
+							#previouslyAccessedConstraintsType : @89,
+							#accountTransformation : false
+						},
+						#visuals : BlCustomVisuals {
+							#elevation : BlRelativeElevation {
+								#elevation : 10
+							}
+						},
+						#userData : IdentityDictionary { },
+						#layout : BlInfiniteLinearLayout {
+							#infiniteElement : @83,
+							#horizontalChildFinder : BlInfiniteHorizontalChildBoundsBasedFinder {
+								#layout : @97
+							},
+							#verticalChildFinder : BlInfiniteVerticalChildBoundsBasedFinder {
+								#layout : @97
+							},
+							#width : 788.0,
+							#height : 588.0,
+							#heightSpec : BlMeasurementSpec {
+								#size : 588.0,
+								#mode : BlMeasurementExactMode { }
+							},
+							#widthSpec : BlMeasurementSpec {
+								#size : 788.0,
+								#mode : @101
+							},
+							#autoMeasure : true,
+							#itemPrefetchEnabled : false,
+							#measurementCacheEnabled : true,
+							#announcer : Announcer {
+								#registry : SubscriptionRegistry {
+									#subscriptions : IdentitySet [ ],
+									#monitor : Semaphore [ ]
+								}
+							},
+							#lastExactSize : Point [ 788.0, 588.0 ],
+							#layoutState : BlInfiniteLinearLayoutState {
+								#allowRecycling : false,
+								#availableSpace : 0.0,
+								#extraSpace : 588.0,
+								#currentPosition : 0,
+								#lastScrolledDelta : 0,
+								#isPreLayout : false,
+								#itemDirection : BlInfiniteLinearLayoutItemDirectionHead { },
+								#scrollingOffset : Float [ #negativeInfinity ],
+								#isInfinite : false,
+								#layoutDirection : BlInfiniteLinearLayoutDirectionStart { },
+								#offset : 0.0,
+								#scrolledWhileFilling : false
+							},
+							#orientation : BlInfiniteVerticalOrientation {
+								#lastTotalSpace : 588.0,
+								#layout : @97
+							},
+							#lastStackFromEnd : false,
+							#reverseLayout : false,
+							#shouldReverseLayout : false,
+							#stackFromEnd : false,
+							#smoothScrollbarEnabled : true,
+							#pendingScrollPosition : 0,
+							#pendingScrollPositionOffset : @110,
+							#anchorInfo : BlInfiniteLinearLayoutAnchorInfo {
+								#position : 0,
+								#coordinate : @110,
+								#layoutFromEnd : false,
+								#valid : false
+							}
+						}
+					}
+				],
+				#constraints : BlLayoutCommonConstraints {
+					#vertical : BlLayoutCommonConstraintsAxis {
+						#resizer : @9
+					},
+					#horizontal : BlLayoutCommonConstraintsAxis {
+						#resizer : @9
+					},
+					#constraints : {
+						@37 : BlFlowLayoutConstraints {
+							#vertical : BlFlowLayoutConstraintsVertical {
+								#alignment : @15
+							},
+							#horizontal : BlFlowLayoutConstraintsHorizontal {
+								#alignment : @17
+							},
+							#newLine : false,
+							#weight : 0,
+							#display : @41
+						}
+					},
+					#position : Point [ 0.0, 0.0 ],
+					#margin : @19,
+					#padding : BlInsets {
+						#top : 6.0,
+						#left : 6.0,
+						#bottom : 6.0,
+						#right : 6.0
+					},
+					#minHeight : 0.0,
+					#minWidth : 0.0,
+					#maxHeight : @21,
+					#maxWidth : @21,
+					#ignoredByLayout : false,
+					#previouslyAccessedConstraints : @118,
+					#previouslyAccessedConstraintsType : @37,
+					#accountTransformation : false
+				},
+				#visuals : BlCustomVisuals {
+					#geometry : BlRoundedRectangleGeometry {
+						#extent : Point [ 800.0, 600.0 ],
+						#pathCache : BlPathCache {
+							#geometry : @124,
+							#strokedBounds : BlBounds {
+								#left : 0.0,
+								#top : 0.0,
+								#right : 800.0,
+								#bottom : 600.0
+							}
+						},
+						#cornerRadii : BlCornerRadii {
+							#topLeft : 6,
+							#topRight : 6,
+							#bottomLeft : 6,
+							#bottomRight : 6
+						},
+						#center : Point [ 400.0, 300.0 ]
+					},
+					#border : BlBorder {
+						#paint : BlColorPaint {
+							#color : Color {
+								#red : 0.08602150537634409,
+								#green : 0.4662756598240469,
+								#blue : 1.0,
+								#alpha : 1.0
+							}
+						},
+						#width : 1.0,
+						#style : BlStrokeStyle {
+							#lineCap : BlStrokeLineButtCap { },
+							#lineJoin : BlStrokeLineMiterJoin { },
+							#miterLimit : 4.0,
+							#dashArray : [ ],
+							#dashOffset : 0.0
+						},
+						#opacity : 1.0
+					},
+					#background : BlPaintBackground {
+						#paint : BlColorPaint {
+							#color : Color [ #white ]
+						}
+					},
+					#focused : true
+				},
+				#userData : IdentityDictionary {
+					#enabled : true,
+					#elementId : BlElementNamedId {
+						#identifier : #collectibleList
+					}
+				},
+				#layout : BlFrameLayout { }
+			}
+		],
+		#constraints : BlLayoutCommonConstraints {
+			#vertical : BlLayoutCommonConstraintsAxis {
+				#resizer : @9
+			},
+			#horizontal : BlLayoutCommonConstraintsAxis {
+				#resizer : @9
+			},
+			#position : Point [ 0.0, 0.0 ],
+			#margin : @19,
+			#padding : @19,
+			#minHeight : 0.0,
+			#minWidth : 0.0,
+			#maxHeight : @21,
+			#maxWidth : @21,
+			#ignoredByLayout : false,
+			#accountTransformation : false
+		},
+		#visuals : BlCustomVisuals {
+			#background : BlPaintBackground {
+				#paint : BlColorPaint {
+					#color : Color [ #white ]
+				}
+			}
+		},
+		#userData : IdentityDictionary {
+			#enabled : true,
+			#elementId : BlElementNamedId {
+				#identifier : #mainPane
+			}
+		},
+		#layout : BlFlowLayout {
+			#measurer : BlFlowLayoutMeasurer {
+				#layout : @153,
+				#children : OrderedCollection [
+					BlFlowLayoutInlineChild {
+						#width : 800.0,
+						#height : 50.0,
+						#margin : @19,
+						#weight : 0,
+						#newLine : false,
+						#startLength : 0,
+						#startBreadth : 0,
+						#element : @4,
+						#alignment : BlCompositeAlignment {
+							#vertical : @15,
+							#horizontal : @17,
+							#direction : BlLayoutLeftToRight { }
+						},
+						#measurer : @154,
+						#display : @41
+					},
+					BlFlowLayoutInlineChild {
+						#width : 68.34800000000001,
+						#height : 17.598,
+						#margin : @19,
+						#weight : 0,
+						#newLine : false,
+						#startLength : 0,
+						#startBreadth : 0,
+						#element : @54,
+						#alignment : BlCompositeAlignment {
+							#vertical : @15,
+							#horizontal : @17,
+							#direction : @158
+						},
+						#measurer : @154,
+						#display : @41
+					},
+					BlFlowLayoutInlineChild {
+						#width : 800.0,
+						#height : 600.0,
+						#margin : @19,
+						#weight : 0,
+						#newLine : false,
+						#startLength : 0,
+						#startBreadth : 0,
+						#element : @81,
+						#alignment : BlCompositeAlignment {
+							#vertical : @15,
+							#horizontal : @17,
+							#direction : @158
+						},
+						#measurer : @154,
+						#display : @41
+					}
+				],
+				#lines : OrderedCollection [
+					BlFlowLayoutLine {
+						#children : OrderedCollection [
+							@156
+						],
+						#startLength : 0,
+						#startBreadth : 0,
+						#length : 800.0,
+						#breadth : 50.0,
+						#measurer : @154
+					},
+					BlFlowLayoutLine {
+						#children : OrderedCollection [
+							@159
+						],
+						#startLength : 0,
+						#startBreadth : 50.0,
+						#length : 68.34800000000001,
+						#breadth : 17.598,
+						#measurer : @154,
+						#index : 2
+					},
+					BlFlowLayoutLine {
+						#children : OrderedCollection [
+							@161
+						],
+						#startLength : 0,
+						#startBreadth : 67.598,
+						#length : 800.0,
+						#breadth : 600.0,
+						#measurer : @154,
+						#index : 3
+					}
+				],
+				#orientation : BlFlowLayoutHorizontal { },
+				#maxWidth : 800.0,
+				#maxHeight : 600.0,
+				#widthMode : BlMeasurementSpec {
+					#size : 800.0,
+					#mode : @101
+				},
+				#heightMode : BlMeasurementSpec {
+					#size : 600.0,
+					#mode : @101
+				},
+				#checkCanFit : true
+			},
+			#orientation : BlLayoutHorizontal { },
+			#horizontalAlignment : @17,
+			#verticalAlignment : @15
+		}
+	}
+]'
+]
+
 { #category : #ui }
 CollectableAppImpl class >> windowTitleHead [
 
@@ -33,78 +607,134 @@ CollectableAppImpl >> buildList [
 
 { #category : #private }
 CollectableAppImpl >> buildListNode: node holder: holder [
-		| collectible typePane typeLabel platformPane contentPane title country platform secondPane statePane stateLabel completion |
 
-		collectible := holder data.
-		node layout: BlFlowLayout horizontal.
-		node height: 50; hMatchParent.
+	| collectible typePane typeLabel platformPane contentPane title country platform secondPane statePane stateLabel |
+	collectible := holder dataItem.
+	node layout: BlFlowLayout horizontal.
+	node
+		height: 50;
+		constraintsDo: [ :c | c horizontal matchParent  ].
 
-		typePane := ToPane new id: #typePanel; beVertical; background: (Color fromHexString: 'D1C4E9C8'); width: 25; vMatchParent.
-		node addChild: typePane.
+	typePane := ToPane new
+		            id: #typePanel;
+		            beVertical;
+		            background: (Color fromHexString: 'D1C4E9C8');
+		            width: 25;
+		            vMatchParent.
+	node addChild: typePane.
 
-		platformPane := ToPane new id: #platformPanel; beVertical; background: ((self getPlatformColor: collectible platform) alpha: 0.75); width: 200; vMatchParent.
-		node addChild: platformPane.
-		
-		statePane := ToPane new id: #statePanel; beVertical; background: (Color fromHexString: 'D1C4E9C8'); width: 25; vMatchParent.
-		node addChild: statePane.
-		
-		title := ToLabel new id: #title;
-			           text: (collectible name asRopedText foreground: (Color fromHexString: '673AB7'); fontSize: 24; bold);
-			            margin: (BlInsets all: 1);
-			            padding: (BlInsets all: 1);
-			            yourself.
-		node addChild: title.
-		
-   	 	contentPane := ToPane new id: #contentPane; beVertical; background: (Color fromHexString: 'D1C4E9C8'); vMatchParent; hFitContent.
-		node addChild: contentPane.
-		
-		typeLabel := ToLabel new id: #typeLabel; text: ((collectible typeString asRopedText) fontSize: 10).
-		typeLabel transformDo: [ :t | t normalizedOrigin: 0 @ 1. t rotateBy: 90 ].
-		typePane addChild: typeLabel.
+	platformPane := ToPane new
+		                id: #platformPanel;
+		                beVertical;
+		                background:
+			                ((CollectableVideoGamesUIUtils getPlatformColor: (collectible isVideoGameSystem ifTrue:[ collectible ] ifFalse:[ collectible platform ]))
+				                 alpha: 0.75);
+		                width: 200;
+		                vMatchParent.
+	node addChild: platformPane.
 
-		platform := ToLabel new id: #platform;
-							text: (collectible platform asUppercase asRopedText foreground: (Color white); fontSize: 20);
-			            padding: (BlInsets all: 1);
-			            yourself.
-		platformPane addChild: platform.
+	statePane := ToPane new
+		             id: #statePanel;
+		             beVertical;
+		             background: (Color fromHexString: 'D1C4E9C8');
+		             width: 25;
+		             vMatchParent.
+	node addChild: statePane.
 
-		stateLabel := ToLabel new id: #stateLabel; text: ((collectible completion completionString asRopedText) fontSize: 15).
-		stateLabel transformDo: [ :t | t normalizedOrigin: 0 @ 1. t rotateBy: 90 ].
-		statePane addChild: stateLabel.
+	title := ToLabel new
+		         id: #title;
+		         text: (collectible name asRopedText
+				          foreground: (Color fromHexString: '673AB7');
+				          fontSize: 24;
+				          bold);
+		         margin: (BlInsets all: 1);
+		         padding: (BlInsets all: 1);
+		         yourself.
+	node addChild: title.
 
-		country := ToLabel new id: #country;
-							text: (collectible country asRopedText foreground: (Color black); fontSize: 10);
-		           	 	margin: (BlInsets all: 1);
-		           	 	padding: (BlInsets all: 1);
-		            		yourself.
-		contentPane addChild: country.
+	contentPane := ToPane new
+		               id: #contentPane;
+		               beVertical;
+		               background: (Color fromHexString: 'D1C4E9C8');
+		               vMatchParent;
+		               hFitContent.
+	node addChild: contentPane.
 
-		collectible isVideoGame ifTrue:[ | developer publisher |
-			
-			developer := ToLabel new id: #developer;
-							text: (collectible developer asRopedText foreground: (Color black); fontSize: 10);
-			            margin: (BlInsets all: 1);
-			            padding: (BlInsets all: 1);
-			            yourself.
-			contentPane addChild: developer.
-	
-			collectible developer ~= collectible publisher ifTrue:[
-				publisher := ToLabel new id: #publisher;
-							text: (collectible publisher asRopedText foreground: (Color black); fontSize: 10);
-			            margin: (BlInsets all: 1);
-			            padding: (BlInsets all: 1);
-			            yourself.
-				contentPane addChild: publisher.
-			].
-		].
+	typeLabel := ToLabel new
+		             id: #typeLabel;
+		             text: (collectible typeString asRopedText fontSize: 10).
+	typeLabel transformDo: [ :t |
+		t normalizedOrigin: 0 @ 1.
+		t rotateBy: 90 ].
+	typePane addChild: typeLabel.
 
-		secondPane := ToPane new id: #datePane; beVertical; background: (Color fromHexString: 'D1C4E9C8'); vMatchParent; hFitContent.
-		secondPane addChild:(ToLabel new id: #dateAdded;
-							text: (('Added ', collectible dateAdded asString) asRopedText foreground: (Color brown); fontSize: 12);
-			            margin: (BlInsets all: 1);
-			            padding: (BlInsets all: 1);
-			            yourself).
-		node addChild: secondPane.
+	platform := ToLabel new
+		            id: #platform;
+		            text: ((collectible isVideoGameSystem ifTrue:[ collectible name ] ifFalse:[ collectible platform name ]) asUppercase asRopedText
+				             foreground: Color white;
+				             fontSize: 20);
+		            padding: (BlInsets all: 1);
+		            yourself.
+	platformPane addChild: platform.
+
+	stateLabel := ToLabel new
+		              id: #stateLabel;
+		              text:
+			              (collectible completion completionString asRopedText
+				               fontSize: 15).
+	stateLabel transformDo: [ :t |
+		t normalizedOrigin: 0 @ 1.
+		t rotateBy: 90 ].
+	statePane addChild: stateLabel.
+
+	country := ToLabel new
+		           id: #country;
+		           text: (collectible country asRopedText
+				            foreground: Color black;
+				            fontSize: 10);
+		           margin: (BlInsets all: 1);
+		           padding: (BlInsets all: 1);
+		           yourself.
+	contentPane addChild: country.
+
+	collectible isVideoGame ifTrue: [
+		| developer publisher |
+		developer := ToLabel new
+			             id: #developer;
+			             text: (collectible developer asRopedText
+					              foreground: Color black;
+					              fontSize: 10);
+			             margin: (BlInsets all: 1);
+			             padding: (BlInsets all: 1);
+			             yourself.
+		contentPane addChild: developer.
+
+		collectible developer ~= collectible publisher ifTrue: [
+			publisher := ToLabel new
+				             id: #publisher;
+				             text: (collectible publisher asRopedText
+						              foreground: Color black;
+						              fontSize: 10);
+				             margin: (BlInsets all: 1);
+				             padding: (BlInsets all: 1);
+				             yourself.
+			contentPane addChild: publisher ] ].
+
+	secondPane := ToPane new
+		              id: #datePane;
+		              beVertical;
+		              background: (Color fromHexString: 'D1C4E9C8');
+		              vMatchParent;
+		              hFitContent.
+	secondPane addChild: (ToLabel new
+			 id: #dateAdded;
+			 text: (('Added ' , collectible dateAdded asString) asRopedText
+					  foreground: Color brown;
+					  fontSize: 12);
+			 margin: (BlInsets all: 1);
+			 padding: (BlInsets all: 1);
+			 yourself).
+	node addChild: secondPane
 ]
 
 { #category : #private }
@@ -432,48 +1062,6 @@ CollectableAppImpl >> getCollectableCollectionsManagerServicesProvider [
 	^servicesProvider
 ]
 
-{ #category : #private }
-CollectableAppImpl >> getPlatformColor: aPlatform [
-
-	aPlatform = 'Nintendo 64' ifTrue:[ ^ Color red whiter whiter whiter ].
-	aPlatform = 'Nintendo GameCube' ifTrue:[ ^ Color red whiter whiter whiter ].
-	aPlatform = 'Super Nintendo (SNES)' ifTrue:[ ^ Color red whiter whiter whiter ].
-	aPlatform = 'Nintendo (NES)' ifTrue:[ ^ Color red whiter whiter whiter ].
-	aPlatform = 'Nintendo Game Boy' ifTrue:[ ^ Color red whiter whiter whiter ].
-	aPlatform = 'Nintendo Game Boy Advance' ifTrue:[ ^ Color red whiter whiter whiter ].
-	aPlatform = 'Nintendo Game Boy Color' ifTrue:[ ^ Color red whiter whiter whiter ].
-	aPlatform = 'Nintendo DS' ifTrue:[ ^ Color red whiter whiter whiter ].
-	aPlatform = 'Nintendo 3DS' ifTrue:[ ^ Color red whiter whiter whiter ].
-	aPlatform = 'Nintendo Pokémon Mini' ifTrue:[ ^ Color red whiter whiter whiter ].
-	aPlatform = 'Nintendo Wii' ifTrue:[ ^ Color red whiter whiter whiter ].
-	aPlatform = 'Nintendo Wii U' ifTrue:[ ^ Color red whiter whiter whiter ].
-	aPlatform = 'Nintendo Switch' ifTrue:[ ^ Color red whiter whiter whiter ].
-	
-	aPlatform = 'Sega Genesis' ifTrue:[ ^ Color blue whiter whiter ].
-	aPlatform = 'Sega Saturn' ifTrue:[ ^ Color blue whiter whiter ].
-	aPlatform = 'Sega Dreamcast' ifTrue:[ ^ Color blue whiter whiter ].
-	aPlatform = 'Sega Game Gear' ifTrue:[ ^ Color blue whiter whiter ].
-
-	aPlatform = 'Sony PlayStation' ifTrue:[ ^ Color blue whiter whiter whiter ].
-	aPlatform = 'Sony PlayStation 2' ifTrue:[ ^ Color blue whiter whiter whiter ].
-	aPlatform = 'Sony PlayStation 3' ifTrue:[ ^ Color blue whiter whiter whiter ].
-	aPlatform = 'Sony PlayStation 4' ifTrue:[ ^ Color blue whiter whiter whiter ].
-	aPlatform = 'Sony PlayStation 5' ifTrue:[ ^ Color blue whiter whiter whiter ].
-	aPlatform = 'Sony PSP' ifTrue:[ ^ Color blue whiter whiter whiter ].
-	aPlatform = 'Sony PS Vita' ifTrue:[ ^ Color blue whiter whiter whiter ].
-	
-	aPlatform = 'Microsoft Xbox' ifTrue:[ ^ Color green whiter whiter whiter ].
-	aPlatform = 'Microsoft Xbox 360' ifTrue:[ ^ Color green whiter whiter whiter ].
-	aPlatform = 'Microsoft Xbox One' ifTrue:[ ^ Color green whiter whiter whiter ].
-	
-	aPlatform = 'Neo Geo CD' ifTrue:[ ^ Color yellow whiter whiter whiter ].
-	
-	aPlatform = 'PC' ifTrue:[ ^ Color darkGray whiter whiter whiter ].
-	
-	^ Color gray
-	
-]
-
 { #category : #actions }
 CollectableAppImpl >> importAndBrowseOwnedGameyeSpreadsheetCollections [
 
@@ -587,28 +1175,27 @@ CollectableAppImpl >> openSpace [
 CollectableAppImpl >> orderAction: aSortBlockClosure [
 
 	| list |
-	aSortBlockClosure ifNil:[ ^ self ].
-	
-	list := collectibleList data asArray asOrderedCollection. 
+	aSortBlockClosure ifNil: [ ^ self ].
+
+	list := collectibleList dataAccessor asArray asOrderedCollection.
 	list ifEmpty: [ ^ self ].
-	
+
 	list sort: aSortBlockClosure.
-	
-	self populateCollectibleListWith: list.
+
+	self populateCollectibleListWith: list
 ]
 
 { #category : #actions }
 CollectableAppImpl >> populateCollectibleListWith: aCollectibleList [
-	
-	collectibleList data removeAll.
+
+	collectibleList dataAccessor removeAll.
 	self updateContent.
-	
-	aCollectibleList ifNil:[ ^ self ].
+
+	aCollectibleList ifNil: [ ^ self ].
 	aCollectibleList ifEmpty: [ ^ self ].
-	
-	collectibleList data addAll: aCollectibleList.
-	self updateContent.	
-	
+
+	collectibleList dataAccessor addAll: aCollectibleList.
+	self updateContent
 ]
 
 { #category : #events }
@@ -699,42 +1286,43 @@ CollectableAppImpl >> updateContent [
 CollectableAppImpl >> updateStats [
 
 	| nb cost value nbNotEstimated text1 text2 diff |
-	
-	"Stats: cost / value"
-	"Stats: (+/- diff)"
-	
+	"Stats: cost / value""Stats: (+/- diff)"
 	cost := 0.
 	value := 0.
 	nbNotEstimated := 0.
-	collectibleList data do:[ :e |
+	collectibleList dataAccessor do: [ :e |
 		cost := cost + e pricePaid.
-		e monetaryValue = 0 ifTrue:[nbNotEstimated := nbNotEstimated + 1].
-		value := value + e monetaryValue.
-	].
+		e monetaryValue = 0 ifTrue: [ nbNotEstimated := nbNotEstimated + 1 ].
+		value := value + e monetaryValue ].
 
 	diff := (value - cost) rounded.
-	diff < 0 ifTrue:[ diff := diff printString ] ifFalse:[ diff := '+', diff printString ].	
+	diff < 0
+		ifTrue: [ diff := diff printString ]
+		ifFalse: [ diff := '+' , diff printString ].
 	cost := cost rounded printString.
 	value := value rounded printString.
 
-	text1 := cost , '€ paid / ' , value , '€ estimated value (', diff , '€)'.
+	text1 := cost , '€ paid / ' , value , '€ estimated value (' , diff
+	         , '€)'.
 	text2 := nbNotEstimated printString , ' not estimated'.
 
-	(statsPane childWithId: #stats1) text: (text1 asRopedText foreground: (Color black); fontSize: 14).
-	(statsPane childWithId: #stats2) text: (text2 asRopedText foreground: (Color black); fontSize: 14).
+	(statsPane childWithId: #stats1) text: (text1 asRopedText
+			 foreground: Color black;
+			 fontSize: 14).
+	(statsPane childWithId: #stats2) text: (text2 asRopedText
+			 foreground: Color black;
+			 fontSize: 14)
 ]
 
 { #category : #private }
 CollectableAppImpl >> updateTitle [
 
 	| nb title |
-	
 	title := self class windowTitleHead.
-	
-	nb := collectibleList data size.
-	nb > 0 ifTrue:[
-		title := title, ' - ' , nb asString , ' collectible(s)'.
-	].
 
-	space title: title.
+	nb := collectibleList dataAccessor size.
+	nb > 0 ifTrue: [
+		title := title , ' - ' , nb asString , ' collectible(s)' ].
+
+	space title: title
 ]

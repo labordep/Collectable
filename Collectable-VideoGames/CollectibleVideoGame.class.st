@@ -6,15 +6,6 @@ Class {
 	#category : #'Collectable-VideoGames-Model'
 }
 
-{ #category : #constructor }
-CollectibleVideoGame class >> n: aName pltf: aPlatform reg: aRegion dev: aDeveloper pub: aPublisher [
-
-	| game |
-	game := self new.
-	game name: aName; platform: aPlatform; tvRegion: aRegion; developer: aDeveloper; publisher: aPublisher.
-	^ game
-]
-
 { #category : #testing }
 CollectibleVideoGame >> initializeCompletion [ 
 
@@ -35,7 +26,7 @@ CollectibleVideoGame >> printIdentifierOn: aStream [
 		nextPutAll: ' (';
 		nextPutAll: (self typeString ifNil:[ '?' ]);
 		nextPutAll: ') ';
-		nextPutAll: (self platform ifNil:[ '?' ])
+		nextPutAll: (self platform ifNil:[ '?' ] ifNotNil:[ :e | e printString ])
 ]
 
 { #category : #printing }

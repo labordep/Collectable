@@ -1,7 +1,7 @@
 Class {
 	#name : #CollectibleGameyePeripheral,
 	#superclass : #CollectibleVideoGamePeripheral,
-	#traits : 'TCollectibleGameyeCollectible',
-	#classTraits : 'TCollectibleGameyeCollectible classTrait',
+	#traits : 'TCollectibleGameyePeripheral',
+	#classTraits : 'TCollectibleGameyePeripheral classTrait',
 	#category : #'Collectable-Gameye-Core'
 }

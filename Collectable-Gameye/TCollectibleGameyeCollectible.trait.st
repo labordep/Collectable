@@ -11,6 +11,12 @@ TCollectibleGameyeCollectible >> country [
 	^ self delegate country
 ]
 
+{ #category : #private }
+TCollectibleGameyeCollectible >> createPlatform [
+
+	self platform: (CollecGameyeUtils createPlatform: self delegate platform)
+]
+
 { #category : #accessing }
 TCollectibleGameyeCollectible >> dateAdded [
 
@@ -20,8 +26,7 @@ TCollectibleGameyeCollectible >> dateAdded [
 { #category : #initialization }
 TCollectibleGameyeCollectible >> initializeDelegation [
 
-	delegate ifNil:[ ^ self ].
-	self updateCompletion.
+	self explicitRequirement
 ]
 
 { #category : #accessing }
@@ -31,30 +36,12 @@ TCollectibleGameyeCollectible >> monetaryValue [
 ]
 
 { #category : #accessing }
-TCollectibleGameyeCollectible >> name [
-
-	^ self delegate title
-]
-
-{ #category : #accessing }
-TCollectibleGameyeCollectible >> platform [
-
-	^ self delegate platform
-]
-
-{ #category : #accessing }
 TCollectibleGameyeCollectible >> pricePaid [
 
 	^ self delegate pricePaid ifNil:[ 0 ] ifNotNil: [ :e | e max: 0 ]
 ]
 
-{ #category : #accessing }
-TCollectibleGameyeCollectible >> printIdentifierOn: aStream [
-
-	self delegate printIdentifierOn: aStream.
-]
-
-{ #category : #initialization }
+{ #category : #private }
 TCollectibleGameyeCollectible >> updateCompletion [ 
 
 	self completion isNew: self delegate isSealed.

@@ -4,7 +4,7 @@ Class {
 	#category : #'Collectable-Gameye-Core'
 }
 
-{ #category : #creating }
+{ #category : #'create collection' }
 CollecGameyeUtils class >> createPeripheralsCollection: aGameyeCollection [
 
 	| collection |
@@ -14,7 +14,18 @@ CollecGameyeUtils class >> createPeripheralsCollection: aGameyeCollection [
 	^ collection
 ]
 
-{ #category : #creating }
+{ #category : #'create platform' }
+CollecGameyeUtils class >> createPlatform: aGameyeSystem [
+
+	| ptf |
+	ptf := aGameyeSystem
+		       ifNil: [ CollectibleGameyeSystem unknown ]
+		       ifNotNil: [
+		       CollectibleGameyeSystem newFromGameyeName: aGameyeSystem ].
+	^ ptf
+]
+
+{ #category : #'create collection' }
 CollecGameyeUtils class >> createSystemsCollection: aGameyeCollection [
 
 	| collection |
@@ -24,7 +35,7 @@ CollecGameyeUtils class >> createSystemsCollection: aGameyeCollection [
 	^ collection
 ]
 
-{ #category : #creating }
+{ #category : #'create collection' }
 CollecGameyeUtils class >> createVideoGamesCollection: aGameyeCollection [
 
 	| collection |
