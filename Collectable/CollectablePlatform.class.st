@@ -1,10 +1,10 @@
 Class {
 	#name : #CollectablePlatform,
-	#superclass : #Object,
+	#superclass : #Collectable,
 	#instVars : [
 		'name'
 	],
-	#category : #'Collectable-Model-Properties'
+	#category : #'Collectable-Model'
 }
 
 { #category : #accessing }

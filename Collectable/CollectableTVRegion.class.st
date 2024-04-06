@@ -1,11 +1,11 @@
 Class {
 	#name : #CollectableTVRegion,
-	#superclass : #Object,
+	#superclass : #Collectable,
 	#instVars : [
 		'name',
 		'type'
 	],
-	#category : #'Collectable-Model-Properties'
+	#category : #'Collectable-Model'
 }
 
 { #category : #enumerating }

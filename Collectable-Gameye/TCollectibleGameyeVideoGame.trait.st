@@ -11,20 +11,6 @@ TCollectibleGameyeVideoGame >> developer [
 	^ self delegate developer
 ]
 
-{ #category : #initialization }
-TCollectibleGameyeVideoGame >> initializeDelegation [
-
-	self haveDelegate ifFalse: [ ^ self ].
-	self createPlatform.
-	self updateCompletion
-]
-
-{ #category : #accessing }
-TCollectibleGameyeVideoGame >> name [
-
-	^ self delegate title
-]
-
 { #category : #accessing }
 TCollectibleGameyeVideoGame >> publisher [
 

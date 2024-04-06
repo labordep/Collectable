@@ -627,7 +627,7 @@ CollectableAppImpl >> buildListNode: node holder: holder [
 		                id: #platformPanel;
 		                beVertical;
 		                background:
-			                ((CollectableVideoGamesUIUtils getPlatformColor: (collectible isVideoGameSystem ifTrue:[ collectible ] ifFalse:[ collectible platform ]))
+			                ((CollectableVideoGamesUIUtils getPlatformColor: collectible platform)
 				                 alpha: 0.75);
 		                width: 200;
 		                vMatchParent.
@@ -670,7 +670,7 @@ CollectableAppImpl >> buildListNode: node holder: holder [
 
 	platform := ToLabel new
 		            id: #platform;
-		            text: ((collectible isVideoGameSystem ifTrue:[ collectible name ] ifFalse:[ collectible platform name ]) asUppercase asRopedText
+		            text: ((collectible platform name) asUppercase asRopedText
 				             foreground: Color white;
 				             fontSize: 20);
 		            padding: (BlInsets all: 1);
@@ -773,25 +773,25 @@ CollectableAppImpl >> buildMenu [
 		ToMenuItem new
 			label: (ToLabel new text: 'Fullset stats : Nintendo 64 PAL FRA');
 			icon: (ToImage new innerImage: (self iconNamed: #box));
-			whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset nintendo64_PAL_FRA ]
+			whenClickedDo:[self openFullsetStat: CollectableVideoGameFullset nintendo64_PAL_FRA ]
 	).
 	fullsetMenu addItem: (
 		ToMenuItem new
 			label: (ToLabel new text: 'Fullset stats : Wii U PAL FRA');
 			icon: (ToImage new innerImage: (self iconNamed: #box));
-			whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset nintendoWiiU_PAL_FRA ]
+			whenClickedDo:[self openFullsetStat: CollectableVideoGameFullset nintendoWiiU_PAL_FRA ]
 	).
 	fullsetMenu addItem: (
 		ToMenuItem new
 			label: (ToLabel new text: 'Fullset stats : Pokemon mini PLA FRA');
 			icon: (ToImage new innerImage: (self iconNamed: #box));
-			whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset nintendoPokemonMini_PAL_FRA ]
+			whenClickedDo:[self openFullsetStat: CollectableVideoGameFullset nintendoPokemonMini_PAL_FRA ]
 	).
 	fullsetMenu addItem: (
 		ToMenuItem new
 			label: (ToLabel new text: 'Fullset stats : Pokemon games PAL FRA');
 			icon: (ToImage new innerImage: (self iconNamed: #box));
-			whenClickedDo:[self openFullsetStat: CollectibleVideoGameFullset allPokemonLicenceGame_PAL_FRA ]
+			whenClickedDo:[self openFullsetStat: CollectableVideoGameFullset allPokemonLicenceGame_PAL_FRA ]
 	).
 
 	"Load menu"
@@ -1217,7 +1217,7 @@ CollectableAppImpl >> searchAction [
 
 	self searchAction: [ :e | 
 		(('*', searchExpression, '*') match: e name) or:[
-			(('*', searchExpression, '*') match: e platform)
+			(('*', searchExpression, '*') match: e platform name)
 		]
 	].
 ]

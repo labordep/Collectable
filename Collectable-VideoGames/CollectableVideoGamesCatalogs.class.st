@@ -9,7 +9,7 @@ CollectableVideoGamesCatalogs class >> catalog_pokemonMiniGames_PAL [
 	<script: 'self catalog_pokemonMiniGames_PAL inspect'>
 
 	| catalog ptf reg |
-	ptf := CollectibleVideoGameSystem NintendoPokemonMini.
+	ptf := CollectableVideoGamePlatform NintendoPokemonMini.
 	reg := CollectableTVRegion PAL.
 	catalog := CollectibleCatalog new.
 	catalog name: 'Pokémon mini games'.

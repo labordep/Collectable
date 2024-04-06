@@ -26,13 +26,21 @@ TCollectibleGameyeCollectible >> dateAdded [
 { #category : #initialization }
 TCollectibleGameyeCollectible >> initializeDelegation [
 
-	self explicitRequirement
+	self haveDelegate ifFalse: [ ^ self ].
+	self createPlatform.
+	self updateCompletion
 ]
 
 { #category : #accessing }
 TCollectibleGameyeCollectible >> monetaryValue [
 
 	^ self delegate yourPrice ifNil:[ 0 ] ifNotNil: [ :e | e max: 0 ]
+]
+
+{ #category : #accessing }
+TCollectibleGameyeCollectible >> name [
+
+	^ self delegate title
 ]
 
 { #category : #accessing }

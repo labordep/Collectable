@@ -1,7 +1,7 @@
-Extension { #name : #CollectibleVideoGameSystem }
+Extension { #name : #CollectableVideoGamePlatform }
 
 { #category : #'*Collectable-Gameye' }
-CollectibleVideoGameSystem class >> newFromGameyeName: aString [
+CollectableVideoGamePlatform class >> newFromGameyeName: aString [
 
 	"Nintendo"
 	aString = 'Nintendo Game Boy Color' ifTrue:[ ^ self NintendoGameBoyColor ].

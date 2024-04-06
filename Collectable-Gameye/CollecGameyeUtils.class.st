@@ -19,9 +19,9 @@ CollecGameyeUtils class >> createPlatform: aGameyeSystem [
 
 	| ptf |
 	ptf := aGameyeSystem
-		       ifNil: [ CollectibleGameyeSystem unknown ]
+		       ifNil: [ CollectableVideoGamePlatform unknown ]
 		       ifNotNil: [
-		       CollectibleGameyeSystem newFromGameyeName: aGameyeSystem ].
+		       CollectableVideoGamePlatform newFromGameyeName: aGameyeSystem ].
 	^ ptf
 ]
 

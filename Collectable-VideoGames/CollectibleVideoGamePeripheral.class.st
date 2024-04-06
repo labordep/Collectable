@@ -18,6 +18,12 @@ CollectibleVideoGamePeripheral >> isVideoGamePeripheral [
 	^ true
 ]
 
+{ #category : #printing }
+CollectibleVideoGamePeripheral >> printIdentifierOn: aStream [
+
+	aStream nextPutAll: (self name ifNil: [ '?' ])
+]
+
 { #category : #accessing }
 CollectibleVideoGamePeripheral >> typeString [
 
