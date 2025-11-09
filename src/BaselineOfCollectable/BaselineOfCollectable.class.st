@@ -30,23 +30,17 @@ BaselineOfCollectable >> baseline: spec [
 { #category : #baselines }
 BaselineOfCollectable >> dependencies: spec [
 
-	"Roassal stable version"
-	spec baseline: 'Roassal' with: [ spec repository: 'github://pharo-graphics/Roassal' ].
-
 	"Functionnality to import Pharo Gameye datas"
-	spec baseline: 'Gameye' with: [ spec repository: 'github://labordep/PharoGameye:2.0.1' ].
+	spec baseline: 'Gameye' with: [ spec repository: 'github://labordep/PharoGameye:2.0.3' ].
 
 	"OS-Windows management layer for the UI"
 	Smalltalk os isWindows ifTrue: [
-		spec baseline: 'OSWindows' with: [ spec repository: 'github://astares/Pharo-OS-Windows/src' ].
-		
-		"OpenSmock OS-Windows extensions"
 		spec baseline: 'OSWindowsOpenSmock' with: [ spec repository: 'github://OpenSmock/OS-Windows:main' ].		
 	].	
 
-	"UI tool : Pyramid - Pyramid already load Toplo (and Bloc of course)"
-	spec baseline: 'Pyramid' with: [ spec repository: 'github://OpenSmock/Pyramid:main/src' ].
+	"UI editor: Pyramid"
+	spec baseline: 'Pyramid' with: [ spec repository: 'github://OpenSmock/Pyramid:main' ].
 	
-	"Architecture framework : Molecule"
-	spec baseline: 'Molecule' with: [ spec repository: 'github://OpenSmock/Molecule:1.2.12' ].
+	"Component architecture framework: Molecule"
+	spec baseline: 'Molecule' with: [ spec repository: 'github://OpenSmock/Molecule:1.3.4' ].
 ]
