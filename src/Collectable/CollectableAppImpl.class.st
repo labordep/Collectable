@@ -930,7 +930,7 @@ CollectableAppImpl >> buildMenu [
 	debugMenu layout cellSpacing: 5.
 	debugMenu label: (ToLabel new text: 'Debug').
 	debugMenu icon: (ToImage new innerImage: (self iconNamed: #repair)).
-	menuBar addMenu: debugMenu.
+	menuBar addItem: debugMenu.
 
 	"Open on pyramid button"
 	openOnPyramid := ToMenuItem new

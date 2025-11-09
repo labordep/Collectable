@@ -17,193 +17,61 @@ Class {
 CollectablePricesStatView class >> pyView [
 	"This class has been generated using Pyramid.
 
-	By: labordep
-	2023-11-04 16:28:52"
+	By: 
+	2025-11-09 16:15:49"
 
-	<pySTON>
-	^ '[
-	BlElement {
-		#children : BlChildrenArray [
-			BlElement {
-				#children : BlChildrenArray [ ],
-				#constraints : BlLayoutCommonConstraints {
-					#vertical : BlLayoutCommonConstraintsAxis {
-						#resizer : BlLayoutExactResizer {
-							#size : 50.0
-						}
-					},
-					#horizontal : BlLayoutCommonConstraintsAxis {
-						#resizer : BlLayoutMatchParentResizer { }
-					},
-					#constraints : {
-						Class [ #BlFlowLayout ] : BlFlowLayoutConstraints {
-							#vertical : BlFlowLayoutConstraintsVertical {
-								#alignment : BlTopAlignment { }
-							},
-							#horizontal : BlFlowLayoutConstraintsHorizontal {
-								#alignment : BlHorizontalStartAlignment { }
-							},
-							#newLine : false,
-							#weight : 0,
-							#display : BlFlowLayoutInline { }
-						}
-					},
-					#position : Point [ 0.0, 0.0 ],
-					#margin : BlInsets {
-						#top : 0.0,
-						#left : 0.0,
-						#bottom : 0.0,
-						#right : 0.0
-					},
-					#padding : @20,
-					#minHeight : 0.0,
-					#minWidth : 0.0,
-					#maxHeight : Float [ #infinity ],
-					#maxWidth : @21,
-					#ignoredByLayout : false,
-					#previouslyAccessedConstraints : @13,
-					#previouslyAccessedConstraintsType : @12,
-					#accountTransformation : false
-				},
-				#visuals : BlCustomVisuals {
-					#background : BlPaintBackground {
-						#paint : BlColorPaint {
-							#color : Color {
-								#red : 0.4604105571847507,
-								#green : 0.2541544477028348,
-								#blue : 0.9745845552297165,
-								#alpha : 1.0
-							}
-						}
-					}
-				},
-				#userData : IdentityDictionary {
-					#shouldHandleMousePickOutsideEvent : false,
-					#elementId : BlElementNamedId {
-						#identifier : #topBar
-					}
-				},
-				#layout : BlFlowLayout {
-					#measurer : BlFlowLayoutMeasurer {
-						#layout : @28,
-						#children : OrderedCollection [ ],
-						#lines : OrderedCollection [
-							BlFlowLayoutLine {
-								#children : OrderedCollection [ ],
-								#startLength : 0,
-								#startBreadth : 0,
-								#length : 0,
-								#breadth : 0,
-								#measurer : @29
-							}
-						],
-						#orientation : BlFlowLayoutVertical { },
-						#maxWidth : 800.0,
-						#maxHeight : 50.0,
-						#widthMode : BlMeasurementSpec {
-							#size : 800.0,
-							#mode : BlMeasurementExactMode { }
-						},
-						#heightMode : BlMeasurementSpec {
-							#size : 50.0,
-							#mode : @36
-						},
-						#checkCanFit : true
-					},
-					#orientation : BlLayoutVertical { },
-					#horizontalAlignment : BlHorizontalStartAlignment { },
-					#verticalAlignment : BlTopAlignment { }
-				}
-			}
-		],
-		#constraints : BlLayoutCommonConstraints {
-			#vertical : BlLayoutCommonConstraintsAxis {
-				#resizer : @10
-			},
-			#horizontal : BlLayoutCommonConstraintsAxis {
-				#resizer : @10
-			},
-			#position : Point [ 0.0, 0.0 ],
-			#margin : @20,
-			#padding : @20,
-			#minHeight : 0.0,
-			#minWidth : 0.0,
-			#maxHeight : @21,
-			#maxWidth : @21,
-			#ignoredByLayout : false,
-			#accountTransformation : false
-		},
-		#visuals : BlCustomVisuals {
-			#background : BlPaintBackground {
-				#paint : BlColorPaint {
-					#color : Color {
-						#red : 0.6471163245356794,
-						#green : 0.6432062561094819,
-						#blue : 0.6432062561094819,
-						#alpha : 1.0
-					}
-				}
-			}
-		},
-		#userData : IdentityDictionary {
-			#shouldHandleMousePickOutsideEvent : false,
-			#elementId : BlElementNamedId {
-				#identifier : #pane
-			}
-		},
-		#layout : BlFlowLayout {
-			#measurer : BlFlowLayoutMeasurer {
-				#layout : @51,
-				#children : OrderedCollection [
-					BlFlowLayoutInlineChild {
-						#width : 800.0,
-						#height : 50.0,
-						#margin : @20,
-						#weight : 0,
-						#newLine : false,
-						#startLength : 0,
-						#startBreadth : 0,
-						#element : @4,
-						#alignment : BlCompositeAlignment {
-							#vertical : @15,
-							#horizontal : @17,
-							#direction : BlLayoutLeftToRight { }
-						},
-						#measurer : @52,
-						#display : @18
-					}
-				],
-				#lines : OrderedCollection [
-					BlFlowLayoutLine {
-						#children : OrderedCollection [
-							@54
-						],
-						#startLength : 0,
-						#startBreadth : 0,
-						#length : 800.0,
-						#breadth : 50.0,
-						#measurer : @52
-					}
-				],
-				#orientation : BlFlowLayoutHorizontal { },
-				#maxWidth : 800.0,
-				#maxHeight : 600.0,
-				#widthMode : BlMeasurementSpec {
-					#size : 800.0,
-					#mode : @36
-				},
-				#heightMode : BlMeasurementSpec {
-					#size : 600.0,
-					#mode : @36
-				},
-				#checkCanFit : true
-			},
-			#orientation : BlLayoutHorizontal { },
-			#horizontalAlignment : @17,
-			#verticalAlignment : @15
-		}
-	}
-]'
+	<pyStash>
+	^ [ {(BlElement new
+   background: (BlPaintBackground new
+         paint: (BlColorPaint new
+               color: (Color r: 0.6471163245356794 g: 0.6432062561094819 b: 0.6432062561094819 alpha: 1.0);
+               yourself);
+         opacity: 1.0;
+         yourself);
+   constraintsDo: [:constraints |  constraints horizontal matchParent.
+      constraints vertical matchParent ];
+   id: #pane;
+   layout: BlFlowLayout horizontal;
+   addChildren: {(BlElement new
+         background: (BlPaintBackground new
+               paint: (BlColorPaint new
+                     color: (Color r: 0.4604105571847507 g: 0.2541544477028348 b: 0.9745845552297165 alpha: 1.0);
+                     yourself);
+               opacity: 1.0;
+               yourself);
+         constraintsDo: [:constraints |  constraints horizontal matchParent.
+            constraints padding: (BlInsets all: 5.0) ];
+         id: #topBar;
+         layout: BlFlowLayout horizontal;
+         addChildren: {(BlTextElement new
+               text: (BlRopedText new
+                     rope: (BlAttributeRope attributes: {(BlFontSizeAttribute new
+                                 size: 14;
+                                 yourself) . 
+                              (BlTextForegroundAttribute new
+                                 paint: (Color r: 1.0 g: 1.0 b: 1.0 alpha: 1.0);
+                                 yourself)} rope: (BlCollectionRope new
+                                 collection: 'Month average:';
+                                 yourself));
+                     yourself);
+               constraintsDo: [:constraints |  constraints horizontal fitContent.
+                  constraints vertical matchParent ];
+               id: #averageTitle;
+               yourself) . 
+            (BlTextElement new
+               text: (BlRopedText new
+                     rope: (BlAttributeRope attributes: {(BlFontSizeAttribute new
+                                 size: 12;
+                                 yourself)} rope: (BlCollectionRope new
+                                 collection: '-- €$';
+                                 yourself));
+                     yourself);
+               constraintsDo: [:constraints |  constraints horizontal fitContent.
+                  constraints vertical fitContent ];
+               id: #averageValue;
+               yourself)};
+         yourself)};
+   yourself)} ] value
 ]
 
 { #category : 'ui' }
@@ -346,7 +214,7 @@ CollectablePricesStatView >> openInWindow [
 CollectablePricesStatView >> openListAction [
 
 	| app |
-	app := CollectableAppImpl start: (MolUtils randomizeComponentName).
+	app := CollectableAppImpl startWithGeneratedName.
 	app populateCollectibleListWith: collection collectibles.
 ]
 
@@ -358,13 +226,15 @@ CollectablePricesStatView >> openSpace [
 	space := view openInSpace.
 
 	"setup space properties"
-	self updateTitle.
 	space position: 100 @ 100.
 
 	"initialize event handlers"
 	space addEventHandler: (BlEventHandler
 			 on: BlSpaceClosedEvent
 			 do: [ :e | self receiveBlSpaceClosedEvent: e ]).
+			
+	self updateTitle.
+			
 	^ space
 ]
 
@@ -382,13 +252,66 @@ CollectablePricesStatView >> receiveBlSpaceClosedEvent: anEvent [
 CollectablePricesStatView >> setCollection: aCollection [
 
 	collection := aCollection.
+	self updateGeneralStats.
 	self updateView.
+	self updateTitle.
+]
+
+{ #category : 'ui' }
+CollectablePricesStatView >> updateGeneralStats [
+
+	| element firstDate currentDate lastDate nbMonth monthsAverage average stream |
+	
+	"compute stats"
+	firstDate := collection lessRecentDateAddedCollectible dateAdded.
+	currentDate := Date today addMonths: 1.
+	lastDate := firstDate. 
+	nbMonth := 0.
+	monthsAverage := OrderedCollection new.
+	
+	"Set the average of paid per months"
+	[ lastDate < currentDate ] whileTrue:[ | pricePaid |
+		"Get nb of game of this month"
+		pricePaid := 0.
+		collection collectibles select:[ :e | e dateAdded month = lastDate month ] thenDo: [ :e | pricePaid := pricePaid + e pricePaid ].
+		lastDate := lastDate onNextMonth.
+		nbMonth := nbMonth + 1.
+		monthsAverage add: pricePaid.
+	]. 
+	
+	stream := ReadWriteStream on: String new.
+	
+	"all"
+	average := ((monthsAverage sum) / nbMonth) rounded.
+	stream nextPutAll: 'All: '; nextPutAll: (average printString); ensureASpace; nextPutAll: '€$'.
+	
+	"last 12 months"
+	monthsAverage size >= 12 ifTrue:[
+		average := (((monthsAverage copyFrom: (monthsAverage size - 11) to: (monthsAverage size)) sum) / 12) rounded.
+		stream ensureASpace; nextPutAll: 'last 12: '; nextPutAll: (average printString); ensureASpace; nextPutAll: '€$'.
+	].
+	
+	"last 6 months"
+	monthsAverage size >= 6 ifTrue:[
+		average := (((monthsAverage copyFrom: (monthsAverage size - 5) to: (monthsAverage size)) sum) / 6) rounded.
+		stream ensureASpace; nextPutAll: 'last 6: '; nextPutAll: (average printString); ensureASpace; nextPutAll: '€$'.
+	].
+	
+	"last month"
+	stream ensureASpace; nextPutAll: 'current: '; nextPutAll: (monthsAverage last printString); ensureASpace; nextPutAll: '€$'.
+	
+	element := view childWithId: #averageValue.
+	element text: stream contents asRopedText.
+	
+	
 ]
 
 { #category : 'ui' }
 CollectablePricesStatView >> updateTitle [
 
 	| title |
+	
+	space ifNil:[ ^ self ].
 	
 	title := CollectableAppImpl windowTitleHead.
 	collection ifNotNil:[ title := title, ' - Price paid each month for ' , collection numberOfCollectibles asString, ' collectibles' ].
