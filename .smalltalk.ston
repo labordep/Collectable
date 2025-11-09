@@ -3,6 +3,9 @@ SmalltalkCISpec {
     SCIMetacelloLoadSpec {
       #baseline : 'Collectable',
       #directory : 'src',
+      #onConflict : #useLoaded,
+      #onUpgrade : #useLoaded,
+      #onWarningLog : true,
       #platforms : [ #pharo ]
     }
   ],
