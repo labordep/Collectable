@@ -19,12 +19,10 @@ Metacello new
 
 ## Dependencies
 
-- [Toplo](https://github.com/plantec/Toplo)
-- [Bloc](https://github.com/pharo-graphics/Bloc)
-- [Pyramid](https://github.com/OpenSmock/Pyramid)
 - [Molecule](https://github.com/OpenSmock/Molecule)
+- [Pyramid](https://github.com/OpenSmock/Pyramid)
 - [PharoGameye](https://github.com/labordep/PharoGameye)
-- [OS-Windows](https://github.com/astares/Pharo-OS-Windows/src)
+- [OS-Windows](https://github.com/astares/Pharo-OS-Windows)
 
 ## License
 
