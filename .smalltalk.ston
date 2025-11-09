@@ -2,12 +2,14 @@ SmalltalkCISpec {
   #loading : [
     SCIMetacelloLoadSpec {
       #baseline : 'Collectable',
+      #directory : 'src',
+      #onConflict : #useLoaded,
+      #onUpgrade : #useLoaded,
+      #onWarningLog : true,
       #platforms : [ #pharo ]
     }
   ],
   #testing : {
-    #include : {
-      #packages : [ 'Collectable*-Tests' ]
-    }
+    #packages : [ 'Collectable*-Tests' ]
   }
 }
