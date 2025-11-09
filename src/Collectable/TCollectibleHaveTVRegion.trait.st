@@ -1,18 +1,20 @@
 Trait {
-	#name : #TCollectibleHaveTVRegion,
+	#name : 'TCollectibleHaveTVRegion',
 	#instVars : [
 		'tvRegion'
 	],
-	#category : #'Collectable-Model-Traits-Collectible'
+	#category : 'Collectable-Model-Traits-Collectible',
+	#package : 'Collectable',
+	#tag : 'Model-Traits-Collectible'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleHaveTVRegion >> tvRegion [
 
 	^ tvRegion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleHaveTVRegion >> tvRegion: anObject [
 
 	tvRegion := anObject

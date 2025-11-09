@@ -1,18 +1,20 @@
 Trait {
-	#name : #TCollectibleBelongPlatform,
+	#name : 'TCollectibleBelongPlatform',
 	#instVars : [
 		'platform'
 	],
-	#category : #'Collectable-Model-Traits-Collectible'
+	#category : 'Collectable-Model-Traits-Collectible',
+	#package : 'Collectable',
+	#tag : 'Model-Traits-Collectible'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleBelongPlatform >> platform [
 
 	^ platform
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleBelongPlatform >> platform: anObject [
 
 	platform := anObject

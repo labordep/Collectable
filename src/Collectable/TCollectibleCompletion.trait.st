@@ -1,12 +1,14 @@
 Trait {
-	#name : #TCollectibleCompletion,
+	#name : 'TCollectibleCompletion',
 	#instVars : [
 		'isNew'
 	],
-	#category : #'Collectable-Model-Traits-Completion'
+	#category : 'Collectable-Model-Traits-Completion',
+	#package : 'Collectable',
+	#tag : 'Model-Traits-Completion'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleCompletion >> accomplishment [
 	"Return level of accomplishment of the completion"
 	
@@ -14,37 +16,37 @@ TCollectibleCompletion >> accomplishment [
 	^ 0 percent
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 TCollectibleCompletion >> completionString [
 
 	^ self isComplete ifTrue:['Complete'] ifFalse:['Uncomplete']
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleCompletion >> includes [
 
 	^ OrderedCollection new
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 TCollectibleCompletion >> isComplete [
 
 	^ self missing isEmpty
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleCompletion >> isNew [
 
 	^ isNew ifNil: [ isNew := false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleCompletion >> isNew: aBoolean [
 
 	isNew := aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleCompletion >> missing [
 
 	^ OrderedCollection new

@@ -1,27 +1,29 @@
 Class {
-	#name : #CollectableCollectionsManagerImpl,
-	#superclass : #MolAbstractComponentImpl,
+	#name : 'CollectableCollectionsManagerImpl',
+	#superclass : 'MolAbstractComponentImpl',
 	#traits : 'CollectableCollectionsManager + CollectableCollectionsManagerServices',
 	#classTraits : 'CollectableCollectionsManager classTrait + CollectableCollectionsManagerServices classTrait',
 	#instVars : [
 		'collectionList'
 	],
-	#category : #'Collectable-Core'
+	#category : 'Collectable-Core',
+	#package : 'Collectable',
+	#tag : 'Core'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableCollectionsManagerImpl >> collectionList [
 
 	^ collectionList ifNil:[collectionList := OrderedCollection new].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableCollectionsManagerImpl >> collectionList: anObject [
 
 	collectionList := anObject
 ]
 
-{ #category : #'services- collectibles' }
+{ #category : 'services- collectibles' }
 CollectableCollectionsManagerImpl >> getAllCollectibles [
 
 	| collectibles |
@@ -31,24 +33,24 @@ CollectableCollectionsManagerImpl >> getAllCollectibles [
 	^ collectibles
 ]
 
-{ #category : #'component accessing' }
+{ #category : 'component accessing' }
 CollectableCollectionsManagerImpl >> getCollectableCollectionsManagerEventsNotifier [
 	^self eventsNotifiers at: CollectableCollectionsManagerEvents ifAbsent: [^MolNotFoundEventsNotifier new interface: CollectableCollectionsManagerEvents name: nil].
 ]
 
-{ #category : #'services - collections' }
+{ #category : 'services - collections' }
 CollectableCollectionsManagerImpl >> getCollections [
 
 	^ self collectionList
 ]
 
-{ #category : #'services- collectibles' }
+{ #category : 'services- collectibles' }
 CollectableCollectionsManagerImpl >> numberOfCollectibles [
 
 	^ self getAllCollectibles size
 ]
 
-{ #category : #'services - collections' }
+{ #category : 'services - collections' }
 CollectableCollectionsManagerImpl >> setCollections: aCollectionList [
 
 	self collectionList: aCollectionList.

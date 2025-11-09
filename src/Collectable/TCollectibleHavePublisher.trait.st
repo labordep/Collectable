@@ -1,18 +1,20 @@
 Trait {
-	#name : #TCollectibleHavePublisher,
+	#name : 'TCollectibleHavePublisher',
 	#instVars : [
 		'publisher'
 	],
-	#category : #'Collectable-Model-Traits-Collectible'
+	#category : 'Collectable-Model-Traits-Collectible',
+	#package : 'Collectable',
+	#tag : 'Model-Traits-Collectible'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleHavePublisher >> publisher [
 
 	^ publisher
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleHavePublisher >> publisher: anObject [
 
 	publisher := anObject

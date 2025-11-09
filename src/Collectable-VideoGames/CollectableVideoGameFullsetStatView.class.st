@@ -1,6 +1,6 @@
 Class {
-	#name : #CollectableVideoGameFullsetStatView,
-	#superclass : #MolAbstractComponentImpl,
+	#name : 'CollectableVideoGameFullsetStatView',
+	#superclass : 'MolAbstractComponentImpl',
 	#traits : 'CollectableView + CollectableViewServices + CollectableCollectionsManagerEvents',
 	#classTraits : 'CollectableView classTrait + CollectableViewServices classTrait + CollectableCollectionsManagerEvents classTrait',
 	#instVars : [
@@ -9,10 +9,12 @@ Class {
 		'space',
 		'collection'
 	],
-	#category : #'Collectable-VideoGames-UI'
+	#category : 'Collectable-VideoGames-UI',
+	#package : 'Collectable-VideoGames',
+	#tag : 'UI'
 }
 
-{ #category : #'pyramid-serialized-bloc' }
+{ #category : 'pyramid-serialized-bloc' }
 CollectableVideoGameFullsetStatView class >> pyView [
 	"This class has been generated using Pyramid.
 
@@ -205,27 +207,27 @@ CollectableVideoGameFullsetStatView class >> pyView [
 ]'
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 CollectableVideoGameFullsetStatView >> closeSpace [
 
 	space ifNil:[ ^ self ].
 	space isOpened ifTrue:[ space close ].
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 CollectableVideoGameFullsetStatView >> collectionsHasChanged: aCollectionList [
 
 	self updateView
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CollectableVideoGameFullsetStatView >> componentActivate [
 
 	super componentActivate.
 	self getCollectableCollectionsManagerEventsSubscriber subscribe: self.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CollectableVideoGameFullsetStatView >> componentInitialize [ 
 
 	super componentInitialize.
@@ -233,7 +235,7 @@ CollectableVideoGameFullsetStatView >> componentInitialize [
 	self initializeView.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CollectableVideoGameFullsetStatView >> componentPassivate [
 	
 	self getCollectableCollectionsManagerEventsSubscriber unsubscribe: self.
@@ -244,13 +246,13 @@ CollectableVideoGameFullsetStatView >> componentPassivate [
 	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CollectableVideoGameFullsetStatView >> componentRemove [ 
 
 	super componentRemove.
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 CollectableVideoGameFullsetStatView >> createNbGamesBarChart [
 
 	"graph : evolution of nb of games each month"
@@ -293,7 +295,7 @@ CollectableVideoGameFullsetStatView >> createNbGamesBarChart [
 	^ c canvas
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 CollectableVideoGameFullsetStatView >> createTotalGamesBarChart [
 
 	"graph : evolution of nb of games each month"
@@ -336,7 +338,7 @@ CollectableVideoGameFullsetStatView >> createTotalGamesBarChart [
 	^ c canvas
 ]
 
-{ #category : #'component accessing' }
+{ #category : 'component accessing' }
 CollectableVideoGameFullsetStatView >> getCollectableCollectionsManagerEventsSubscriber [
 	| eventsSymbol eventsSubscriber itf |
 	itf := CollectableCollectionsManagerEvents.
@@ -348,7 +350,7 @@ CollectableVideoGameFullsetStatView >> getCollectableCollectionsManagerEventsSub
 	^eventsSubscriber
 ]
 
-{ #category : #'component accessing' }
+{ #category : 'component accessing' }
 CollectableVideoGameFullsetStatView >> getCollectableCollectionsManagerServicesProvider [
 	| servicesSymbol servicesProvider itf |
 
@@ -360,30 +362,30 @@ CollectableVideoGameFullsetStatView >> getCollectableCollectionsManagerServicesP
 	^servicesProvider
 ]
 
-{ #category : #'component accessing' }
+{ #category : 'component accessing' }
 CollectableVideoGameFullsetStatView >> getCollectableViewEventsNotifier [
 	^self eventsNotifiers at: CollectableViewEvents ifAbsent: [^MolNotFoundEventsNotifier new interface: CollectableViewEvents name: nil].
 ]
 
-{ #category : #services }
+{ #category : 'services' }
 CollectableVideoGameFullsetStatView >> getView [
 
 	^ view
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CollectableVideoGameFullsetStatView >> initializeView [
 	
 	view := self class pyView materializeAsBlElement first.
 ]
 
-{ #category : #services }
+{ #category : 'services' }
 CollectableVideoGameFullsetStatView >> openInWindow [
 
 	self openSpace
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 CollectableVideoGameFullsetStatView >> openListAction [
 
 	| app |
@@ -391,7 +393,7 @@ CollectableVideoGameFullsetStatView >> openListAction [
 	app populateCollectibleListWith: collection collectibles.
 ]
 
-{ #category : #services }
+{ #category : 'services' }
 CollectableVideoGameFullsetStatView >> openSpace [
 
 	view ifNil: [ ^ self ].
@@ -409,7 +411,7 @@ CollectableVideoGameFullsetStatView >> openSpace [
 	^ space
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 CollectableVideoGameFullsetStatView >> receiveBlSpaceClosedEvent: anEvent [
 	"The closed event can be send after that the component is stop, because it can be have a ghost window, we need to cheeck if the component is really stopped or not"
 
@@ -418,14 +420,14 @@ CollectableVideoGameFullsetStatView >> receiveBlSpaceClosedEvent: anEvent [
 	]
 ]
 
-{ #category : #'incubator -- services' }
+{ #category : 'incubator -- services' }
 CollectableVideoGameFullsetStatView >> setFullset: aFullset [
 
 	fullset := aFullset.
 	self updateView.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CollectableVideoGameFullsetStatView >> updateCollection [
 
 	| collections |
@@ -441,7 +443,7 @@ CollectableVideoGameFullsetStatView >> updateCollection [
 	collection := fullset collectionFilterBlock value: collection.
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 CollectableVideoGameFullsetStatView >> updateTitle [
 
 	| title |
@@ -452,51 +454,61 @@ CollectableVideoGameFullsetStatView >> updateTitle [
 	space title: title.
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 CollectableVideoGameFullsetStatView >> updateView [
 
 	| label text percent roassalCanvas graphElement listButton |
-	fullset ifNil:[ ^ self ].
-	
+	fullset ifNil: [ ^ self ].
+
 	self updateCollection.
-	collection isEmpty ifTrue:[ ^ self ].
-	
+	collection isEmpty ifTrue: [ ^ self ].
+
 	"update UI"
-	percent := (collection numberOfCollectibles * 100 / fullset numberOfCollectibles) rounded.
-	
+	percent := (collection numberOfCollectibles * 100
+	            / fullset numberOfCollectibles) rounded.
+
 	label := ToLabel id: #label.
 	text := fullset name asString.
-	label text: (text asRopedText foreground: (Color green); fontSize: 15).
+	label text: (text asRopedText
+			 foreground: Color green;
+			 fontSize: 15).
 	(view childWithId: #topBar) addChild: label.
-	
+
 	label := ToLabel id: #label.
-	text := collection numberOfCollectibles asString , ' / ', fullset numberOfCollectibles asString, ' games'.
-	label text: (text asRopedText foreground: (Color white); fontSize: 20).
+	text := collection numberOfCollectibles asString , ' / '
+	        , fullset numberOfCollectibles asString , ' games'.
+	label text: (text asRopedText
+			 foreground: Color white;
+			 fontSize: 20).
 	(view childWithId: #topBar) addChild: label.
-	
+
 	label := ToLabel id: #label.
 	text := percent asString , '% completion'.
-	label text: (text asRopedText foreground: (Color white); fontSize: 30).
+	label text: (text asRopedText
+			 foreground: Color white;
+			 fontSize: 30).
 	(view childWithId: #topBar) addChild: label.
-	
-	listButton := (ToButton id: #openListButton) vMatchParent; width: 100; labelText: 'Open list'.
-	listButton whenClickedDo:[ self openListAction ].
+
+	listButton := (ToButton id: #openListButton)
+		              vMatchParent;
+		              width: 100;
+		              labelText: 'Open list'.
+	listButton clickAction: [ self openListAction ].
 	(view childWithId: #topBar) addChild: listButton.
-	
+
 	roassalCanvas := self createNbGamesBarChart.
-	roassalCanvas extent: 700@600.
-	
+	roassalCanvas extent: 700 @ 600.
+
 	graphElement := BlElement id: #roassalCanvas.
-	graphElement size: roassalCanvas extent.
+	graphElement extent: roassalCanvas extent.
 	graphElement background: roassalCanvas asForm asBlBackground.
 	view addChild: graphElement.
-	
+
 	roassalCanvas := self createTotalGamesBarChart.
-	roassalCanvas extent: 100@600.
-	
+	roassalCanvas extent: 100 @ 600.
+
 	graphElement := BlElement id: #roassalCanvas.
-	graphElement size: roassalCanvas extent.
+	graphElement extent: roassalCanvas extent.
 	graphElement background: roassalCanvas asForm asBlBackground.
-	view addChild: graphElement.
-	
+	view addChild: graphElement
 ]

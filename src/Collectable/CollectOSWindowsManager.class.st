@@ -1,12 +1,14 @@
 Class {
-	#name : #CollectOSWindowsManager,
-	#superclass : #CollectOSPharoManager,
+	#name : 'CollectOSWindowsManager',
+	#superclass : 'CollectOSPharoManager',
 	#traits : 'CollecOSProjectManagerType',
 	#classTraits : 'CollecOSProjectManagerType classTrait',
-	#category : #'Collectable-OSProject'
+	#category : 'Collectable-OSProject',
+	#package : 'Collectable',
+	#tag : 'OSProject'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 CollectOSWindowsManager >> buildFileExtensionsList: aFileExtensionsList [
 	"Return '*.ext;*.ext' list"
 
@@ -19,7 +21,7 @@ CollectOSWindowsManager >> buildFileExtensionsList: aFileExtensionsList [
 	^ extensions
 ]
 
-{ #category : #'services - files' }
+{ #category : 'services - files' }
 CollectOSWindowsManager >> openFileReference: aTitle onDirectory: aStartDirectory extensions: aFileExtensionsList [
 
 	"ignore title"

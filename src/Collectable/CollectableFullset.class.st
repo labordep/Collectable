@@ -1,6 +1,6 @@
 Class {
-	#name : #CollectableFullset,
-	#superclass : #Collectable,
+	#name : 'CollectableFullset',
+	#superclass : 'Collectable',
 	#instVars : [
 		'name',
 		'catalogs',
@@ -8,52 +8,54 @@ Class {
 		'numberOfCollectibles',
 		'collectibleQueryBlock'
 	],
-	#category : #'Collectable-Model'
+	#category : 'Collectable-Model',
+	#package : 'Collectable',
+	#tag : 'Model'
 }
 
-{ #category : #catalog }
+{ #category : 'catalog' }
 CollectableFullset >> addCatalog: aCatalog [
 
 	self catalogs add: aCatalog
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableFullset >> catalogs [
 
 	^ catalogs ifNil:[catalogs := OrderedCollection new].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableFullset >> catalogs: anObject [
 
 	catalogs := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableFullset >> collectibleQueryBlock [
 
 	^ collectibleQueryBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableFullset >> collectibleQueryBlock: anObject [
 
 	collectibleQueryBlock := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableFullset >> collectionFilterBlock [
 
 	^ collectionFilterBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableFullset >> collectionFilterBlock: anObject [
 
 	collectionFilterBlock := anObject
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 CollectableFullset >> includesCollectible: aCollectible [
 
 	| reference |
@@ -64,26 +66,26 @@ CollectableFullset >> includesCollectible: aCollectible [
 	^ self collectibleQueryBlock ifNotNil: [ :e | e value: aCollectible ] ifNil: [ false ] 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableFullset >> initialize [ 
 
 	super initialize.
 	self collectionFilterBlock: [ :collection | collection asUniqueCollectibles ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableFullset >> name [
 
 	^ name ifNil:[ name := 'Unknown Fullset' ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableFullset >> name: anObject [
 
 	name := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableFullset >> numberOfCollectibles [
 
 	self catalogs ifNotEmpty: [ | count |
@@ -95,7 +97,7 @@ CollectableFullset >> numberOfCollectibles [
 	] 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableFullset >> numberOfCollectibles: anInteger [
 
 	numberOfCollectibles := anInteger

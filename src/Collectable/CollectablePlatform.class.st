@@ -1,25 +1,27 @@
 Class {
-	#name : #CollectablePlatform,
-	#superclass : #Collectable,
+	#name : 'CollectablePlatform',
+	#superclass : 'Collectable',
 	#instVars : [
 		'name'
 	],
-	#category : #'Collectable-Model'
+	#category : 'Collectable-Model',
+	#package : 'Collectable',
+	#tag : 'Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectablePlatform >> name [
 
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectablePlatform >> name: anObject [
 
 	name := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 CollectablePlatform >> printOn: aStream [
 
 	aStream nextPutAll: (self name ifNil:['Unknown platform'])

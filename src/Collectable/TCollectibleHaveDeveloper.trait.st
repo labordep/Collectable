@@ -1,18 +1,20 @@
 Trait {
-	#name : #TCollectibleHaveDeveloper,
+	#name : 'TCollectibleHaveDeveloper',
 	#instVars : [
 		'developer'
 	],
-	#category : #'Collectable-Model-Traits-Collectible'
+	#category : 'Collectable-Model-Traits-Collectible',
+	#package : 'Collectable',
+	#tag : 'Model-Traits-Collectible'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleHaveDeveloper >> developer [
 
 	^ developer
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleHaveDeveloper >> developer: anObject [
 
 	developer := anObject

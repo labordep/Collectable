@@ -1,18 +1,20 @@
 Trait {
-	#name : #TCollectibleHaveCompletion,
+	#name : 'TCollectibleHaveCompletion',
 	#instVars : [
 		'completion'
 	],
-	#category : #'Collectable-Model-Traits-Collectible'
+	#category : 'Collectable-Model-Traits-Collectible',
+	#package : 'Collectable',
+	#tag : 'Model-Traits-Collectible'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleHaveCompletion >> completion [
 
 	^ completion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleHaveCompletion >> completion: anObject [
 
 	completion := anObject

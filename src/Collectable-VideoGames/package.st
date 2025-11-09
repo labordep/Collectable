@@ -1,1 +1,1 @@
-Package { #name : #'Collectable-VideoGames' }
+Package { #name : 'Collectable-VideoGames' }

@@ -1,14 +1,16 @@
 Class {
-	#name : #CollectableVideoGameFullset,
-	#superclass : #CollectableFullset,
+	#name : 'CollectableVideoGameFullset',
+	#superclass : 'CollectableFullset',
 	#instVars : [
 		'regions',
 		'zones'
 	],
-	#category : #'Collectable-VideoGames-Model'
+	#category : 'Collectable-VideoGames-Model',
+	#package : 'Collectable-VideoGames',
+	#tag : 'Model'
 }
 
-{ #category : #'fullsets - Custom themes' }
+{ #category : 'fullsets - Custom themes' }
 CollectableVideoGameFullset class >> allPokemonLicenceGame_PAL_FRA [
 	
 	| fullset count pokemonMiniFS |
@@ -65,7 +67,7 @@ CollectableVideoGameFullset class >> allPokemonLicenceGame_PAL_FRA [
 	^ fullset
 ]
 
-{ #category : #'fullsets - Nintendo systems' }
+{ #category : 'fullsets - Nintendo systems' }
 CollectableVideoGameFullset class >> nintendo64_PAL_FRA [
 	"Create Nintendo 64 PAL FRA fullset"
 	
@@ -79,7 +81,7 @@ CollectableVideoGameFullset class >> nintendo64_PAL_FRA [
 	^ fullset
 ]
 
-{ #category : #'fullsets - Nintendo systems' }
+{ #category : 'fullsets - Nintendo systems' }
 CollectableVideoGameFullset class >> nintendoPokemonMini_PAL_FRA [
 	"Create Pokemon Mini FRA fullset"
 	
@@ -92,7 +94,7 @@ CollectableVideoGameFullset class >> nintendoPokemonMini_PAL_FRA [
 	^ fullset
 ]
 
-{ #category : #'fullsets - Nintendo systems' }
+{ #category : 'fullsets - Nintendo systems' }
 CollectableVideoGameFullset class >> nintendoWiiU_PAL_FRA [
 	"Create Wii U PAL FRA fullset"
 	
@@ -106,25 +108,25 @@ CollectableVideoGameFullset class >> nintendoWiiU_PAL_FRA [
 	^ fullset
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableVideoGameFullset >> regions [
 
 	^ regions ifNil: [ regions := Set new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableVideoGameFullset >> regions: anObject [
 
 	regions := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableVideoGameFullset >> zones [
 
 	^ zones ifNil: [ zones := Set new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectableVideoGameFullset >> zones: anObject [
 
 	zones := anObject

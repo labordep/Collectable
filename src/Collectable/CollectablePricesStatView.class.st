@@ -1,17 +1,19 @@
 Class {
-	#name : #CollectablePricesStatView,
-	#superclass : #MolAbstractComponentImpl,
-	#traits : 'CollectableView + CollectableViewServices + CollectableCollectionsManagerEvents',
-	#classTraits : 'CollectableView classTrait + CollectableViewServices classTrait + CollectableCollectionsManagerEvents classTrait',
+	#name : 'CollectablePricesStatView',
+	#superclass : 'MolAbstractComponentImpl',
+	#traits : 'CollectableView + CollectableCollectionsManagerEvents + CollectableViewServices',
+	#classTraits : 'CollectableView classTrait + CollectableCollectionsManagerEvents classTrait + CollectableViewServices classTrait',
 	#instVars : [
 		'view',
 		'space',
 		'collection'
 	],
-	#category : #'Collectable-UI'
+	#category : 'Collectable-UI',
+	#package : 'Collectable',
+	#tag : 'UI'
 }
 
-{ #category : #'pyramid-serialized-bloc' }
+{ #category : 'pyramid-serialized-bloc' }
 CollectablePricesStatView class >> pyView [
 	"This class has been generated using Pyramid.
 
@@ -204,27 +206,27 @@ CollectablePricesStatView class >> pyView [
 ]'
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 CollectablePricesStatView >> closeSpace [
 
 	space ifNil:[ ^ self ].
 	space isOpened ifTrue:[ space close ].
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 CollectablePricesStatView >> collectionsHasChanged: aCollectionList [
 
 	"do nothing"
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CollectablePricesStatView >> componentActivate [
 
 	super componentActivate.
 	self getCollectableCollectionsManagerEventsSubscriber subscribe: self.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CollectablePricesStatView >> componentInitialize [ 
 
 	super componentInitialize.
@@ -232,7 +234,7 @@ CollectablePricesStatView >> componentInitialize [
 	self initializeView.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CollectablePricesStatView >> componentPassivate [
 	
 	self getCollectableCollectionsManagerEventsSubscriber unsubscribe: self.
@@ -243,13 +245,13 @@ CollectablePricesStatView >> componentPassivate [
 	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CollectablePricesStatView >> componentRemove [ 
 
 	super componentRemove.
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 CollectablePricesStatView >> createBarChart [
 
 	"graph : evolution of nb of games each month"
@@ -293,7 +295,7 @@ CollectablePricesStatView >> createBarChart [
 	^ c canvas
 ]
 
-{ #category : #'component accessing' }
+{ #category : 'component accessing' }
 CollectablePricesStatView >> getCollectableCollectionsManagerEventsSubscriber [
 	| eventsSymbol eventsSubscriber itf |
 	itf := CollectableCollectionsManagerEvents.
@@ -305,7 +307,7 @@ CollectablePricesStatView >> getCollectableCollectionsManagerEventsSubscriber [
 	^eventsSubscriber
 ]
 
-{ #category : #'component accessing' }
+{ #category : 'component accessing' }
 CollectablePricesStatView >> getCollectableCollectionsManagerServicesProvider [
 	| servicesSymbol servicesProvider itf |
 
@@ -317,30 +319,30 @@ CollectablePricesStatView >> getCollectableCollectionsManagerServicesProvider [
 	^servicesProvider
 ]
 
-{ #category : #'component accessing' }
+{ #category : 'component accessing' }
 CollectablePricesStatView >> getCollectableViewEventsNotifier [
 	^self eventsNotifiers at: CollectableViewEvents ifAbsent: [^MolNotFoundEventsNotifier new interface: CollectableViewEvents name: nil].
 ]
 
-{ #category : #services }
+{ #category : 'services' }
 CollectablePricesStatView >> getView [
 
 	^ view
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CollectablePricesStatView >> initializeView [
 	
 	view := self class pyView materializeAsBlElement first.
 ]
 
-{ #category : #services }
+{ #category : 'services' }
 CollectablePricesStatView >> openInWindow [
 
 	self openSpace
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 CollectablePricesStatView >> openListAction [
 
 	| app |
@@ -348,7 +350,7 @@ CollectablePricesStatView >> openListAction [
 	app populateCollectibleListWith: collection collectibles.
 ]
 
-{ #category : #services }
+{ #category : 'services' }
 CollectablePricesStatView >> openSpace [
 
 	view ifNil: [ ^ self ].
@@ -366,7 +368,7 @@ CollectablePricesStatView >> openSpace [
 	^ space
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 CollectablePricesStatView >> receiveBlSpaceClosedEvent: anEvent [
 	"The closed event can be send after that the component is stop, because it can be have a ghost window, we need to cheeck if the component is really stopped or not"
 
@@ -376,14 +378,14 @@ CollectablePricesStatView >> receiveBlSpaceClosedEvent: anEvent [
 		self class stop: self componentName ]
 ]
 
-{ #category : #'incubator -- services' }
+{ #category : 'incubator -- services' }
 CollectablePricesStatView >> setCollection: aCollection [
 
 	collection := aCollection.
 	self updateView.
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 CollectablePricesStatView >> updateTitle [
 
 	| title |
@@ -394,18 +396,18 @@ CollectablePricesStatView >> updateTitle [
 	space title: title.
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 CollectablePricesStatView >> updateView [
 
 	| roassalCanvas graphElement |
-	collection ifNil:[ ^ self ].
-	collection isEmpty ifTrue:[ ^ self ].
-	
+	collection ifNil: [ ^ self ].
+	collection isEmpty ifTrue: [ ^ self ].
+
 	roassalCanvas := self createBarChart.
-	roassalCanvas extent: 800@600.
-	
+	roassalCanvas extent: 800 @ 600.
+
 	graphElement := BlElement id: #roassalCanvas.
-	graphElement size: roassalCanvas extent.
+	graphElement extent: roassalCanvas extent.
 	graphElement background: roassalCanvas asForm asBlBackground.
-	view addChild: graphElement.
+	view addChild: graphElement
 ]

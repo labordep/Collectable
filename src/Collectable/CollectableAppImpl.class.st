@@ -1,6 +1,6 @@
 Class {
-	#name : #CollectableAppImpl,
-	#superclass : #MolAbstractComponentImpl,
+	#name : 'CollectableAppImpl',
+	#superclass : 'MolAbstractComponentImpl',
 	#traits : 'CollectableApp + CollectableCollectionsManagerEvents',
 	#classTraits : 'CollectableApp classTrait + CollectableCollectionsManagerEvents classTrait',
 	#instVars : [
@@ -10,10 +10,12 @@ Class {
 		'searchField',
 		'statsPane'
 	],
-	#category : #'Collectable-Core'
+	#category : 'Collectable-Core',
+	#package : 'Collectable',
+	#tag : 'Core'
 }
 
-{ #category : #'pyramid-serialized-bloc' }
+{ #category : 'pyramid-serialized-bloc' }
 CollectableAppImpl class >> mainPane [
 	"This class has been generated using Pyramid.
 
@@ -587,29 +589,29 @@ CollectableAppImpl class >> mainPane [
 ]'
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 CollectableAppImpl class >> windowTitleHead [
 
 	^ '[|||] Collectable (alpha version)'.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CollectableAppImpl >> buildList [
 	| list |
 
-	list := ToListElement new nodeBuilder: [ :node :holder |
-		self buildListNode: node holder: holder.
+	list := ToListElement new nodeBuilder: [ :node :dataItem |
+		self buildListNode: node dataItem: dataItem.
 	].
 
 	list withRowNumbers.
 	^ list
 ]
 
-{ #category : #private }
-CollectableAppImpl >> buildListNode: node holder: holder [
+{ #category : 'private' }
+CollectableAppImpl >> buildListNode: node dataItem: aDataItem [
 
 	| collectible typePane typeLabel platformPane contentPane title country platform secondPane statePane stateLabel |
-	collectible := holder dataItem.
+	collectible := aDataItem.
 	node layout: BlFlowLayout horizontal.
 	node
 		height: 50;
@@ -737,11 +739,11 @@ CollectableAppImpl >> buildListNode: node holder: holder [
 	node addChild: secondPane
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CollectableAppImpl >> buildMenu [
-	| fileMenu loadCollectionMenu menuBar debugMenu openOnPyramid queryMenu searchNoCountryCollectibles orderMenu orderByAlphaIncrease orderByAlphaDecrease orderByAddedDateIncrease orderByAddedDateDecrease searchCollectibles fullsetMenu queryN64Menu queryWiiUMenu |
 
-	menuBar := (ToMenuBar id: #menuBar) hFitContent.
+	| fileMenu loadCollectionMenu menuBar debugMenu openOnPyramid queryMenu searchNoCountryCollectibles orderMenu orderByAlphaIncrease orderByAlphaDecrease orderByAddedDateIncrease orderByAddedDateDecrease searchCollectibles fullsetMenu queryN64Menu queryWiiUMenu |
+	menuBar := (ToMenuPane id: #menuBar) hFitContent.
 
 	"File menu"
 	fileMenu := ToMenu new.
@@ -749,164 +751,179 @@ CollectableAppImpl >> buildMenu [
 	fileMenu layout cellSpacing: 5.
 	fileMenu label: (ToLabel new text: 'File').
 	fileMenu icon: (ToImage new innerImage: (self iconNamed: #solidMenu)).
-	menuBar addMenu: fileMenu.
-	
+	menuBar addItem: fileMenu.
+
 	"Stats"
-	fileMenu addItem:(
-		ToMenuItem new
-			label: (ToLabel new text: 'Prices stats');
-			icon: (ToImage new innerImage: (self iconNamed: #remote));
-			whenClickedDo:[ | list collections |
-				list := OrderedCollection new.
-				collections := self getCollectableCollectionsManagerServicesProvider getCollections.
-				collections do:[ :c | list addAll: c collectibles ].
-				self openPricesStat: list 
-			]
-	).
-	
+	fileMenu addItem: (ToMenuItem new
+			 label: (ToLabel new text: 'Prices stats');
+			 icon: (ToImage new innerImage: (self iconNamed: #remote));
+			 clickAction: [
+					 | list collections |
+					 list := OrderedCollection new.
+					 collections := self
+						                getCollectableCollectionsManagerServicesProvider
+						                getCollections.
+					 collections do: [ :c | list addAll: c collectibles ].
+					 self openPricesStat: list ]).
+
 	"Fullset menu"
 	fullsetMenu := ToMenu new.
 	fullsetMenu label: (ToLabel new text: 'Fullsets').
 	fullsetMenu icon: (ToImage new innerImage: (self iconNamed: #box)).
 	fileMenu addItem: fullsetMenu.
-	fullsetMenu addItem: (
-		ToMenuItem new
-			label: (ToLabel new text: 'Fullset stats : Nintendo 64 PAL FRA');
-			icon: (ToImage new innerImage: (self iconNamed: #box));
-			whenClickedDo:[self openFullsetStat: CollectableVideoGameFullset nintendo64_PAL_FRA ]
-	).
-	fullsetMenu addItem: (
-		ToMenuItem new
-			label: (ToLabel new text: 'Fullset stats : Wii U PAL FRA');
-			icon: (ToImage new innerImage: (self iconNamed: #box));
-			whenClickedDo:[self openFullsetStat: CollectableVideoGameFullset nintendoWiiU_PAL_FRA ]
-	).
-	fullsetMenu addItem: (
-		ToMenuItem new
-			label: (ToLabel new text: 'Fullset stats : Pokemon mini PLA FRA');
-			icon: (ToImage new innerImage: (self iconNamed: #box));
-			whenClickedDo:[self openFullsetStat: CollectableVideoGameFullset nintendoPokemonMini_PAL_FRA ]
-	).
-	fullsetMenu addItem: (
-		ToMenuItem new
-			label: (ToLabel new text: 'Fullset stats : Pokemon games PAL FRA');
-			icon: (ToImage new innerImage: (self iconNamed: #box));
-			whenClickedDo:[self openFullsetStat: CollectableVideoGameFullset allPokemonLicenceGame_PAL_FRA ]
-	).
+	fullsetMenu addItem: (ToMenuItem new
+			 label: (ToLabel new text: 'Fullset stats : Nintendo 64 PAL FRA');
+			 icon: (ToImage new innerImage: (self iconNamed: #box));
+			 clickAction: [
+				 self openFullsetStat:
+						 CollectableVideoGameFullset nintendo64_PAL_FRA ]).
+	fullsetMenu addItem: (ToMenuItem new
+			 label: (ToLabel new text: 'Fullset stats : Wii U PAL FRA');
+			 icon: (ToImage new innerImage: (self iconNamed: #box));
+			 clickAction: [
+				 self openFullsetStat:
+						 CollectableVideoGameFullset nintendoWiiU_PAL_FRA ]).
+	fullsetMenu addItem: (ToMenuItem new
+			 label: (ToLabel new text: 'Fullset stats : Pokemon mini PLA FRA');
+			 icon: (ToImage new innerImage: (self iconNamed: #box));
+			 clickAction: [
+					 self openFullsetStat:
+							 CollectableVideoGameFullset nintendoPokemonMini_PAL_FRA ]).
+	fullsetMenu addItem: (ToMenuItem new
+			 label: (ToLabel new text: 'Fullset stats : Pokemon games PAL FRA');
+			 icon: (ToImage new innerImage: (self iconNamed: #box));
+			 clickAction: [
+					 self openFullsetStat:
+							 CollectableVideoGameFullset allPokemonLicenceGame_PAL_FRA ]).
 
 	"Load menu"
 	loadCollectionMenu := ToMenu new.
 	loadCollectionMenu label: (ToLabel new text: 'Load collection').
-	loadCollectionMenu icon: (ToImage new innerImage: (self iconNamed: #down)).
+	loadCollectionMenu icon:
+		(ToImage new innerImage: (self iconNamed: #down)).
 	fileMenu addItem: loadCollectionMenu.
-	loadCollectionMenu addItem: (
-		ToMenuItem new 
-			label: (ToLabel new text: 'Import GAMEYE.app Spreadsheet'); 
-			icon: (ToImage new innerImage: (self iconNamed: #box));
-			whenClickedDo:[self importGameyeSpreadsheetCollection]
-	).
-	
+	loadCollectionMenu addItem: (ToMenuItem new
+			 label: (ToLabel new text: 'Import GAMEYE.app Spreadsheet');
+			 icon: (ToImage new innerImage: (self iconNamed: #box));
+			 clickAction: [ self importGameyeSpreadsheetCollection ]).
+
 	"Query menu"
 	queryMenu := ToMenu new.
 	queryMenu id: #query.
 	queryMenu layout cellSpacing: 5.
 	queryMenu label: (ToLabel new text: 'Query').
 	queryMenu icon: (ToImage new innerImage: (self iconNamed: #question)).
-	menuBar addMenu: queryMenu.
-	
+	menuBar addItem: queryMenu.
+
 	"Query buttons"
-	searchNoCountryCollectibles := ToMenuItem new 
-			label: (ToLabel new text: 'Without country'); 
-			whenClickedDo:[self searchAction: [ :e | e country isNil ]].
+	searchNoCountryCollectibles := ToMenuItem new
+		                               label:
+			                               (ToLabel new text: 'Without country');
+		                               clickAction: [
+			                               self searchAction: [ :e |
+					                               e country isNil ] ].
 	queryMenu addItem: searchNoCountryCollectibles.
-	
-	searchCollectibles := ToMenuItem new 
-			label: (ToLabel new text: 'Added last month'); 
-			whenClickedDo:[self searchAction: [ :e |
-				e dateAdded month = (Date today month previous)  ]
-			].
+
+	searchCollectibles := ToMenuItem new
+		                      label: (ToLabel new text: 'Added last month');
+		                      clickAction: [
+				                      self searchAction: [ :e |
+						                      e dateAdded month
+						                      = Date today month previous ] ].
 	queryMenu addItem: searchCollectibles.
-	
-	searchCollectibles := ToMenuItem new 
-			label: (ToLabel new text: 'Added this month'); 
-			whenClickedDo:[self searchAction: [ :e |
-				e dateAdded month = (Date today month)  ]
-			].
+
+	searchCollectibles := ToMenuItem new
+		                      label: (ToLabel new text: 'Added this month');
+		                      clickAction: [
+			                      self searchAction: [ :e |
+					                      e dateAdded month = Date today month ] ].
 	queryMenu addItem: searchCollectibles.
-	
+
 	"Query N64 menu"
 	queryN64Menu := ToMenu new.
 	queryN64Menu label: (ToLabel new text: 'Nintendo 64').
 	queryN64Menu icon: (ToImage new innerImage: (self iconNamed: #box)).
 	queryMenu addItem: queryN64Menu.
-	queryN64Menu addItem:(
-		searchCollectibles := ToMenuItem new 
-			label: (ToLabel new text: 'Added this month'); 
-			whenClickedDo:[self searchAction: [ :e |
-				e isVideoGame and:[ (e dateAdded month = (Date today month)) and:[e platform = 'Nintendo 64'] ] ]
-			]
-	).
-	queryN64Menu addItem:(
-		searchCollectibles := ToMenuItem new 
-			label: (ToLabel new text: 'Added last month'); 
-			whenClickedDo:[self searchAction: [ :e |
-				e isVideoGame and:[ (e dateAdded month = (Date today month previous)) and:[e platform = 'Nintendo 64'] ] ]
-			]
-	).
-	
+	queryN64Menu addItem: (searchCollectibles := ToMenuItem new
+			                       label:
+				                       (ToLabel new text: 'Added this month');
+			                       clickAction: [
+					                       self searchAction: [ :e |
+								                       e isVideoGame and: [
+											                       e dateAdded month = Date today month
+												                       and: [ e platform = 'Nintendo 64' ] ] ] ]).
+	queryN64Menu addItem: (searchCollectibles := ToMenuItem new
+			                       label:
+				                       (ToLabel new text: 'Added last month');
+			                       clickAction: [
+					                       self searchAction: [ :e |
+								                       e isVideoGame and: [
+											                       e dateAdded month
+											                       = Date today month previous and: [
+													                       e platform = 'Nintendo 64' ] ] ] ]).
+
 	"Query WiiU menu"
 	queryWiiUMenu := ToMenu new.
 	queryWiiUMenu label: (ToLabel new text: 'Nintendo Wii U').
 	queryWiiUMenu icon: (ToImage new innerImage: (self iconNamed: #box)).
 	queryMenu addItem: queryWiiUMenu.
-	queryWiiUMenu addItem:(
-		ToMenuItem new 
-			label: (ToLabel new text: 'Added this month'); 
-			whenClickedDo:[self searchAction: [ :e |
-				e isVideoGame and:[ (e dateAdded month = (Date today month)) and:[e platform = 'Nintendo Wii U'] ] ]
-			]
-	).
-	queryWiiUMenu addItem:(
-		ToMenuItem new 
-			label: (ToLabel new text: 'Added last month'); 
-			whenClickedDo:[self searchAction: [ :e |
-				e isVideoGame and:[ (e dateAdded month = (Date today month previous)) and:[e platform = 'Nintendo Wii U'] ] ]
-			]
-	).
-	
+	queryWiiUMenu addItem: (ToMenuItem new
+			 label: (ToLabel new text: 'Added this month');
+			 clickAction: [
+					 self searchAction: [ :e |
+								 e isVideoGame and: [
+											 e dateAdded month = Date today month and: [
+													 e platform = 'Nintendo Wii U' ] ] ] ]).
+	queryWiiUMenu addItem: (ToMenuItem new
+			 label: (ToLabel new text: 'Added last month');
+			 clickAction: [
+					 self searchAction: [ :e |
+								 e isVideoGame and: [
+											 e dateAdded month = Date today month previous and: [
+													 e platform = 'Nintendo Wii U' ] ] ] ]).
+
 	"Order menu"
 	orderMenu := ToMenu new.
 	orderMenu id: #query.
 	orderMenu layout cellSpacing: 5.
 	orderMenu label: (ToLabel new text: 'Order by').
-	orderMenu icon: (ToImage new innerImage: (self iconNamed: #changeSorter)).
-	menuBar addMenu: orderMenu.
-	
+	orderMenu icon:
+		(ToImage new innerImage: (self iconNamed: #changeSorter)).
+	menuBar addItem: orderMenu.
+
 	"Order buttons"
-	orderByAlphaIncrease := ToMenuItem new 
-			label: (ToLabel new text: 'Name');
-			iconImage: (self iconNamed: #arrowDown); 
-			whenClickedDo:[self orderAction: [ :a :b | a name < b name ]].
+	orderByAlphaIncrease := ToMenuItem new
+		                        label: (ToLabel new text: 'Name');
+		                        iconImage: (self iconNamed: #arrowDown);
+		                        clickAction: [
+			                        self orderAction: [ :a :b |
+					                        a name < b name ] ].
 	orderMenu addItem: orderByAlphaIncrease.
-	
-	orderByAlphaDecrease := ToMenuItem new 
-			label: (ToLabel new text: 'Name'); 
-			iconImage: (self iconNamed: #arrowUp ); 
-			whenClickedDo:[self orderAction: [ :a :b | a name > b name ]].
+
+	orderByAlphaDecrease := ToMenuItem new
+		                        label: (ToLabel new text: 'Name');
+		                        iconImage: (self iconNamed: #arrowUp);
+		                        clickAction: [
+			                        self orderAction: [ :a :b |
+					                        a name > b name ] ].
 	orderMenu addItem: orderByAlphaDecrease.
 
-	orderByAddedDateIncrease := ToMenuItem new 
-			label: (ToLabel new text: 'Added date'); 
-			iconImage: (self iconNamed: #arrowDown ); 
-			whenClickedDo:[self orderAction: [ :a :b | a dateAdded < b dateAdded ]].
+	orderByAddedDateIncrease := ToMenuItem new
+		                            label: (ToLabel new text: 'Added date');
+		                            iconImage: (self iconNamed: #arrowDown);
+		                            clickAction: [
+			                            self orderAction: [ :a :b |
+					                            a dateAdded < b dateAdded ] ].
 	orderMenu addItem: orderByAddedDateIncrease.
-	
-	orderByAddedDateDecrease := ToMenuItem new 
-			label: (ToLabel new text: 'Added date'); 
-			iconImage: (self iconNamed: #arrowUp ); 
-			whenClickedDo:[self orderAction: [ :a :b | a dateAdded > b dateAdded ]].
+
+	orderByAddedDateDecrease := ToMenuItem new
+		                            label: (ToLabel new text: 'Added date');
+		                            iconImage: (self iconNamed: #arrowUp);
+		                            clickAction: [
+			                            self orderAction: [ :a :b |
+					                            a dateAdded > b dateAdded ] ].
 	orderMenu addItem: orderByAddedDateDecrease.
-	
+
 	"Debug menu"
 	debugMenu := ToMenu new.
 	debugMenu id: #debug.
@@ -914,20 +931,21 @@ CollectableAppImpl >> buildMenu [
 	debugMenu label: (ToLabel new text: 'Debug').
 	debugMenu icon: (ToImage new innerImage: (self iconNamed: #repair)).
 	menuBar addMenu: debugMenu.
-	
+
 	"Open on pyramid button"
-	openOnPyramid := ToMenuItem new 
-			label: (ToLabel new text: 'Open in Pyramid'); 
-			icon: (ToImage new innerImage: (self iconNamed: #edit));
-			whenClickedDo:[space editWithPyramid].
+	openOnPyramid := ToMenuItem new
+		                 label: (ToLabel new text: 'Open in Pyramid');
+		                 icon:
+			                 (ToImage new innerImage: (self iconNamed: #edit));
+		                 clickAction: [ space editWithPyramid ].
 	debugMenu addItem: openOnPyramid.
-	
+
 	menuBar addFiller.
-	
+
 	^ menuBar
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CollectableAppImpl >> buildSearchWidget [
 
 	| searchPane searchButton |
@@ -947,13 +965,13 @@ CollectableAppImpl >> buildSearchWidget [
 	searchPane addChild: searchField.
 	
 	searchButton := ToButton new hMatchParent; width: 50; labelText: 'Search'.
-	searchButton whenClickedDo:[ self searchAction ].
+	searchButton clickAction:[ self searchAction ].
 	searchPane addChild: searchButton.
 	
 	^ searchPane
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CollectableAppImpl >> buildStatsWidgets [
 
 	| label label2 |
@@ -970,14 +988,14 @@ CollectableAppImpl >> buildStatsWidgets [
 	^ statsPane
 ]
 
-{ #category : #releasing }
+{ #category : 'releasing' }
 CollectableAppImpl >> closeSpace [
 
 	space ifNil:[ ^ self ].
 	space isOpened ifTrue:[ space close ].
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 CollectableAppImpl >> collectionsHasChanged: aCollectionList [
 
 	| collectibles |
@@ -986,7 +1004,7 @@ CollectableAppImpl >> collectionsHasChanged: aCollectionList [
 	self populateCollectibleListWith: collectibles.
 ]
 
-{ #category : #'life cycle' }
+{ #category : 'life cycle' }
 CollectableAppImpl >> componentActivate [
 
 	self getCollectableCollectionsManagerEventsSubscriber subscribe: self.
@@ -995,7 +1013,7 @@ CollectableAppImpl >> componentActivate [
 	self openDefaultCollections.
 ]
 
-{ #category : #'life cycle' }
+{ #category : 'life cycle' }
 CollectableAppImpl >> componentInitialize [ 
 
 	CollectablePricesStatView deploy.
@@ -1010,7 +1028,7 @@ CollectableAppImpl >> componentInitialize [
 	self initializeMainPane.
 ]
 
-{ #category : #'life cycle' }
+{ #category : 'life cycle' }
 CollectableAppImpl >> componentPassivate [
 	
 	self getCollectableCollectionsManagerEventsSubscriber unsubscribe: self.
@@ -1019,14 +1037,14 @@ CollectableAppImpl >> componentPassivate [
 	
 ]
 
-{ #category : #'life cycle' }
+{ #category : 'life cycle' }
 CollectableAppImpl >> componentRemove [ 
 
 	self stopCollectionsManager.
 	self stopOSProjectManager
 ]
 
-{ #category : #'component accessing' }
+{ #category : 'component accessing' }
 CollectableAppImpl >> getCollectOSProjectManagerServicesProvider [
 	| servicesSymbol servicesProvider itf |
 
@@ -1038,7 +1056,7 @@ CollectableAppImpl >> getCollectOSProjectManagerServicesProvider [
 	^servicesProvider
 ]
 
-{ #category : #'component accessing' }
+{ #category : 'component accessing' }
 CollectableAppImpl >> getCollectableCollectionsManagerEventsSubscriber [
 	| eventsSymbol eventsSubscriber itf |
 	itf := CollectableCollectionsManagerEvents.
@@ -1050,7 +1068,7 @@ CollectableAppImpl >> getCollectableCollectionsManagerEventsSubscriber [
 	^eventsSubscriber
 ]
 
-{ #category : #'component accessing' }
+{ #category : 'component accessing' }
 CollectableAppImpl >> getCollectableCollectionsManagerServicesProvider [
 	| servicesSymbol servicesProvider itf |
 
@@ -1062,7 +1080,7 @@ CollectableAppImpl >> getCollectableCollectionsManagerServicesProvider [
 	^servicesProvider
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 CollectableAppImpl >> importAndBrowseOwnedGameyeSpreadsheetCollections [
 
 	| fileReference collectionList |
@@ -1076,7 +1094,7 @@ CollectableAppImpl >> importAndBrowseOwnedGameyeSpreadsheetCollections [
 	^ collectionList
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 CollectableAppImpl >> importGameyeSpreadsheetCollection [
 
 	| collec |
@@ -1086,7 +1104,7 @@ CollectableAppImpl >> importGameyeSpreadsheetCollection [
 	self getCollectableCollectionsManagerServicesProvider setCollections: collec
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CollectableAppImpl >> initializeMainPane [
 
 	| menu title menuPane searchWidget statsWidget |
@@ -1114,14 +1132,14 @@ CollectableAppImpl >> initializeMainPane [
 	mainPane addChild: collectibleList
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 CollectableAppImpl >> openDefaultCollections [
 
 	self getCollectableCollectionsManagerServicesProvider
 		setCollections: CollectableUserdatas default collections
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 CollectableAppImpl >> openFullsetStat: aFullset [
 
 	| component name |
@@ -1136,7 +1154,7 @@ CollectableAppImpl >> openFullsetStat: aFullset [
 	component openInWindow
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 CollectableAppImpl >> openPricesStat: aCollectibleList [
 
 	| component name |
@@ -1154,7 +1172,7 @@ CollectableAppImpl >> openPricesStat: aCollectibleList [
 	component openInWindow
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CollectableAppImpl >> openSpace [
 
 	space ifNotNil: [ ^ self ].
@@ -1171,7 +1189,7 @@ CollectableAppImpl >> openSpace [
 	^ space
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 CollectableAppImpl >> orderAction: aSortBlockClosure [
 
 	| list |
@@ -1185,7 +1203,7 @@ CollectableAppImpl >> orderAction: aSortBlockClosure [
 	self populateCollectibleListWith: list
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 CollectableAppImpl >> populateCollectibleListWith: aCollectibleList [
 
 	collectibleList dataAccessor removeAll.
@@ -1198,7 +1216,7 @@ CollectableAppImpl >> populateCollectibleListWith: aCollectibleList [
 	self updateContent
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 CollectableAppImpl >> receiveBlSpaceClosedEvent: anEvent [
 	"The closed event can be send after that the component is stop, because it can be have a ghost window, we need to cheeck if the component is really stopped or not"
 
@@ -1208,7 +1226,7 @@ CollectableAppImpl >> receiveBlSpaceClosedEvent: anEvent [
 		self class stop: self componentName ]
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 CollectableAppImpl >> searchAction [
 
 	| searchExpression |
@@ -1222,7 +1240,7 @@ CollectableAppImpl >> searchAction [
 	].
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 CollectableAppImpl >> searchAction: aSelectBlockClosure [
 
 	"get the content of the field and do the search"
@@ -1239,13 +1257,13 @@ CollectableAppImpl >> searchAction: aSelectBlockClosure [
 	self populateCollectibleListWith: collectibles.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CollectableAppImpl >> startCollectionsManager [
 
 	CollectableCollectionsManagerImpl start: self componentName
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CollectableAppImpl >> startOSProjectManager [
 
 	"Start only if this component is the first instance"
@@ -1257,13 +1275,13 @@ CollectableAppImpl >> startOSProjectManager [
 	^ CollectOSPharoManager start
 ]
 
-{ #category : #releasing }
+{ #category : 'releasing' }
 CollectableAppImpl >> stopCollectionsManager [
 
 	CollectableCollectionsManagerImpl stop: self componentName
 ]
 
-{ #category : #releasing }
+{ #category : 'releasing' }
 CollectableAppImpl >> stopOSProjectManager [
 	| apps |
 	
@@ -1275,14 +1293,14 @@ CollectableAppImpl >> stopOSProjectManager [
 	^ CollectOSPharoManager stop
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CollectableAppImpl >> updateContent [
 
 	self updateTitle.
 	self updateStats.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CollectableAppImpl >> updateStats [
 
 	| nb cost value nbNotEstimated text1 text2 diff |
@@ -1314,7 +1332,7 @@ CollectableAppImpl >> updateStats [
 			 fontSize: 14)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CollectableAppImpl >> updateTitle [
 
 	| nb title |

@@ -1,6 +1,6 @@
-Extension { #name : #MolUtils }
+Extension { #name : 'MolUtils' }
 
-{ #category : #'*Collectable' }
+{ #category : '*Collectable' }
 MolUtils class >> randomizeComponentName [
 
 	| randomizedId |

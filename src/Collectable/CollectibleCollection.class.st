@@ -1,15 +1,17 @@
 Class {
-	#name : #CollectibleCollection,
-	#superclass : #Object,
+	#name : 'CollectibleCollection',
+	#superclass : 'Object',
 	#traits : 'TCollectibleCollection',
 	#classTraits : 'TCollectibleCollection classTrait',
 	#instVars : [
 		'name'
 	],
-	#category : #'Collectable-Model'
+	#category : 'Collectable-Model',
+	#package : 'Collectable',
+	#tag : 'Model'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 CollectibleCollection >> asUniqueCollectibles [
 	"Return the collection as a new collection without duplicated collectibles"
 	
@@ -20,13 +22,13 @@ CollectibleCollection >> asUniqueCollectibles [
 	^ collection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectibleCollection >> name [
 
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectibleCollection >> name: anObject [
 
 	name := anObject

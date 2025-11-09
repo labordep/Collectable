@@ -1,24 +1,26 @@
 Class {
-	#name : #CollectibleVideoGame,
-	#superclass : #Collectible,
+	#name : 'CollectibleVideoGame',
+	#superclass : 'Collectible',
 	#traits : 'TCollectibleBelongPlatform + TCollectibleHaveDeveloper + TCollectibleHavePublisher + TCollectibleHaveCountry + TCollectibleHaveTVRegion',
 	#classTraits : 'TCollectibleBelongPlatform classTrait + TCollectibleHaveDeveloper classTrait + TCollectibleHavePublisher classTrait + TCollectibleHaveCountry classTrait + TCollectibleHaveTVRegion classTrait',
-	#category : #'Collectable-VideoGames-Model'
+	#category : 'Collectable-VideoGames-Model',
+	#package : 'Collectable-VideoGames',
+	#tag : 'Model'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 CollectibleVideoGame >> initializeCompletion [ 
 
 	self completion: CollectibleVideoGameCompletion new.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 CollectibleVideoGame >> isVideoGame [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectibleVideoGame >> printIdentifierOn: aStream [
 
 	aStream
@@ -29,7 +31,7 @@ CollectibleVideoGame >> printIdentifierOn: aStream [
 		nextPutAll: (self platform ifNil:[ '?' ] ifNotNil:[ :e | e printString ])
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 CollectibleVideoGame >> referenceString [
 
 	| stream |
@@ -48,7 +50,7 @@ CollectibleVideoGame >> referenceString [
 	^ stream contents
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectibleVideoGame >> typeString [
 
 	^ 'Game'

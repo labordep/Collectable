@@ -1,5 +1,5 @@
 Trait {
-	#name : #TCollectible,
+	#name : 'TCollectible',
 	#instVars : [
 		'dateAdded',
 		'name',
@@ -7,82 +7,84 @@ Trait {
 		'monetaryValue',
 		'pricePaid'
 	],
-	#category : #'Collectable-Model-Traits-Collectible'
+	#category : 'Collectable-Model-Traits-Collectible',
+	#package : 'Collectable',
+	#tag : 'Model-Traits-Collectible'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectible >> completion [
 
 	^ completion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectible >> completion: anObject [
 
 	completion := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectible >> dateAdded [
 
 	^ dateAdded
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectible >> dateAdded: aDate [
 
 	dateAdded := aDate
 ]
 
-{ #category : #'accessing - prices' }
+{ #category : 'accessing - prices' }
 TCollectible >> monetaryValue [
 
 	^ monetaryValue
 ]
 
-{ #category : #'accessing - prices' }
+{ #category : 'accessing - prices' }
 TCollectible >> monetaryValue: anObject [
 
 	monetaryValue := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectible >> name [
 
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectible >> name: anObject [
 
 	name := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectible >> pricePaid [
 
 	^ pricePaid
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectible >> pricePaid: anObject [
 
 	pricePaid := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 TCollectible >> printIdentifierOn: aStream [
 
 	aStream nextPutAll: self typeString
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 TCollectible >> printOn: aStream [
 
 	^ self printIdentifierOn: aStream
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 TCollectible >> typeString [
 
 	^ 'Collectible'

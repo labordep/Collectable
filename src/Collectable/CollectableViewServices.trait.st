@@ -1,14 +1,16 @@
 Trait {
-	#name : #CollectableViewServices,
+	#name : 'CollectableViewServices',
 	#traits : 'MolComponentServices',
 	#classTraits : 'MolComponentServices classTrait',
-	#category : #'Collectable-UI'
+	#category : 'Collectable-UI',
+	#package : 'Collectable',
+	#tag : 'UI'
 }
 
-{ #category : #services }
+{ #category : 'services' }
 CollectableViewServices >> getView [
 ]
 
-{ #category : #services }
+{ #category : 'services' }
 CollectableViewServices >> openInWindow [
 ]

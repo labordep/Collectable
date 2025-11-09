@@ -1,68 +1,70 @@
 Class {
-	#name : #CollectableTVRegion,
-	#superclass : #Collectable,
+	#name : 'CollectableTVRegion',
+	#superclass : 'Collectable',
 	#instVars : [
 		'name',
 		'type'
 	],
-	#category : #'Collectable-Model'
+	#category : 'Collectable-Model',
+	#package : 'Collectable',
+	#tag : 'Model'
 }
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 CollectableTVRegion class >> All [
 
 	^ self new type: #All; name: 'All'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 CollectableTVRegion class >> NTSC [
 
 	^ self new type: #NTSC; name: 'NTSC'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 CollectableTVRegion class >> PAL [
 
 	^ self new type: #PAL; name: 'PAL'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 CollectableTVRegion class >> SECAM [
 
 	^ self new type: #SECAM; name: 'SECAM'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 CollectableTVRegion class >> Unknown [
 
 	^ self new type: #Unknown; name: 'Unknown'
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 CollectableTVRegion >> name [
 
 	^ name
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 CollectableTVRegion >> name: anObject [
 
 	name := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 CollectableTVRegion >> printOn: aStream [
 
 	aStream nextPutAll: (self name ifNil:['Unknown TV region'])
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 CollectableTVRegion >> type [
 
 	^ type
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 CollectableTVRegion >> type: anObject [
 
 	type := anObject

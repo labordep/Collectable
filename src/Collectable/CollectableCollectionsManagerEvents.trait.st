@@ -1,10 +1,12 @@
 Trait {
-	#name : #CollectableCollectionsManagerEvents,
+	#name : 'CollectableCollectionsManagerEvents',
 	#traits : 'MolComponentEvents',
 	#classTraits : 'MolComponentEvents classTrait',
-	#category : #'Collectable-Core'
+	#category : 'Collectable-Core',
+	#package : 'Collectable',
+	#tag : 'Core'
 }
 
-{ #category : #events }
+{ #category : 'events' }
 CollectableCollectionsManagerEvents >> collectionsHasChanged: aCollectionList [
 ]

@@ -1,30 +1,32 @@
 Class {
-	#name : #CollectibleVideoGamePeripheral,
-	#superclass : #Collectible,
+	#name : 'CollectibleVideoGamePeripheral',
+	#superclass : 'Collectible',
 	#traits : 'TCollectibleBelongPlatform + TCollectibleHaveCountry',
 	#classTraits : 'TCollectibleBelongPlatform classTrait + TCollectibleHaveCountry classTrait',
-	#category : #'Collectable-VideoGames-Model'
+	#category : 'Collectable-VideoGames-Model',
+	#package : 'Collectable-VideoGames',
+	#tag : 'Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectibleVideoGamePeripheral >> initializeCompletion [ 
 
 	self completion: CollectibleVideoGameCompletion new.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectibleVideoGamePeripheral >> isVideoGamePeripheral [
 
 	^ true
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 CollectibleVideoGamePeripheral >> printIdentifierOn: aStream [
 
 	aStream nextPutAll: (self name ifNil: [ '?' ])
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectibleVideoGamePeripheral >> typeString [
 
 	^ 'Peripheral'

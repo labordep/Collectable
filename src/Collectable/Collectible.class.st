@@ -1,43 +1,45 @@
 Class {
-	#name : #Collectible,
-	#superclass : #Object,
+	#name : 'Collectible',
+	#superclass : 'Object',
 	#traits : 'TCollectible',
 	#classTraits : 'TCollectible classTrait',
-	#category : #'Collectable-Model'
+	#category : 'Collectable-Model',
+	#package : 'Collectable',
+	#tag : 'Model'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 Collectible >> initialize [ 
 
 	super initialize.
 	self initializeCompletion.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 Collectible >> initializeCompletion [ 
 
 	self completion: CollectibleCompletion new.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 Collectible >> isVideoGame [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 Collectible >> isVideoGamePeripheral [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 Collectible >> isVideoGameSystem [
 
 	^ false
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 Collectible >> referenceString [
 
 	^ 'collectible'

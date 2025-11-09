@@ -1,29 +1,31 @@
 Trait {
-	#name : #CollectableView,
+	#name : 'CollectableView',
 	#traits : 'MolComponentType',
 	#classTraits : 'MolComponentType classTrait',
-	#category : #'Collectable-UI'
+	#category : 'Collectable-UI',
+	#package : 'Collectable',
+	#tag : 'UI'
 }
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 CollectableView classSide >> consumedComponentEvents [
 	<componentContract>
 	^ {CollectableCollectionsManagerEvents}
 ]
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 CollectableView classSide >> producedComponentEvents [
 	<componentContract>
 	^ {CollectableViewEvents } 
 ]
 
-{ #category : #'accessing - services' }
+{ #category : 'accessing - services' }
 CollectableView classSide >> providedComponentServices [
 	<componentContract>
 	^ {CollectableViewServices} 
 ]
 
-{ #category : #'accessing - services' }
+{ #category : 'accessing - services' }
 CollectableView classSide >> usedComponentServices [
 	<componentContract>
 	^ {CollectableCollectionsManagerServices}

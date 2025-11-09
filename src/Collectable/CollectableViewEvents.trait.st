@@ -1,6 +1,8 @@
 Trait {
-	#name : #CollectableViewEvents,
+	#name : 'CollectableViewEvents',
 	#traits : 'MolComponentEvents',
 	#classTraits : 'MolComponentEvents classTrait',
-	#category : #'Collectable-UI'
+	#category : 'Collectable-UI',
+	#package : 'Collectable',
+	#tag : 'UI'
 }

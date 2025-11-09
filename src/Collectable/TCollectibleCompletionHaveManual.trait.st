@@ -1,18 +1,20 @@
 Trait {
-	#name : #TCollectibleCompletionHaveManual,
+	#name : 'TCollectibleCompletionHaveManual',
 	#instVars : [
 		'haveManual'
 	],
-	#category : #'Collectable-Model-Traits-Completion'
+	#category : 'Collectable-Model-Traits-Completion',
+	#package : 'Collectable',
+	#tag : 'Model-Traits-Completion'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleCompletionHaveManual >> haveManual [
 
 	^ haveManual ifNil: [ haveManual := false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleCompletionHaveManual >> haveManual: anObject [
 
 	haveManual := anObject

@@ -1,42 +1,44 @@
 Trait {
-	#name : #TCollectibleCollection,
+	#name : 'TCollectibleCollection',
 	#instVars : [
 		'collectibles'
 	],
-	#category : #'Collectable-Model-Traits-Collectible'
+	#category : 'Collectable-Model-Traits-Collectible',
+	#package : 'Collectable',
+	#tag : 'Model-Traits-Collectible'
 }
 
-{ #category : #'collectibles - add-remove' }
+{ #category : 'collectibles - add-remove' }
 TCollectibleCollection >> addCollectible: aCollectible [
 
 	self collectibles add: aCollectible
 ]
 
-{ #category : #'collectibles - add-remove' }
+{ #category : 'collectibles - add-remove' }
 TCollectibleCollection >> addCollectibles: aCollectibleList [
 
 	self collectibles addAll: aCollectibleList
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleCollection >> collectibles [
 
 	^ collectibles ifNil:[collectibles := OrderedCollection new]
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 TCollectibleCollection >> includesReference: aReference [
 
 	^ self collectibles anySatisfy: [ :e | e referenceString = aReference ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 TCollectibleCollection >> isEmpty [
 
 	^ self collectibles isEmpty
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 TCollectibleCollection >> lessRecentDateAddedCollectible [
 	"Return the oldest date added collectible"
 	
@@ -45,7 +47,7 @@ TCollectibleCollection >> lessRecentDateAddedCollectible [
 		ifNotEmpty: [ :e | e first ] 
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 TCollectibleCollection >> mostRecentDateAddedCollectible [
 	"Return the oldest date added collectible"
 	
@@ -54,31 +56,31 @@ TCollectibleCollection >> mostRecentDateAddedCollectible [
 		ifNotEmpty: [ :e | e first ] 
 ]
 
-{ #category : #statistics }
+{ #category : 'statistics' }
 TCollectibleCollection >> numberOfCollectibles [
 	
 	^ self collectibles size
 ]
 
-{ #category : #'collectibles - add-remove' }
+{ #category : 'collectibles - add-remove' }
 TCollectibleCollection >> removeAllCollectibles [
 
 	self collectibles removeAll
 ]
 
-{ #category : #'collectibles - add-remove' }
+{ #category : 'collectibles - add-remove' }
 TCollectibleCollection >> removeCollectible: aCollectible [
 
 	self collectibles remove: aCollectible ifAbsent: [ nil ]
 ]
 
-{ #category : #'collectibles - add-remove' }
+{ #category : 'collectibles - add-remove' }
 TCollectibleCollection >> removeCollectibles: aCollectibleList [
 
 	aCollectibleList do:[ :e | self removeCollectible: e ]
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 TCollectibleCollection >> uniqueCollectibles [
 	"Return a not duplicated collectibles"
 	| referenceList |

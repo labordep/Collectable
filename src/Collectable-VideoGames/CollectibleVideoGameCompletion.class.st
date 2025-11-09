@@ -1,12 +1,14 @@
 Class {
-	#name : #CollectibleVideoGameCompletion,
-	#superclass : #CollectibleCompletion,
+	#name : 'CollectibleVideoGameCompletion',
+	#superclass : 'CollectibleCompletion',
 	#traits : 'TCollectibleCompletion + TCollectibleCompletionHaveSupport + TCollectibleCompletionHaveBox + TCollectibleCompletionHaveManual',
 	#classTraits : 'TCollectibleCompletion classTrait + TCollectibleCompletionHaveSupport classTrait + TCollectibleCompletionHaveBox classTrait + TCollectibleCompletionHaveManual classTrait',
-	#category : #'Collectable-VideoGames-Model'
+	#category : 'Collectable-VideoGames-Model',
+	#package : 'Collectable-VideoGames',
+	#tag : 'Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectibleVideoGameCompletion >> accomplishment [
 	"Return level of accomplishment of the completion"
 	
@@ -22,7 +24,7 @@ CollectibleVideoGameCompletion >> accomplishment [
 	^ percent percent
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 CollectibleVideoGameCompletion >> completionString [
 
 	"Complete states"
@@ -42,7 +44,7 @@ CollectibleVideoGameCompletion >> completionString [
 	^ super completionString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectibleVideoGameCompletion >> includes [
 
 	| includes |
@@ -53,7 +55,7 @@ CollectibleVideoGameCompletion >> includes [
 	^ includes
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CollectibleVideoGameCompletion >> missing [
 
 	| missing |

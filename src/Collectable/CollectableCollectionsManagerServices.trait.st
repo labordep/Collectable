@@ -1,22 +1,24 @@
 Trait {
-	#name : #CollectableCollectionsManagerServices,
+	#name : 'CollectableCollectionsManagerServices',
 	#traits : 'MolComponentServices',
 	#classTraits : 'MolComponentServices classTrait',
-	#category : #'Collectable-Core'
+	#category : 'Collectable-Core',
+	#package : 'Collectable',
+	#tag : 'Core'
 }
 
-{ #category : #'services- collectibles' }
+{ #category : 'services- collectibles' }
 CollectableCollectionsManagerServices >> getAllCollectibles [
 ]
 
-{ #category : #'services - collections' }
+{ #category : 'services - collections' }
 CollectableCollectionsManagerServices >> getCollections [
 ]
 
-{ #category : #'services- collectibles' }
+{ #category : 'services- collectibles' }
 CollectableCollectionsManagerServices >> numberOfCollectibles [
 ]
 
-{ #category : #'services - collections' }
+{ #category : 'services - collections' }
 CollectableCollectionsManagerServices >> setCollections: aCollectionList [
 ]

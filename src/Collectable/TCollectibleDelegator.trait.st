@@ -1,24 +1,26 @@
 Trait {
-	#name : #TCollectibleDelegator,
+	#name : 'TCollectibleDelegator',
 	#instVars : [
 		'delegate'
 	],
-	#category : #'Collectable-Model-Traits-Collectible'
+	#category : 'Collectable-Model-Traits-Collectible',
+	#package : 'Collectable',
+	#tag : 'Model-Traits-Collectible'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleDelegator classSide >> delegate: anObject [
 
 	^ self new delegate: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleDelegator >> delegate [
 
 	^ delegate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleDelegator >> delegate: anObject [
 
 	delegate ~= anObject ifFalse: [ ^ self ].
@@ -26,12 +28,12 @@ TCollectibleDelegator >> delegate: anObject [
 	self initializeDelegation
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleDelegator >> haveDelegate [
 
 	^ delegate notNil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCollectibleDelegator >> initializeDelegation [
 ]

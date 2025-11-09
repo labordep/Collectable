@@ -1,10 +1,12 @@
 Class {
-	#name : #CollectableVideoGamesCatalogs,
-	#superclass : #Object,
-	#category : #'Collectable-VideoGames-Utils'
+	#name : 'CollectableVideoGamesCatalogs',
+	#superclass : 'Object',
+	#category : 'Collectable-VideoGames-Utils',
+	#package : 'Collectable-VideoGames',
+	#tag : 'Utils'
 }
 
-{ #category : #Pokemon }
+{ #category : 'Pokemon' }
 CollectableVideoGamesCatalogs class >> catalog_pokemonMiniGames_PAL [
 	<script: 'self catalog_pokemonMiniGames_PAL inspect'>
 

@@ -1,12 +1,14 @@
 Class {
-	#name : #CollectOSPharoManager,
-	#superclass : #MolAbstractComponentImpl,
+	#name : 'CollectOSPharoManager',
+	#superclass : 'MolAbstractComponentImpl',
 	#traits : 'CollecOSProjectManagerType + CollectOSProjectManagerServices',
 	#classTraits : 'CollecOSProjectManagerType classTrait + CollectOSProjectManagerServices classTrait',
-	#category : #'Collectable-OSProject'
+	#category : 'Collectable-OSProject',
+	#package : 'Collectable',
+	#tag : 'OSProject'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 CollectOSPharoManager >> buildFileExtensionsList: aFileExtensionsList [
 	"Return #('ext' 'ext') list"
 
@@ -16,7 +18,7 @@ CollectOSPharoManager >> buildFileExtensionsList: aFileExtensionsList [
 	^ aFileExtensionsList asSet asArray
 ]
 
-{ #category : #'services - files' }
+{ #category : 'services - files' }
 CollectOSPharoManager >> openFileReference: aTitle onDirectory: aStartDirectory extensions: aFileExtensionsList [
 
 	"ignore title"

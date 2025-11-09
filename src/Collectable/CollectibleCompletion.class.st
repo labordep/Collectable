@@ -1,7 +1,9 @@
 Class {
-	#name : #CollectibleCompletion,
-	#superclass : #Object,
+	#name : 'CollectibleCompletion',
+	#superclass : 'Object',
 	#traits : 'TCollectibleCompletion',
 	#classTraits : 'TCollectibleCompletion classTrait',
-	#category : #'Collectable-Model'
+	#category : 'Collectable-Model',
+	#package : 'Collectable',
+	#tag : 'Model'
 }

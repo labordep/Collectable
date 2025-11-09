@@ -1,10 +1,12 @@
 Class {
-	#name : #CollectableVideoGamesUIUtils,
-	#superclass : #Object,
-	#category : #'Collectable-VideoGames-UI'
+	#name : 'CollectableVideoGamesUIUtils',
+	#superclass : 'Object',
+	#category : 'Collectable-VideoGames-UI',
+	#package : 'Collectable-VideoGames',
+	#tag : 'UI'
 }
 
-{ #category : #colors }
+{ #category : 'colors' }
 CollectableVideoGamesUIUtils class >> getPlatformColor: aPlatform [
 
 	aPlatform name = 'Nintendo 64' ifTrue:[ ^ Color red whiter whiter whiter ].
