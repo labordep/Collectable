@@ -13,7 +13,8 @@
 ```smalltalk
 Metacello new 
 	repository: 'github://labordep/Collectable:main';
-	baseline: 'Collectable' ;
+	baseline: 'Collectable';
+	onConflictUseLoaded;
 	load.
 ```
 
@@ -22,7 +23,7 @@ Metacello new
 - [Molecule](https://github.com/OpenSmock/Molecule)
 - [Pyramid](https://github.com/OpenSmock/Pyramid)
 - [PharoGameye](https://github.com/labordep/PharoGameye)
-- [OS-Windows](https://github.com/astares/Pharo-OS-Windows)
+- [OS-Windows](https://github.com/OpenSmock/OS-Windows)
 
 ## License
 
